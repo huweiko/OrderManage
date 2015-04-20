@@ -1,0 +1,73 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:orientation="vertical" >
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="50dp" >
+       	<Button
+       	    android:id="@+id/ButtonOrderListEdit"
+       	    android:layout_width="100dp"
+       	    android:layout_height="match_parent"
+       	    android:layout_alignParentRight="true"
+       	    android:orientation="horizontal"
+       	    android:background="@color/transparent"
+       	    android:text="编辑"
+       	    android:textSize="17sp"/>
+        	    
+    </RelativeLayout>    <ListView
+        android:id="@+id/ListViewOrder"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:background="#F4F4F4"
+        android:divider="@null"
+        android:listSelector="@drawable/search_more_morelistselect"
+        android:scrollbars="none" />
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="50dp" >
+        
+        	<CheckBox
+	            android:id="@+id/CheckBoxSelectAll"
+	            android:layout_width="wrap_content"
+	            android:layout_height="wrap_content"
+	            android:layout_centerVertical="true"
+	            android:layout_marginLeft="10dp"
+	            style="@style/MyCheckBox"
+	            android:text="全选"
+	            android:textSize="19sp"
+	            android:textColor="@color/theme_gray_text_color" 
+	            android:visibility="gone"/>
+
+        	<TextView
+        	    android:id="@+id/textView1"
+        	    android:layout_width="wrap_content"
+        	    android:layout_height="wrap_content"
+        	    android:layout_centerVertical="true"
+        	    android:layout_toLeftOf="@+id/TextViewMoney"
+        	    android:text="合计：" />
+
+        	<TextView
+        	    android:id="@+id/TextViewMoney"
+        	    android:layout_width="wrap_content"
+        	    android:layout_height="wrap_content"
+        	    android:layout_centerVertical="true"
+        	    android:layout_marginRight="10dp"
+        	    android:layout_toLeftOf="@+id/ButtonSubmit"
+        	    android:text="0.00" />
+
+        	<Button
+        	    android:id="@+id/ButtonSubmit"
+        	    android:layout_width="100dp"
+        	    android:layout_height="match_parent"
+        	    android:layout_alignParentRight="true"
+        	    android:orientation="horizontal"
+        	    android:background="@drawable/login_btn_bg"
+        	    android:text="提交"/>
+        	    
+	             
+    </RelativeLayout>
+    
+</LinearLayout>

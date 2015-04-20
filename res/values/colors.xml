@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name = "theme_blue_color">#1e7ed2</color>
+	<color name = "theme_blue_option_color">#8fc0f8</color>
+    <color name = "theme_curve_green_color">#5cd544</color>
+    <color name = "theme_gray_text_color">#848484</color>
+	
+    <color name="trans_black_button">#AA293235</color>
+    <color name="transparent">#00000000</color>
+    <color name="transparent_black">#22000000</color>
+    <color name="white">#FFFFFFFF</color>
+    <color name="transparent_white">#77FFFFFF</color>
+    <color name="black">#000000</color>
+    <color name="gray">#808080</color>
+    <color name="transparent_gray">#55000000</color>
+    <color name="red">#FF0000</color>
+    <color name="gold">#FFD700</color>
+    <color name="yellow">#FFFF00</color>
+    <color name="green">#008000</color>
+    <color name="blue">#0000FF</color>
+    <color name="purple">#800080</color>
+    <color name="pink">#FFC0CB</color>
+    <color name="orange">#FFA500</color>
+    <color name="lemonyellow">#FFFACD</color>
+    <color name="graywhite">#F5F5F5</color>
+    <color name="grayslate">#708090</color>
+    <color name="lightblue">#0083FF</color>
+    <color name="full_transparent">#00000000</color>
+    <color name="half_transparent">#aa000000</color>
+    <color name="bright_foreground_light">#ff000000</color>
+    <color name="bright_foreground_light_inverse">#ffffffff</color>
+    <color name="bright_foreground_light_disabled">#80000000</color>
+    <color name="dialog_background">#aa000000</color>
+    
+    
+    <color name="node_blue">#0082f1</color>
+    <color name="node_yellow">#ffb901</color>
+    <color name="node_red">#e84c3d</color>
+    <color name="node_cyan">#01ba9a</color>
+    <color name="node_purple">#915fd2</color>
+    
+    <color name="theme_green">#5ca353</color>
+    <color name="theme_gray">#ecebeb</color>
+    <color name="arrow_green">#6eba64</color>
+    
+    
+    
+</resources>

@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<resources>
+    <dimen name="activity_loginView_width">310dip</dimen>
+    <dimen name="activity_loginView_height">310dip</dimen>
+    <dimen name="activity_loginView_marginTop">270dip</dimen>
+    <dimen name="Viewlogin_marginTop">50dip</dimen>
+    <dimen name="Viewlogin_LoginButton_marginTop">20dip</dimen>
+    <dimen name="activity_findPwd_EditView_Height">55dip</dimen>
+    <dimen name="activity_feedback_EditView_Height">150dip</dimen>
+    <dimen name="activity_Title_Height">80dip</dimen>
+    <dimen name="layoutMenu_Title_Height">100dip</dimen>
+    <dimen name="layoutMenu_list_marginTop">50dip</dimen>
+    <dimen name="layoutMenu_listItem_Height">60dip</dimen>
+    <dimen name="layoutMenu_listItem_marginLeft">40dip</dimen>
+    <dimen name="layoutMenu_quitButton_marginTop">500dip</dimen>
+    <dimen name="activity_cell_monitor_title_Height">80dip</dimen>
+    <dimen name="activity_cell_monitor_Sample_title_Height">40dip</dimen>
+    <dimen name="activity_cell_monitor_Sample_Content_Height">60dip</dimen>
+    <dimen name="ViewSample_paddingLeft">50dip</dimen>
+    <dimen name="ViewSample_TextSize">19sp</dimen>
+    <dimen name="process_node_textview_width">150dip</dimen>
+    <dimen name="process_node_textview_height">35dip</dimen>
+
+</resources>

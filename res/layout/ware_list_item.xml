@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/my_tab_background"
+    android:orientation="vertical"
+    android:paddingBottom="0dp"
+    android:paddingLeft="10dp" >
+
+    <LinearLayout
+        android:id="@+id/ware_list_lishi"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/my_list_txt_background"
+        android:gravity="center_vertical"
+        android:paddingBottom="0dp"
+        android:orientation="horizontal" >
+
+        <TextView
+            android:id="@+id/TextView_ware_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center_vertical"
+            android:paddingBottom="8.5dp"
+            android:paddingTop="8dp"
+            android:text="全部分类"
+            android:textColor="#666666"
+            android:textSize="17sp" />
+        <TextView
+            android:id="@+id/TextView_ware_price"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center_vertical"
+            android:paddingBottom="8.5dp"
+            android:paddingTop="8dp"
+            android:text="全部分类"
+            android:textColor="#666666"
+            android:textSize="17sp" />
+        <ImageButton
+           android:id="@+id/ImageButton_ware_add"
+           android:background="@drawable/button_add"
+           android:layout_width="wrap_content"
+           android:layout_height="wrap_content"
+           android:paddingBottom="11dp"
+           android:paddingLeft="10dp"
+           android:layout_marginRight="10dp"
+           android:paddingTop="11dp" />
+    </LinearLayout>
+
+</LinearLayout>

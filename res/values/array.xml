@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="help_list_name">    
+        <item>如何注册登录?</item>    
+        <item>忘记密码怎么办?</item>    
+        <item>如需使用已储存的细胞怎么办?</item>    
+        <item>储存时间即将到期怎么办?</item>    
+        <item>储存时间到期后如何处理样本?</item>    
+    </string-array>    
+    <string-array name="help_list_content">    
+        <item>如果您是新用户，请前往国家基因库细胞中心官方网站进行注册。如果您是已签约用户，请使用绑定的邮箱地址或手机号进行登录。</item>    
+        <item>您可通过绑定的邮箱地址即可找回密码。</item>    
+        <item>如果您需要使用已储存的细胞，请提前1个月与我们取得联系，我们将尽快对您的细胞进行复苏、检测和培养，并为您出具检测报告。</item>    
+        <item>如果您的细胞储存时间即将到期，请于到期前六个月与我们取得联系。</item>    
+        <item>深圳国家基因库对不再继续储存的样本按照《医疗废弃物管理条例》统一处理。</item>    
+    </string-array>    
+</resources>
