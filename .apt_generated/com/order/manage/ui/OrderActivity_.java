@@ -83,10 +83,10 @@ public final class OrderActivity_
 
     @Override
     public void onViewChanged(HasViews hasViews) {
-        TextViewMoney = ((TextView) hasViews.findViewById(id.TextViewMoney));
-        CheckBoxSelectAll = ((CheckBox) hasViews.findViewById(id.CheckBoxSelectAll));
-        ButtonOrderListEdit = ((Button) hasViews.findViewById(id.ButtonOrderListEdit));
         ListViewOrder = ((ListView) hasViews.findViewById(id.ListViewOrder));
+        ButtonOrderListEdit = ((Button) hasViews.findViewById(id.ButtonOrderListEdit));
+        CheckBoxSelectAll = ((CheckBox) hasViews.findViewById(id.CheckBoxSelectAll));
+        TextViewMoney = ((TextView) hasViews.findViewById(id.TextViewMoney));
         if (ButtonOrderListEdit!= null) {
             ButtonOrderListEdit.setOnClickListener(new OnClickListener() {
 

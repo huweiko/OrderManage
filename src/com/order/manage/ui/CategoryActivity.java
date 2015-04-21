@@ -124,6 +124,8 @@ public class CategoryActivity extends BaseActivity implements OnWareItemClickCla
 			for(int j =0;j<myInventoryMasterCursor.getCount();j++){
 				myInventoryMasterCursor.moveToPosition(j);
 				StructInventoryMaster l_StructInventoryMaster = new StructInventoryMaster();
+				
+				l_StructInventoryMaster.setInvIdCode(myInventoryMasterCursor.getString(0));
 				l_StructInventoryMaster.setInvName(myInventoryMasterCursor.getString(7));
 				l_StructInventoryMaster.setSalePrice(myInventoryMasterCursor.getDouble(12));
 				l_StructBDInventoryClassBrand.addmBDInventoryClassBrand(l_StructInventoryMaster);
@@ -154,6 +156,15 @@ public class CategoryActivity extends BaseActivity implements OnWareItemClickCla
 	public void OnItemClick(View v, int Position) {
 		// TODO Auto-generated method stub
 		mCurrentSecondItem = Position;
+		String WareId = mStructBDInventoryClassBrand.get(mCurrentMainItem).getmBDInventoryClassBrand().get(Position).getInvIdCode();
+		for(int i = 0;i<OrderActivity.mOrderStructInventoryMaster.size();i++){
+			if(OrderActivity.mOrderStructInventoryMaster.get(i).getInvIdCode().equals(WareId)){
+				OrderActivity.mOrderStructInventoryMaster.get(i).setOrderNumber(OrderActivity.mOrderStructInventoryMaster.get(i).getOrderNumber()+1);
+				Intent intent = new Intent(OrderActivity.INTERNAL_ACTION_UPDATEORDERACTIVITY);
+				appContext.sendBroadcast(intent);
+				return;
+			}
+		}
 		OrderActivity.mOrderStructInventoryMaster.add(mStructBDInventoryClassBrand.get(mCurrentMainItem).getmBDInventoryClassBrand().get(Position));
 		Intent intent = new Intent(OrderActivity.INTERNAL_ACTION_UPDATEORDERACTIVITY);
 		appContext.sendBroadcast(intent);

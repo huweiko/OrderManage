@@ -29,6 +29,7 @@ import android.util.Log;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
+import android.widget.HeterogeneousExpandableList;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.CompoundButton.OnCheckedChangeListener;
@@ -39,7 +40,7 @@ import android.widget.CompoundButton.OnCheckedChangeListener;
  * */
 @EActivity(R.layout.activity_order)
 public class OrderActivity extends BaseActivity implements OnOrderItemClickClass{
-	private AppContext appContext;
+	private Context appContext;
 	public static boolean OrderSubmitStatus= false;
 	public static List<StructInventoryMaster> mOrderStructInventoryMaster = new ArrayList<StructInventoryMaster>();
 	private OrderListViewAdapter mOrderListViewAdapter;
@@ -50,6 +51,7 @@ public class OrderActivity extends BaseActivity implements OnOrderItemClickClass
 	
 	private static double mPriceTotal = 0.0;
 	
+	private boolean mOrderEditStratus = false;
 	@ViewById
 	ListView ListViewOrder;
 	@ViewById
@@ -61,7 +63,30 @@ public class OrderActivity extends BaseActivity implements OnOrderItemClickClass
 	
 	@Click(R.id.ButtonOrderListEdit)
 	void OnclickButtonOrderListEdit(){
-		
+		if(mOrderEditStratus){
+			mOrderEditStratus = false;
+			ButtonOrderListEdit.setText("编辑");
+			List<StructInventoryMaster> l_OrderStructInventoryMaster = mOrderListViewAdapter.getListItems();
+			for(int i = 0;i < l_OrderStructInventoryMaster.size();i++){
+				l_OrderStructInventoryMaster.get(i).setOrderEditStatus(mOrderEditStratus);
+			}
+			mOrderListViewAdapter.setListItems(l_OrderStructInventoryMaster);
+			mOrderListViewAdapter.notifyDataSetChanged();
+			Message msg = new Message();
+			msg.what = HANDLE_UPDATE;
+			mHandler.sendMessage(msg);
+		}else{
+			mOrderEditStratus = true;
+			ButtonOrderListEdit.setText("完成");
+			for(int i = 0;i < mOrderStructInventoryMaster.size();i++){
+				mOrderStructInventoryMaster.get(i).setOrderEditStatus(mOrderEditStratus);
+			}
+			List<StructInventoryMaster> l_OrderStructInventoryMaster = mOrderStructInventoryMaster;
+			mOrderListViewAdapter.setListItems(l_OrderStructInventoryMaster);
+			mOrderListViewAdapter.notifyDataSetChanged();
+		}
+
+
 	}
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -70,17 +95,18 @@ public class OrderActivity extends BaseActivity implements OnOrderItemClickClass
 	}
 	@AfterViews
 	void initView() {
-		appContext = (AppContext) getApplication();
-		
+		appContext =  OrderActivity.this;
+		CheckBoxSelectAll.setChecked(true);
 		CheckBoxSelectAll.setOnCheckedChangeListener(new OnCheckedChangeListener() {
 
 			@Override
 			public void onCheckedChanged(CompoundButton buttonView,
 					boolean isChecked) {
+				List<StructInventoryMaster> l_Order = new ArrayList<StructInventoryMaster>();
+				mOrderListViewAdapter.setListItems(l_Order);
+				ListViewOrder.setAdapter(mOrderListViewAdapter);	
 				// TODO Auto-generated method stub
-				mPriceTotal = 0.0;
 				if(isChecked){
-					
 					for(int i = 0;i < mOrderStructInventoryMaster.size();i++){
 						mOrderStructInventoryMaster.get(i).setOrderChooseStatus(true);
 //						mPriceTotal += mOrderStructInventoryMaster.get(i).getSalePrice();
@@ -97,7 +123,8 @@ public class OrderActivity extends BaseActivity implements OnOrderItemClickClass
 						mOrderListViewAdapter.SetOnOrderItemClickClassListener(OrderActivity.this);
 						ListViewOrder.setAdapter(mOrderListViewAdapter);	
 					}else{
-						mOrderListViewAdapter.setListItems(mOrderStructInventoryMaster);
+						List<StructInventoryMaster> l_OrderStructInventoryMaster = mOrderStructInventoryMaster;
+						mOrderListViewAdapter.setListItems(l_OrderStructInventoryMaster);
 						mOrderListViewAdapter.notifyDataSetChanged();
 					}
 					
@@ -122,7 +149,13 @@ public class OrderActivity extends BaseActivity implements OnOrderItemClickClass
 			switch(msg.what)  
 			{  
 			case HANDLE_UPDATE:
-
+				List<StructInventoryMaster> l_OrderStructInventoryMaster = mOrderListViewAdapter.getListItems();
+				mPriceTotal = 0.0;
+				for(int i =0 ;i < l_OrderStructInventoryMaster.size();i++){
+					if(l_OrderStructInventoryMaster.get(i).getOrderChooseStatus()){
+						mPriceTotal += (l_OrderStructInventoryMaster.get(i).getSalePrice()*l_OrderStructInventoryMaster.get(i).getOrderNumber());
+					}
+				}
 				TextViewMoney.setText(mPriceTotal+"");
 			break;
 			default:  
@@ -144,15 +177,11 @@ public class OrderActivity extends BaseActivity implements OnOrderItemClickClass
 						mOrderListViewAdapter.SetOnOrderItemClickClassListener(OrderActivity.this);
 						ListViewOrder.setAdapter(mOrderListViewAdapter);	
 					}else{
-						mOrderListViewAdapter.setListItems(mOrderStructInventoryMaster);
+						List<StructInventoryMaster> l_OrderStructInventoryMaster = mOrderStructInventoryMaster;
+						mOrderListViewAdapter.setListItems(l_OrderStructInventoryMaster);
 						mOrderListViewAdapter.notifyDataSetChanged();
 					}
 					
-				}
-				mPriceTotal = 0.0;
-				for(int i = 0;i < mOrderStructInventoryMaster.size();i++){
-					if(mOrderStructInventoryMaster.get(i).getOrderChooseStatus())
-						mPriceTotal += mOrderStructInventoryMaster.get(i).getSalePrice();
 				}
 				Message msg = new Message();
 				msg.what = HANDLE_UPDATE;
@@ -165,14 +194,14 @@ public class OrderActivity extends BaseActivity implements OnOrderItemClickClass
 	@Override
 	public void OnItemClick(int Position, boolean OnOptionsStatus) {
 		// TODO Auto-generated method stub
-		if(OnOptionsStatus){
+/*		if(OnOptionsStatus){
 			mOrderStructInventoryMaster.get(Position).setOrderChooseStatus(true);
 			mPriceTotal = mPriceTotal + mOrderStructInventoryMaster.get(Position).getSalePrice();
 		}else{
 			mOrderStructInventoryMaster.get(Position).setOrderChooseStatus(false);
 			if(mPriceTotal > 0.00000)
 				mPriceTotal = mPriceTotal - mOrderStructInventoryMaster.get(Position).getSalePrice();
-		}
+		}*/
 		Message msg = new Message();
 		msg.what = HANDLE_UPDATE;
 		mHandler.sendMessage(msg);
@@ -201,5 +230,11 @@ public class OrderActivity extends BaseActivity implements OnOrderItemClickClass
 			UIHealper.DisplayToast(this, "再按一次退出程序");
 		}
 		firstTime = System.currentTimeMillis();
+	}
+	@Override
+	public void UpdateUI(List<StructInventoryMaster> data) {
+		// TODO Auto-generated method stub
+		mOrderListViewAdapter.setListItems(data);
+		mOrderListViewAdapter.notifyDataSetChanged();
 	}
 }

@@ -184,14 +184,18 @@ containing a value of this type.
         public static final int yy_list_bkg_line_top=0x7f020050;
     }
     public static final class id {
+        public static final int ButtonOrderDelete=0x7f0a0022;
         public static final int ButtonOrderListEdit=0x7f0a000e;
         public static final int ButtonSubmit=0x7f0a0013;
         public static final int CheckBoxSelectAll=0x7f0a0010;
+        public static final int EditTextAddressName=0x7f0a0017;
         public static final int FramePager=0x7f0a000d;
         public static final int Frame_BottemView=0x7f0a0003;
-        public static final int ImageButton_ware_add=0x7f0a0020;
-        public static final int LinearLayoutOrderList=0x7f0a0017;
-        public static final int LinearLayoutOrderListEdit=0x7f0a001b;
+        public static final int ImageButtonNumAdd=0x7f0a0020;
+        public static final int ImageButtonNumSubtract=0x7f0a001e;
+        public static final int ImageButton_ware_add=0x7f0a0026;
+        public static final int LinearLayoutOrderList=0x7f0a0018;
+        public static final int LinearLayoutOrderListEdit=0x7f0a001c;
         public static final int ListViewOrder=0x7f0a000f;
         public static final int MyBottemCheckinBtn=0x7f0a000a;
         public static final int MyBottemCheckinImg=0x7f0a000b;
@@ -205,18 +209,20 @@ containing a value of this type.
         public static final int Shoplist_mainlist2=0x7f0a0000;
         public static final int Shoplist_onelist2=0x7f0a0001;
         public static final int Shoplist_twolist2=0x7f0a0002;
+        public static final int TextViewEditOrderName=0x7f0a001d;
         public static final int TextViewMoney=0x7f0a0012;
-        public static final int TextViewOrderEditPrice=0x7f0a001c;
-        public static final int TextViewOrderName=0x7f0a0018;
-        public static final int TextViewOrderNum=0x7f0a001a;
-        public static final int TextViewOrderPrice=0x7f0a0019;
-        public static final int TextView_ware_name=0x7f0a001e;
-        public static final int TextView_ware_price=0x7f0a001f;
+        public static final int TextViewOderNum=0x7f0a001f;
+        public static final int TextViewOrderEditPrice=0x7f0a0021;
+        public static final int TextViewOrderName=0x7f0a0019;
+        public static final int TextViewOrderNum=0x7f0a001b;
+        public static final int TextViewOrderPrice=0x7f0a001a;
+        public static final int TextView_ware_name=0x7f0a0024;
+        public static final int TextView_ware_price=0x7f0a0025;
         public static final int category_mainitem_img=0x7f0a0015;
         public static final int category_mainitem_layout=0x7f0a0014;
         public static final int category_mainitem_txt=0x7f0a0016;
         public static final int textView1=0x7f0a0011;
-        public static final int ware_list_lishi=0x7f0a001d;
+        public static final int ware_list_lishi=0x7f0a0023;
     }
     public static final class layout {
         public static final int activity_category=0x7f030000;
@@ -224,8 +230,9 @@ containing a value of this type.
         public static final int activity_main=0x7f030002;
         public static final int activity_order=0x7f030003;
         public static final int category_list_item=0x7f030004;
-        public static final int order_list_item=0x7f030005;
-        public static final int ware_list_item=0x7f030006;
+        public static final int conserve_dialog=0x7f030005;
+        public static final int order_list_item=0x7f030006;
+        public static final int ware_list_item=0x7f030007;
     }
     public static final class string {
         public static final int app_name=0x7f080000;
@@ -254,6 +261,9 @@ containing a value of this type.
         public static final int AppTheme=0x7f090002;
         public static final int MyCheckBox=0x7f090001;
         public static final int custom_ratingbar_style=0x7f090003;
+        /** 模糊
+         */
+        public static final int dialog=0x7f090004;
     }
     public static final class styleable {
         /** Attributes that can be used with a SlidingMenu.
@@ -282,7 +292,7 @@ in (inches), mm (millimeters).
 theme attribute (in the form
 "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
 containing a value of this type.
-          @attr name android:rightPadding
+          @attr name com.order.manage:rightPadding
         */
         public static final int SlidingMenu_rightPadding = 0;
     };

@@ -80,9 +80,9 @@ public final class CategoryActivity_
 
     @Override
     public void onViewChanged(HasViews hasViews) {
-        mShoplist_onelist2 = ((ListView) hasViews.findViewById(id.Shoplist_onelist2));
         mShoplist_twolist2 = ((ListView) hasViews.findViewById(id.Shoplist_twolist2));
         mShoplist_mainlist2 = ((LinearLayout) hasViews.findViewById(id.Shoplist_mainlist2));
+        mShoplist_onelist2 = ((ListView) hasViews.findViewById(id.Shoplist_onelist2));
         initView();
     }
 

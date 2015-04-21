@@ -68,16 +68,29 @@
         android:paddingBottom="0dp"
         android:orientation="horizontal" 
         android:visibility="visible">
+        <TextView
+            android:id="@+id/TextViewEditOrderName"
+            android:layout_width="130dp"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:paddingBottom="8.5dp"
+            android:paddingTop="8dp"
+            android:text="材料"
+            android:textColor="#666666"
+            android:textSize="17sp" />
        	<Button
+       	    android:id="@+id/ImageButtonNumSubtract"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
             android:layout_marginLeft="10dp"
             android:layout_marginRight="10dp"
-            android:checked="true"
             android:text="-"
-            android:background="@drawable/login_activity_checkbox_pic"/>
-        <EditText
+            android:background="@drawable/login_activity_checkbox_pic"
+            android:textSize="13sp"
+            />
+        <TextView
+            android:id="@+id/TextViewOderNum"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
@@ -85,13 +98,14 @@
             android:textColor="#666666"
             android:textSize="17sp" />
         <Button
+            android:id="@+id/ImageButtonNumAdd"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
             android:layout_marginLeft="10dp"
             android:layout_marginRight="10dp"
-            android:checked="true"
             android:text="+"
+            android:textSize="13sp"
             android:background="@drawable/login_activity_checkbox_pic"/>
         <TextView
             android:id="@+id/TextViewOrderEditPrice"
@@ -104,14 +118,11 @@
             android:text="0.0"
             android:textColor="#666666"
             android:textSize="17sp" />
-        <TextView
-            android:id="@+id/TextViewOrderNum"
-            android:layout_width="wrap_content"
+        <Button
+            android:id="@+id/ButtonOrderDelete"
+            android:layout_width="80dp"
             android:layout_height="match_parent"
-            android:layout_weight="1"
             android:gravity="center"
-            android:paddingBottom="8.5dp"
-            android:paddingTop="8dp"
             android:text="删除"
             android:background="@drawable/login_btn_bg"
             android:textColor="#666666"
