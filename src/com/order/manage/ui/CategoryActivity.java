@@ -80,6 +80,12 @@ public class CategoryActivity extends BaseActivity implements OnWareItemClickCla
 		}
 		
 		mShoplist_onelist2.setOnItemClickListener(new Onelistclick2());
+		mShoplist_twolist2.setOnItemClickListener(new Onelistclick1());
+	}
+	private class Onelistclick1 implements OnItemClickListener {
+		public void onItemClick(AdapterView<?> arg0, View arg1, int arg2,
+				long arg3) {
+		}
 	}
 	private class Onelistclick2 implements OnItemClickListener {
 		public void onItemClick(AdapterView<?> arg0, View arg1, int arg2,

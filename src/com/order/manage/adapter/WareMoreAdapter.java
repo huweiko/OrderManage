@@ -72,14 +72,13 @@ public class WareMoreAdapter extends BaseAdapter {
 		}
 		hold.txt.setText(listItems.get(arg0).getInvName());
 		hold.price.setText(listItems.get(arg0).getSalePrice()+"Ԫ");
-		hold.layout.setBackgroundResource(R.drawable.my_list_txt_background);
 		hold.add.setOnClickListener(new OnOptionsClick(arg0));
-		hold.txt.setTextColor(Color.parseColor("#FF666666"));
+/*		hold.txt.setTextColor(Color.parseColor("#FF666666"));
 		if (arg0 == position) {
 			hold.layout
 					.setBackgroundResource(R.drawable.search_more_morelisttop_bkg);
 			hold.txt.setTextColor(Color.parseColor("#FFFF8C00"));
-		}
+		}*/
 		return arg1;
 	}
 
