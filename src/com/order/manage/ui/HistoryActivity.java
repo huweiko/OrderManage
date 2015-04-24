@@ -22,7 +22,11 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.database.Cursor;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ImageView;
 import android.widget.ListView;
+import android.widget.AdapterView.OnItemClickListener;
 
 /**
  * ÍÅ¹ºÄ£¿é
@@ -41,6 +45,8 @@ public class HistoryActivity extends BaseActivity {
 	public static final String INTERNAL_ACTION_SUBMITORDER="broadcast.SUBMITORDER";
 	@ViewById
 	ListView ListViewOrderHistory;
+	@ViewById
+	ImageView ImageViewArrow;
 	
 	@AfterViews
 	void initView() {
@@ -52,6 +58,7 @@ public class HistoryActivity extends BaseActivity {
 		InitOrderHeaderData();
 		mHistoryOrderAdapter = new HistoryOrderAdapter(mContext, lp_StructOrderHeader);
 		ListViewOrderHistory.setAdapter(mHistoryOrderAdapter);
+		ListViewOrderHistory.setOnItemClickListener(new OnclickWareListView());
 		IntentFilter filter = new IntentFilter();
 		filter.addAction(INTERNAL_ACTION_SUBMITORDER);
 		mContext.registerReceiver(receiver, filter);
@@ -88,11 +95,12 @@ public class HistoryActivity extends BaseActivity {
 		}
 
 	};
-	@Override
-	protected void onCreate(Bundle savedInstanceState) {
-		// TODO Auto-generated method stub
-		super.onCreate(savedInstanceState);
+	private class OnclickWareListView implements OnItemClickListener {
+		public void onItemClick(AdapterView<?> arg0, View arg1, int arg2,
+				long arg3) {
+		}
 	}
+	
 	protected void onDestroy() {
 		mContext.unregisterReceiver(receiver);
 		mBDOrderHeader.close();

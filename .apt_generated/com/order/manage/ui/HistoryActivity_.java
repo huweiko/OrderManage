@@ -10,6 +10,7 @@ import android.os.Bundle;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.ViewGroup.LayoutParams;
+import android.widget.ImageView;
 import android.widget.ListView;
 import com.order.manage.R.id;
 import com.order.manage.R.layout;
@@ -80,6 +81,7 @@ public final class HistoryActivity_
     @Override
     public void onViewChanged(HasViews hasViews) {
         ListViewOrderHistory = ((ListView) hasViews.findViewById(id.ListViewOrderHistory));
+        ImageViewArrow = ((ImageView) hasViews.findViewById(id.ImageViewArrow));
         initView();
     }
 

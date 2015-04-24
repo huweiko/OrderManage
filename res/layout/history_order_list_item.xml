@@ -36,8 +36,87 @@
 	      </LinearLayout>
 	
 	      <ImageView
+	          android:id="@+id/ImageViewArrow"
 	          android:layout_width="wrap_content"
 	          android:layout_height="wrap_content"
 	          android:src="@drawable/arrow" />
 	</LinearLayout>
+	<LinearLayout 
+	    android:id="@+id/LinearLayoutOrderDetail"
+	    android:layout_width="match_parent"
+	    android:layout_height="wrap_content"
+	    android:orientation="vertical"
+	    android:visibility="gone">
+	    <LinearLayout
+		    android:layout_width="match_parent"
+		    android:layout_height="wrap_content" >
+	
+			<TextView
+			    android:layout_width="wrap_content"
+			    android:layout_height="wrap_content"
+			    android:text="订单号：" />
+	
+			<TextView
+			    android:id="@+id/TextViewOrderId"
+			    android:layout_width="wrap_content"
+			    android:layout_height="wrap_content"
+			    android:text="TextView" />
+
+		</LinearLayout>
+		<ListView
+	        android:id="@+id/ListViewWareListItem"
+	        android:layout_width="match_parent"
+	        android:layout_height="wrap_content"
+	        android:background="#F4F4F4"
+	        android:divider="@null"
+	        android:listSelector="@drawable/search_more_morelistselect"
+	        android:scrollbars="none" />
+		<LinearLayout 
+		    android:layout_width="wrap_content"
+		    android:layout_height="wrap_content"
+		    android:orientation="horizontal"
+		    android:layout_gravity="right|center_vertical"
+		    android:layout_marginTop="10dp">
+			<TextView 
+			    android:layout_width="match_parent"
+		    	android:layout_height="wrap_content"
+		    	android:text="合计："/>
+			<TextView 
+			    android:id="@+id/TextViewPriceTotalNum"
+			    android:layout_width="match_parent"
+		    	android:layout_height="wrap_content"/>
+		</LinearLayout>
+		<LinearLayout 
+		    android:layout_width="wrap_content"
+		    android:layout_height="wrap_content"
+		    android:orientation="horizontal"
+		    android:layout_gravity="center_vertical"
+		    android:layout_marginTop="10dp">
+			<TextView 
+			    android:layout_width="match_parent"
+		    	android:layout_height="wrap_content"
+		    	android:text="备注："/>
+			<TextView 
+			    android:id="@+id/TextViewOrderRemarks"
+			    android:layout_width="match_parent"
+		    	android:layout_height="wrap_content"/>
+		</LinearLayout>
+		<LinearLayout 
+		    android:layout_width="wrap_content"
+		    android:layout_height="wrap_content"
+		    android:orientation="horizontal"
+		    android:layout_gravity="center_vertical"
+		    android:layout_marginTop="5dp">
+			<TextView 
+			    android:layout_width="match_parent"
+		    	android:layout_height="wrap_content"
+		    	android:text="提交时间："/>
+			<TextView 
+			    android:id="@+id/TextViewOrderSubmitTime"
+			    android:layout_width="match_parent"
+		    	android:layout_height="wrap_content"/>
+		</LinearLayout>
+	</LinearLayout>
+
+	
 </LinearLayout>
