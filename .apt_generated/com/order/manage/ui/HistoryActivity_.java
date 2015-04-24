@@ -10,6 +10,8 @@ import android.os.Bundle;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.ViewGroup.LayoutParams;
+import android.widget.ListView;
+import com.order.manage.R.id;
 import com.order.manage.R.layout;
 import org.androidannotations.api.SdkVersionHelper;
 import org.androidannotations.api.builder.ActivityIntentBuilder;
@@ -77,6 +79,7 @@ public final class HistoryActivity_
 
     @Override
     public void onViewChanged(HasViews hasViews) {
+        ListViewOrderHistory = ((ListView) hasViews.findViewById(id.ListViewOrderHistory));
         initView();
     }
 

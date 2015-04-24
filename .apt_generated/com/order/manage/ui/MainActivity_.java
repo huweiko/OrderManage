@@ -82,17 +82,17 @@ public final class MainActivity_
 
     @Override
     public void onViewChanged(HasViews hasViews) {
-        mViewPager = ((ViewPager) hasViews.findViewById(id.FramePager));
-        MyBottemTuanImg = ((ImageView) hasViews.findViewById(id.MyBottemTuanImg));
-        MyBottemSearchBtn = ((LinearLayout) hasViews.findViewById(id.MyBottemSearchBtn));
-        MyBottemCheckinTxt = ((TextView) hasViews.findViewById(id.MyBottemCheckinTxt));
-        MyBottemSearchTxt = ((TextView) hasViews.findViewById(id.MyBottemSearchTxt));
         MyBottemTuanTxt = ((TextView) hasViews.findViewById(id.MyBottemTuanTxt));
-        MyBottemTuanBtn = ((LinearLayout) hasViews.findViewById(id.MyBottemTuanBtn));
-        MyBottemCheckinImg = ((ImageView) hasViews.findViewById(id.MyBottemCheckinImg));
-        MyBottemCheckinBtn = ((LinearLayout) hasViews.findViewById(id.MyBottemCheckinBtn));
+        MyBottemSearchTxt = ((TextView) hasViews.findViewById(id.MyBottemSearchTxt));
         MyBottemSearchImg = ((ImageView) hasViews.findViewById(id.MyBottemSearchImg));
         Frame_BottemView = ((LinearLayout) hasViews.findViewById(id.Frame_BottemView));
+        MyBottemTuanBtn = ((LinearLayout) hasViews.findViewById(id.MyBottemTuanBtn));
+        MyBottemCheckinImg = ((ImageView) hasViews.findViewById(id.MyBottemCheckinImg));
+        MyBottemTuanImg = ((ImageView) hasViews.findViewById(id.MyBottemTuanImg));
+        MyBottemCheckinBtn = ((LinearLayout) hasViews.findViewById(id.MyBottemCheckinBtn));
+        MyBottemSearchBtn = ((LinearLayout) hasViews.findViewById(id.MyBottemSearchBtn));
+        mViewPager = ((ViewPager) hasViews.findViewById(id.FramePager));
+        MyBottemCheckinTxt = ((TextView) hasViews.findViewById(id.MyBottemCheckinTxt));
         init();
     }
 

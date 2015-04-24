@@ -1,6 +1,9 @@
 package com.order.manage.ui;
 
+import java.lang.reflect.Field;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import org.androidannotations.annotations.AfterViews;
@@ -14,21 +17,32 @@ import com.order.manage.R;
 import com.order.manage.UIHealper;
 import com.order.manage.adapter.OrderListViewAdapter;
 import com.order.manage.adapter.OrderListViewAdapter.OnOrderItemClickClass;
+import com.order.manage.db.BDOrderDetail;
+import com.order.manage.db.BDOrderHeader;
 import com.order.manage.struct.StructInventoryMaster;
+import com.order.manage.struct.StructOrderDetail;
+import com.order.manage.struct.StructOrderHeader;
 
 import android.annotation.SuppressLint;
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.app.Dialog;
+import android.app.AlertDialog.Builder;
 import android.content.BroadcastReceiver;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.util.Log;
+import android.view.LayoutInflater;
+import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
+import android.widget.EditText;
 import android.widget.HeterogeneousExpandableList;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -38,7 +52,7 @@ import android.widget.CompoundButton.OnCheckedChangeListener;
  * 签到模块
  * </BR> </BR> By：苦涩 </BR> 联系作者：QQ 534429149
  * */
-@EActivity(R.layout.activity_order)
+@SuppressLint("SimpleDateFormat") @EActivity(R.layout.activity_order)
 public class OrderActivity extends BaseActivity implements OnOrderItemClickClass{
 	private Context appContext;
 	public static boolean OrderSubmitStatus= false;
@@ -52,6 +66,9 @@ public class OrderActivity extends BaseActivity implements OnOrderItemClickClass
 	private static double mPriceTotal = 0.0;
 	
 	private boolean mOrderEditStratus = false;
+	private final String mOrderHeader = "ODR_";
+	private BDOrderHeader mBDOrderHeader;
+	private BDOrderDetail mBDOrderDetail;
 	@ViewById
 	ListView ListViewOrder;
 	@ViewById
@@ -61,6 +78,110 @@ public class OrderActivity extends BaseActivity implements OnOrderItemClickClass
 	@ViewById
 	Button ButtonOrderListEdit;
 	
+	
+	@Click(R.id.ButtonSubmit)
+	void OnclickButtonSubmit(){
+		showEditRemarksDialog();
+
+	}
+	//插入订单头信息到数据库
+	private void InsertOrderHeaderToDB(String x_remarks){
+		SimpleDateFormat mSimpleDateFormat = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
+		Date Time = new Date();
+		String DateString = mSimpleDateFormat.format(Time);
+		StructOrderHeader l_StructOrderHeader = new StructOrderHeader();
+		System.currentTimeMillis();
+		Long.toString(System.currentTimeMillis());
+		l_StructOrderHeader.setBillId(mOrderHeader+Time.getTime());
+		l_StructOrderHeader.setTotalMny(mPriceTotal);
+		l_StructOrderHeader.setBizDate(DateString);
+		l_StructOrderHeader.setBillDate(DateString);
+		l_StructOrderHeader.setMemo(x_remarks);
+		mBDOrderHeader.insert(l_StructOrderHeader);
+		InsertOrderDetailToDB(mOrderHeader+Time.getTime());
+		
+	}
+	//订单明细
+	private void InsertOrderDetailToDB(String x_BillId){
+		Date Time = new Date();
+		int ordertotalnum = 0;
+		for(int i = 0;i < mOrderStructInventoryMaster.size();i++){
+			ordertotalnum += mOrderStructInventoryMaster.get(i).getOrderNumber();
+		}
+		for(int i = 0;i < mOrderStructInventoryMaster.size();i++){
+			StructOrderDetail l_StructOrderDetail = new StructOrderDetail();
+			int ordernum = mOrderStructInventoryMaster.get(i).getOrderNumber();
+			Double price = mOrderStructInventoryMaster.get(i).getSalePrice();
+			l_StructOrderDetail.setBillId(x_BillId);
+			l_StructOrderDetail.setItemId((int) Time.getTime());
+			l_StructOrderDetail.setNum(ordernum);
+			l_StructOrderDetail.setPrice(price);
+			l_StructOrderDetail.setOrderMny(ordernum*price);
+			l_StructOrderDetail.setInvName(mOrderStructInventoryMaster.get(i).getInvName());
+			l_StructOrderDetail.setInvCode(mOrderStructInventoryMaster.get(i).getInvCode());
+			l_StructOrderDetail.setTotalNum(ordertotalnum);
+			mBDOrderDetail.insert(l_StructOrderDetail);
+		}
+		
+		
+	
+	}
+	void showEditRemarksDialog(){
+		final EditText mEditTextAddressName;
+		Dialog noticeDialog = null;
+		AlertDialog.Builder builder = new Builder(appContext,R.style.dialog);
+		builder.setInverseBackgroundForced(true);
+	
+		builder.setTitle("增加备注");
+		final LayoutInflater inflater = LayoutInflater.from(appContext);
+		View vv = inflater.inflate(R.layout.remarks_dialog, null);
+		mEditTextAddressName = (EditText) vv.findViewById(R.id.EditTextRemarks);
+		builder.setView(vv);
+		builder.setNegativeButton("确定", new android.content.DialogInterface.OnClickListener()
+		{
+			@Override
+			public void onClick(DialogInterface dialog, int which)
+			{
+				String Remarks = mEditTextAddressName.getText().toString();
+				if(!Remarks.equals("")){
+					InsertOrderHeaderToDB(Remarks);
+					Intent intent = new Intent(HistoryActivity.INTERNAL_ACTION_SUBMITORDER);
+					appContext.sendBroadcast(intent);
+					mOrderStructInventoryMaster.clear();
+					mOrderListViewAdapter.setListItems(mOrderStructInventoryMaster);
+					mOrderListViewAdapter.notifyDataSetChanged();
+					isCloseShowDialog(dialog, true);
+				}else{
+					UIHealper.DisplayToast(appContext, "备注不能为空");
+					isCloseShowDialog(dialog, false);
+				}
+
+			}
+
+		});
+		builder.setPositiveButton("取消", new android.content.DialogInterface.OnClickListener()
+		{
+			@Override
+			public void onClick(DialogInterface dialog, int which)
+			{
+				isCloseShowDialog(dialog, true);
+			}
+		});
+		noticeDialog = builder.create();
+
+		noticeDialog.show();
+	}
+	private void isCloseShowDialog(DialogInterface dialog,boolean status) {
+		try
+		{
+		    Field field = dialog.getClass().getSuperclass().getDeclaredField("mShowing");
+		    field.setAccessible(true);
+		     //设置mShowing值，欺骗android系统
+		    field.set(dialog, status);
+		}catch(Exception e) {
+		    e.printStackTrace();
+		}
+	}
 	@Click(R.id.ButtonOrderListEdit)
 	void OnclickButtonOrderListEdit(){
 		if(mOrderEditStratus){
@@ -92,10 +213,16 @@ public class OrderActivity extends BaseActivity implements OnOrderItemClickClass
 	protected void onCreate(Bundle savedInstanceState) {
 		// TODO Auto-generated method stub
 		super.onCreate(savedInstanceState);
+
 	}
 	@AfterViews
 	void initView() {
 		appContext =  OrderActivity.this;
+		mBDOrderHeader = new BDOrderHeader(appContext);
+		mBDOrderHeader.createDBtable();
+		mBDOrderDetail = new BDOrderDetail(appContext);
+		mBDOrderDetail.createDBtable();
+		
 		CheckBoxSelectAll.setChecked(true);
 		CheckBoxSelectAll.setOnCheckedChangeListener(new OnCheckedChangeListener() {
 
@@ -211,6 +338,8 @@ public class OrderActivity extends BaseActivity implements OnOrderItemClickClass
 	protected void onDestroy() {
 		// TODO Auto-generated method stub
 		appContext.unregisterReceiver(receiver);
+		mBDOrderHeader.close();
+		mBDOrderDetail.close();
 		super.onDestroy();
 	}
 	private static long firstTime;
@@ -237,4 +366,5 @@ public class OrderActivity extends BaseActivity implements OnOrderItemClickClass
 		mOrderListViewAdapter.setListItems(data);
 		mOrderListViewAdapter.notifyDataSetChanged();
 	}
+	
 }

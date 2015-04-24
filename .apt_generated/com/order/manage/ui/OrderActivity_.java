@@ -5,6 +5,7 @@
 
 package com.order.manage.ui;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.os.Bundle;
 import android.view.KeyEvent;
@@ -23,6 +24,9 @@ import org.androidannotations.api.view.HasViews;
 import org.androidannotations.api.view.OnViewChangedListener;
 import org.androidannotations.api.view.OnViewChangedNotifier;
 
+@SuppressLint({
+    "SimpleDateFormat"
+})
 public final class OrderActivity_
     extends OrderActivity
     implements HasViews, OnViewChangedListener
@@ -83,10 +87,25 @@ public final class OrderActivity_
 
     @Override
     public void onViewChanged(HasViews hasViews) {
-        ListViewOrder = ((ListView) hasViews.findViewById(id.ListViewOrder));
+        TextViewMoney = ((TextView) hasViews.findViewById(id.TextViewMoney));
         ButtonOrderListEdit = ((Button) hasViews.findViewById(id.ButtonOrderListEdit));
         CheckBoxSelectAll = ((CheckBox) hasViews.findViewById(id.CheckBoxSelectAll));
-        TextViewMoney = ((TextView) hasViews.findViewById(id.TextViewMoney));
+        ListViewOrder = ((ListView) hasViews.findViewById(id.ListViewOrder));
+        {
+            View view = hasViews.findViewById(id.ButtonSubmit);
+            if (view!= null) {
+                view.setOnClickListener(new OnClickListener() {
+
+
+                    @Override
+                    public void onClick(View view) {
+                        OrderActivity_.this.OnclickButtonSubmit();
+                    }
+
+                }
+                );
+            }
+        }
         if (ButtonOrderListEdit!= null) {
             ButtonOrderListEdit.setOnClickListener(new OnClickListener() {
 
