@@ -2,6 +2,8 @@ package com.order.manage.struct;
 
 
 public class StructOrderHeader{
+	private boolean OrderUnfoldSstatus = false;//订单展开状态
+	
 	private String BillId;//单号
 	private String OrganCode;//机构号
 	private String BillType;//单据类型
@@ -78,5 +80,11 @@ public class StructOrderHeader{
 	}
 	public void setEndSaveTime(String endSaveTime) {
 		EndSaveTime = endSaveTime;
+	}
+	public boolean getOrderUnfoldSstatus() {
+		return OrderUnfoldSstatus;
+	}
+	public void setOrderUnfoldSstatus(boolean orderUnfoldSstatus) {
+		OrderUnfoldSstatus = orderUnfoldSstatus;
 	}
 }

@@ -113,7 +113,7 @@ public class OrderActivity extends BaseActivity implements OnOrderItemClickClass
 			int ordernum = mOrderStructInventoryMaster.get(i).getOrderNumber();
 			Double price = mOrderStructInventoryMaster.get(i).getSalePrice();
 			l_StructOrderDetail.setBillId(x_BillId);
-			l_StructOrderDetail.setItemId((int) Time.getTime());
+			l_StructOrderDetail.setItemId((int) Time.getTime()+i);
 			l_StructOrderDetail.setNum(ordernum);
 			l_StructOrderDetail.setPrice(price);
 			l_StructOrderDetail.setOrderMny(ordernum*price);
@@ -197,14 +197,18 @@ public class OrderActivity extends BaseActivity implements OnOrderItemClickClass
 			msg.what = HANDLE_UPDATE;
 			mHandler.sendMessage(msg);
 		}else{
-			mOrderEditStratus = true;
-			ButtonOrderListEdit.setText("完成");
-			for(int i = 0;i < mOrderStructInventoryMaster.size();i++){
-				mOrderStructInventoryMaster.get(i).setOrderEditStatus(mOrderEditStratus);
+			if(mOrderStructInventoryMaster.size() > 0){
+				mOrderEditStratus = true;
+				ButtonOrderListEdit.setText("完成");
+				for(int i = 0;i < mOrderStructInventoryMaster.size();i++){
+					mOrderStructInventoryMaster.get(i).setOrderEditStatus(mOrderEditStratus);
+				}
+				
+				List<StructInventoryMaster> l_OrderStructInventoryMaster = mOrderStructInventoryMaster;
+				mOrderListViewAdapter.setListItems(l_OrderStructInventoryMaster);
+				mOrderListViewAdapter.notifyDataSetChanged();	
 			}
-			List<StructInventoryMaster> l_OrderStructInventoryMaster = mOrderStructInventoryMaster;
-			mOrderListViewAdapter.setListItems(l_OrderStructInventoryMaster);
-			mOrderListViewAdapter.notifyDataSetChanged();
+
 		}
 
 

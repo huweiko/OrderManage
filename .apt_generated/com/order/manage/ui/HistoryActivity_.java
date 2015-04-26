@@ -11,7 +11,9 @@ import android.view.KeyEvent;
 import android.view.View;
 import android.view.ViewGroup.LayoutParams;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.ListView;
+import android.widget.TextView;
 import com.order.manage.R.id;
 import com.order.manage.R.layout;
 import org.androidannotations.api.SdkVersionHelper;
@@ -80,8 +82,14 @@ public final class HistoryActivity_
 
     @Override
     public void onViewChanged(HasViews hasViews) {
+        TextViewOrderId = ((TextView) hasViews.findViewById(id.TextViewOrderId));
         ListViewOrderHistory = ((ListView) hasViews.findViewById(id.ListViewOrderHistory));
+        TextViewOrderSubmitTime = ((TextView) hasViews.findViewById(id.TextViewOrderSubmitTime));
+        TextViewPriceTotalNum = ((TextView) hasViews.findViewById(id.TextViewPriceTotalNum));
         ImageViewArrow = ((ImageView) hasViews.findViewById(id.ImageViewArrow));
+        TextViewOrderRemarks = ((TextView) hasViews.findViewById(id.TextViewOrderRemarks));
+        ListViewWareListItem = ((ListView) hasViews.findViewById(id.ListViewWareListItem));
+        LinearLayoutOrderDetail = ((LinearLayout) hasViews.findViewById(id.LinearLayoutOrderDetail));
         initView();
     }
 

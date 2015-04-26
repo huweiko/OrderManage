@@ -100,7 +100,7 @@ public class CategoryActivity extends BaseActivity implements OnWareItemClickCla
 		}
 	}
 	private void initAdapter2(List<StructInventoryMaster> array) {
-		mWareMoreAdapter = new WareMoreAdapter(CategoryActivity.this, array,R.layout.ware_list_item);
+		mWareMoreAdapter = new WareMoreAdapter(appContext, array,R.layout.ware_list_item);
 		mShoplist_twolist2.setAdapter(mWareMoreAdapter);
 		mWareMoreAdapter.SetOnWareItemClickClassListener(this);
 		mWareMoreAdapter.notifyDataSetChanged();

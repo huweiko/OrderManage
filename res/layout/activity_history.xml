@@ -5,7 +5,7 @@
 	<ListView
         android:id="@+id/ListViewOrderHistory"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
         android:background="#F4F4F4"
         android:divider="@null"
         android:listSelector="@drawable/search_more_morelistselect"
