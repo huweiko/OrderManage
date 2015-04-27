@@ -169,7 +169,7 @@ public class HistoryActivity extends BaseActivity implements OnWareItemClickClas
 			}
 
 		}
-
+		mHistoryOrderAdapter.setSelectItem(Position);
 		String l_BillId = lp_StructOrderHeader.get(Position).getBillId();
 		loadOrderDetailData(l_BillId);
 		mHistoryOrderAdapter.setListItem(lp_StructOrderHeader,lp_StructOrderDetail);

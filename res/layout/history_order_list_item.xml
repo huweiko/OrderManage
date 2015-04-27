@@ -54,13 +54,17 @@
 			<TextView
 			    android:layout_width="wrap_content"
 			    android:layout_height="wrap_content"
-			    android:text="订单号：" />
+			    android:text="订单号："
+			    android:textColor="#666666"
+            	android:textSize="17sp" />
 	
 			<TextView
 			    android:id="@+id/TextViewOrderId"
 			    android:layout_width="wrap_content"
 			    android:layout_height="wrap_content"
-			    android:text="TextView" />
+			    android:text="TextView" 
+			    android:textColor="#666666"
+            	android:textSize="17sp"/>
 
 		</LinearLayout>
 		<ListView
@@ -79,11 +83,15 @@
 			<TextView 
 			    android:layout_width="match_parent"
 		    	android:layout_height="wrap_content"
-		    	android:text="合计："/>
+		    	android:text="合计："
+		    	android:textColor="#666666"
+            	android:textSize="17sp"/>
 			<TextView 
 			    android:id="@+id/TextViewPriceTotalNum"
 			    android:layout_width="match_parent"
-		    	android:layout_height="wrap_content"/>
+		    	android:layout_height="wrap_content"
+		    	android:textColor="#666666"
+            	android:textSize="17sp"/>
 		</LinearLayout>
 		<LinearLayout 
 		    android:layout_width="wrap_content"
@@ -94,7 +102,9 @@
 			<TextView 
 			    android:layout_width="match_parent"
 		    	android:layout_height="wrap_content"
-		    	android:text="备注："/>
+		    	android:text="备注："
+		    	android:textColor="#666666"
+            	android:textSize="17sp"/>
 			<TextView 
 			    android:id="@+id/TextViewOrderRemarks"
 			    android:layout_width="match_parent"
@@ -109,11 +119,15 @@
 			<TextView 
 			    android:layout_width="match_parent"
 		    	android:layout_height="wrap_content"
-		    	android:text="提交时间："/>
+		    	android:text="提交时间："
+		    	android:textColor="#666666"
+            	android:textSize="17sp"/>
 			<TextView 
 			    android:id="@+id/TextViewOrderSubmitTime"
 			    android:layout_width="match_parent"
-		    	android:layout_height="wrap_content"/>
+		    	android:layout_height="wrap_content"
+		    	android:textColor="#666666"
+            	android:textSize="17sp"/>
 		</LinearLayout>
 	</LinearLayout>
 

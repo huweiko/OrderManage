@@ -89,7 +89,7 @@ public class OrderDetailListViewAdapter extends BaseAdapter {
 			hold.txt.setText(listItems.get(arg0).getInvName());
 			hold.price.setText(listItems.get(arg0).getPrice()+"Ԫ");
 			hold.layout.setBackgroundResource(R.drawable.my_list_txt_background);
-			hold.mOrderNum.setText(listItems.get(arg0).getNum()+"");
+			hold.mOrderNum.setText("x"+listItems.get(arg0).getNum());
 			hold.txt.setTextColor(Color.parseColor("#FF666666"));
 		
 		return arg1;

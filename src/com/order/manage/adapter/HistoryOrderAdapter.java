@@ -34,6 +34,7 @@ public class HistoryOrderAdapter extends BaseAdapter {
 	private List<StructOrderDetail> listItemOrderDetail;
 	private int layout = R.layout.history_order_list_item;
 	private OnWareItemClickClass onItemClickClass;
+	private int position = 0;
 	public HistoryOrderAdapter(Context ctx, List<StructOrderHeader> data1,List<StructOrderDetail> data2) {
 		this.ctx = ctx;
 		this.listItemsOrderHeader = data1;
@@ -64,6 +65,14 @@ public class HistoryOrderAdapter extends BaseAdapter {
 	public void SetOnHistoryOrderItemClickClassListener(OnWareItemClickClass Listener){
 		this.onItemClickClass = Listener;
 	}
+	public void setSelectItem(int i) {
+		position = i;
+	}
+
+	public int getSelectItem() {
+		return position;
+	}
+	
 	public View getView(int arg0, View arg1, ViewGroup arg2) {
 		Holder hold;
 		if (arg1 == null) {
@@ -96,12 +105,18 @@ public class HistoryOrderAdapter extends BaseAdapter {
 			hold = (Holder) arg1.getTag();
 		}
 		hold.layout.setOnClickListener(new OnOptionsClick(arg0));
+			hold.txt.setTextColor(Color.parseColor("#FF666666"));
+		if (arg0 == position) {
+			hold.layout
+					.setBackgroundResource(R.drawable.search_more_morelisttop_bkg);
+			hold.txt.setTextColor(Color.parseColor("#FFFF8C00"));
+		}
 		if(listItemsOrderHeader.get(arg0).getOrderUnfoldSstatus()){
 			hold.mLinearLayoutOrderDetail.setVisibility(View.VISIBLE);
 			hold.mImageViewArrow.setImageResource(R.drawable.arrow_down);
 			
 			hold.mTextViewOrderId.setText(listItemOrderDetail.get(0).getBillId());
-			hold.mTextViewPriceTotalNum.setText(listItemsOrderHeader.get(arg0).getTotalMny()+"");
+			hold.mTextViewPriceTotalNum.setText(listItemsOrderHeader.get(arg0).getTotalMny()+"Ԫ");
 			hold.mTextViewOrderRemarks.setText(listItemsOrderHeader.get(arg0).getMemo());
 			hold.mTextViewOrderSubmitTime.setText(listItemsOrderHeader.get(arg0).getBillDate());
 			
