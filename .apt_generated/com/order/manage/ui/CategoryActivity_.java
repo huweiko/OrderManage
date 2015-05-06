@@ -9,6 +9,7 @@ import android.content.Context;
 import android.os.Bundle;
 import android.view.KeyEvent;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.view.ViewGroup.LayoutParams;
 import android.widget.LinearLayout;
 import android.widget.ListView;
@@ -80,9 +81,24 @@ public final class CategoryActivity_
 
     @Override
     public void onViewChanged(HasViews hasViews) {
-        mShoplist_twolist2 = ((ListView) hasViews.findViewById(id.Shoplist_twolist2));
         mShoplist_mainlist2 = ((LinearLayout) hasViews.findViewById(id.Shoplist_mainlist2));
+        mShoplist_twolist2 = ((ListView) hasViews.findViewById(id.Shoplist_twolist2));
         mShoplist_onelist2 = ((ListView) hasViews.findViewById(id.Shoplist_onelist2));
+        {
+            View view = hasViews.findViewById(id.LinearLayoutGategoryClick);
+            if (view!= null) {
+                view.setOnClickListener(new OnClickListener() {
+
+
+                    @Override
+                    public void onClick(View view) {
+                        CategoryActivity_.this.OnClickLinearLayoutGategoryClick(view);
+                    }
+
+                }
+                );
+            }
+        }
         initView();
     }
 

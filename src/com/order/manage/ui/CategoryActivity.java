@@ -3,6 +3,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.androidannotations.annotations.AfterViews;
+import org.androidannotations.annotations.Click;
 import org.androidannotations.annotations.EActivity;
 import org.androidannotations.annotations.ViewById;
 
@@ -57,11 +58,14 @@ public class CategoryActivity extends BaseActivity implements OnWareItemClickCla
 	
 	private int mCurrentMainItem = 0;
 	private int mCurrentSecondItem = 0;
-	@Override
-	protected void onCreate(Bundle savedInstanceState) {
-		// TODO Auto-generated method stub
-		super.onCreate(savedInstanceState);
+	@Click(R.id.LinearLayoutGategoryClick)
+	void OnClickLinearLayoutGategoryClick(View v){
+		
+		Intent intent = new Intent();
+		intent.setClass(appContext, SearchWareActivity_.class);
+		startActivity(intent);
 	}
+	
 	@AfterViews
 	void initView() {
 		appContext = (AppContext) getApplication();

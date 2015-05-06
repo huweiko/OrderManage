@@ -11,7 +11,7 @@
         android:orientation="horizontal" >
 
         <LinearLayout
-            android:id="@+id/Search_city"
+            android:id="@+id/LinearLayoutCategory"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:layout_weight="5"
@@ -20,23 +20,23 @@
             android:padding="10dp" >
 
             <TextView
-                android:id="@+id/Search_city_txt"
+                android:id="@+id/TextViewSearchCategory"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:gravity="center_vertical"
-                android:text="北京"
+                android:text="品名"
                 android:textColor="#FF8C00"
                 android:textSize="18sp" />
 
             <ImageView
-                android:id="@+id/Search_city_img"
+                android:id="@+id/ImageViewSearchCategory"
                 android:layout_width="22dp"
                 android:layout_height="22dp"
                 android:src="@drawable/search_city" />
         </LinearLayout>
 
         <LinearLayout
-            android:id="@+id/Search_search"
+            android:id="@+id/LinearLayoutSearchEdit"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:layout_marginBottom="5dp"
@@ -52,17 +52,19 @@
                 android:layout_height="match_parent"
                 android:src="@drawable/ic_search" />
 
-            <TextView
+            <EditText
+                android:id="@+id/EditTextSearchInput"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:gravity="center_vertical"
+                android:background="@color/transparent"
                 android:text="商户名 , 地点等..."
                 android:textColor="#666666"
                 android:textSize="15sp" />
         </LinearLayout>
 
         <Button
-            android:id="@+id/Search_button1"
+            android:id="@+id/ButtonSearchClear"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:layout_weight="1"

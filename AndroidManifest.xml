@@ -49,6 +49,9 @@
         <activity
             android:name="com.order.manage.ui.OrderActivity_">
         </activity>
+        <activity
+            android:name="com.order.manage.ui.SearchWareActivity_">
+        </activity>
         
     </application>
 </manifest>

@@ -95,7 +95,7 @@ public class WareMoreAdapter extends BaseAdapter {
 	public interface OnWareItemClickClass{
 		public void OnItemClick(View v,int Position);
 	}
-	class OnOptionsClick implements OnClickListener{
+	private class OnOptionsClick implements OnClickListener{
 		int position;
 		
 		public OnOptionsClick(int position) {
