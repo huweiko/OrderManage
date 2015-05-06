@@ -58,7 +58,7 @@
                 android:layout_height="match_parent"
                 android:gravity="center_vertical"
                 android:background="@color/transparent"
-                android:text="商户名 , 地点等..."
+                android:hint="商户名 , 地点等..."
                 android:textColor="#666666"
                 android:textSize="15sp" />
         </LinearLayout>
@@ -79,7 +79,6 @@
             android:layout_height="match_parent"
             android:background="#F4F4F4"
             android:divider="@null"
-            android:listSelector="@drawable/search_more_morelistselect"
-            android:scrollbars="none" />
+            android:listSelector="@drawable/search_more_morelistselect"/>
 
 </LinearLayout>

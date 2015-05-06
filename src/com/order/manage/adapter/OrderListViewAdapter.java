@@ -218,7 +218,7 @@ public class OrderListViewAdapter extends BaseAdapter {
 	void showEditPriceDialog(final int position){
 		final EditText mEditTextAddressName;
 		Dialog noticeDialog = null;
-		AlertDialog.Builder builder = new Builder(ctx,R.style.dialog);
+		AlertDialog.Builder builder = new Builder(ctx);
 		builder.setInverseBackgroundForced(true);
 	
 

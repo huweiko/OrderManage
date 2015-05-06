@@ -7,6 +7,7 @@ package com.order.manage.ui;
 
 import android.content.Context;
 import android.os.Bundle;
+import android.support.v4.app.Fragment;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.ViewGroup.LayoutParams;
@@ -64,11 +65,7 @@ public final class HistoryActivity_
         return new HistoryActivity_.IntentBuilder_(context);
     }
 
-    public static HistoryActivity_.IntentBuilder_ intent(android.app.Fragment fragment) {
-        return new HistoryActivity_.IntentBuilder_(fragment);
-    }
-
-    public static HistoryActivity_.IntentBuilder_ intent(android.support.v4.app.Fragment supportFragment) {
+    public static HistoryActivity_.IntentBuilder_ intent(Fragment supportFragment) {
         return new HistoryActivity_.IntentBuilder_(supportFragment);
     }
 
@@ -82,13 +79,13 @@ public final class HistoryActivity_
 
     @Override
     public void onViewChanged(HasViews hasViews) {
-        ListViewOrderHistory = ((ListView) hasViews.findViewById(id.ListViewOrderHistory));
         TextViewOrderSubmitTime = ((TextView) hasViews.findViewById(id.TextViewOrderSubmitTime));
-        TextViewOrderId = ((TextView) hasViews.findViewById(id.TextViewOrderId));
+        ListViewOrderHistory = ((ListView) hasViews.findViewById(id.ListViewOrderHistory));
         ImageViewArrow = ((ImageView) hasViews.findViewById(id.ImageViewArrow));
-        ListViewWareListItem = ((ListView) hasViews.findViewById(id.ListViewWareListItem));
         TextViewPriceTotalNum = ((TextView) hasViews.findViewById(id.TextViewPriceTotalNum));
+        ListViewWareListItem = ((ListView) hasViews.findViewById(id.ListViewWareListItem));
         LinearLayoutOrderDetail = ((LinearLayout) hasViews.findViewById(id.LinearLayoutOrderDetail));
+        TextViewOrderId = ((TextView) hasViews.findViewById(id.TextViewOrderId));
         TextViewOrderRemarks = ((TextView) hasViews.findViewById(id.TextViewOrderRemarks));
         initView();
     }
@@ -97,19 +94,13 @@ public final class HistoryActivity_
         extends ActivityIntentBuilder<HistoryActivity_.IntentBuilder_>
     {
 
-        private android.app.Fragment fragment_;
-        private android.support.v4.app.Fragment fragmentSupport_;
+        private Fragment fragmentSupport_;
 
         public IntentBuilder_(Context context) {
             super(context, HistoryActivity_.class);
         }
 
-        public IntentBuilder_(android.app.Fragment fragment) {
-            super(fragment.getActivity(), HistoryActivity_.class);
-            fragment_ = fragment;
-        }
-
-        public IntentBuilder_(android.support.v4.app.Fragment fragment) {
+        public IntentBuilder_(Fragment fragment) {
             super(fragment.getActivity(), HistoryActivity_.class);
             fragmentSupport_ = fragment;
         }
@@ -119,11 +110,7 @@ public final class HistoryActivity_
             if (fragmentSupport_!= null) {
                 fragmentSupport_.startActivityForResult(intent, requestCode);
             } else {
-                if (fragment_!= null) {
-                    fragment_.startActivityForResult(intent, requestCode);
-                } else {
-                    super.startForResult(requestCode);
-                }
+                super.startForResult(requestCode);
             }
         }
 

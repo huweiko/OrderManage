@@ -8,6 +8,7 @@ import org.androidannotations.annotations.EActivity;
 import org.androidannotations.annotations.ViewById;
 
 import android.content.Context;
+import android.database.Cursor;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.widget.EditText;
@@ -15,14 +16,17 @@ import android.widget.ListView;
 
 import com.order.manage.R;
 import com.order.manage.adapter.SearchWareAdapter;
+import com.order.manage.db.BDInventoryMaster;
 import com.order.manage.struct.StructInventoryMaster;
 
 @EActivity(R.layout.activity_search)
 public class SearchWareActivity extends BaseActivity{
 	private Context context;
 	private SearchWareAdapter mSearchWareAdapter;
-	private List<StructInventoryMaster> data;
-	
+	private List<StructInventoryMaster> data = new ArrayList<StructInventoryMaster>();
+	private Cursor myInventoryMasterCursor;
+	//…Ã∆∑±Ì
+	private BDInventoryMaster mBDInventoryMaster;
 	@ViewById
 	ListView ListViewSearch;
 	@ViewById
@@ -30,9 +34,24 @@ public class SearchWareActivity extends BaseActivity{
 	@AfterViews
 	void Init(){
 		context = getApplicationContext();
-		data = new ArrayList<StructInventoryMaster>();
-		mSearchWareAdapter = new SearchWareAdapter(context, data, R.layout.ware_list_item);
+
+		mSearchWareAdapter = new SearchWareAdapter(context, new ArrayList<StructInventoryMaster>(), R.layout.ware_list_item);
 		ListViewSearch.setAdapter(mSearchWareAdapter);
+		
+		mBDInventoryMaster = new BDInventoryMaster(context);
+		mBDInventoryMaster.createDBtable();
+		myInventoryMasterCursor = mBDInventoryMaster.select();
+		for(int j =0;j<myInventoryMasterCursor.getCount();j++){
+			myInventoryMasterCursor.moveToPosition(j);
+			StructInventoryMaster l_StructInventoryMaster = new StructInventoryMaster();
+			
+			l_StructInventoryMaster.setInvIdCode(myInventoryMasterCursor.getString(0));
+			l_StructInventoryMaster.setInvName(myInventoryMasterCursor.getString(7));
+			l_StructInventoryMaster.setSalePrice(myInventoryMasterCursor.getDouble(12));
+			data.add(l_StructInventoryMaster);
+		}
+		mSearchWareAdapter.setWareFilter(data);
+		
 		
 		EditTextSearchInput.addTextChangedListener(new TextWatcher() {
 			
@@ -57,5 +76,11 @@ public class SearchWareActivity extends BaseActivity{
 				}
 			}
 		});
+	}
+	@Override
+	protected void onDestroy() {
+		// TODO Auto-generated method stub
+		super.onDestroy();
+		mBDInventoryMaster.close();
 	}
 }

@@ -129,7 +129,7 @@ public class OrderActivity extends BaseActivity implements OnOrderItemClickClass
 	void showEditRemarksDialog(){
 		final EditText mEditTextAddressName;
 		Dialog noticeDialog = null;
-		AlertDialog.Builder builder = new Builder(appContext,R.style.dialog);
+		AlertDialog.Builder builder = new Builder(appContext);
 		builder.setInverseBackgroundForced(true);
 	
 		builder.setTitle("Ôö¼Ó±¸×¢");

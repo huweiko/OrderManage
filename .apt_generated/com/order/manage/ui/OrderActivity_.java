@@ -8,6 +8,7 @@ package com.order.manage.ui;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.os.Bundle;
+import android.support.v4.app.Fragment;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -69,11 +70,7 @@ public final class OrderActivity_
         return new OrderActivity_.IntentBuilder_(context);
     }
 
-    public static OrderActivity_.IntentBuilder_ intent(android.app.Fragment fragment) {
-        return new OrderActivity_.IntentBuilder_(fragment);
-    }
-
-    public static OrderActivity_.IntentBuilder_ intent(android.support.v4.app.Fragment supportFragment) {
+    public static OrderActivity_.IntentBuilder_ intent(Fragment supportFragment) {
         return new OrderActivity_.IntentBuilder_(supportFragment);
     }
 
@@ -87,22 +84,10 @@ public final class OrderActivity_
 
     @Override
     public void onViewChanged(HasViews hasViews) {
-        CheckBoxSelectAll = ((CheckBox) hasViews.findViewById(id.CheckBoxSelectAll));
-        ButtonOrderListEdit = ((Button) hasViews.findViewById(id.ButtonOrderListEdit));
-        ListViewOrder = ((ListView) hasViews.findViewById(id.ListViewOrder));
         TextViewMoney = ((TextView) hasViews.findViewById(id.TextViewMoney));
-        if (ButtonOrderListEdit!= null) {
-            ButtonOrderListEdit.setOnClickListener(new OnClickListener() {
-
-
-                @Override
-                public void onClick(View view) {
-                    OrderActivity_.this.OnclickButtonOrderListEdit();
-                }
-
-            }
-            );
-        }
+        ListViewOrder = ((ListView) hasViews.findViewById(id.ListViewOrder));
+        ButtonOrderListEdit = ((Button) hasViews.findViewById(id.ButtonOrderListEdit));
+        CheckBoxSelectAll = ((CheckBox) hasViews.findViewById(id.CheckBoxSelectAll));
         {
             View view = hasViews.findViewById(id.ButtonSubmit);
             if (view!= null) {
@@ -118,6 +103,18 @@ public final class OrderActivity_
                 );
             }
         }
+        if (ButtonOrderListEdit!= null) {
+            ButtonOrderListEdit.setOnClickListener(new OnClickListener() {
+
+
+                @Override
+                public void onClick(View view) {
+                    OrderActivity_.this.OnclickButtonOrderListEdit();
+                }
+
+            }
+            );
+        }
         initView();
     }
 
@@ -125,19 +122,13 @@ public final class OrderActivity_
         extends ActivityIntentBuilder<OrderActivity_.IntentBuilder_>
     {
 
-        private android.app.Fragment fragment_;
-        private android.support.v4.app.Fragment fragmentSupport_;
+        private Fragment fragmentSupport_;
 
         public IntentBuilder_(Context context) {
             super(context, OrderActivity_.class);
         }
 
-        public IntentBuilder_(android.app.Fragment fragment) {
-            super(fragment.getActivity(), OrderActivity_.class);
-            fragment_ = fragment;
-        }
-
-        public IntentBuilder_(android.support.v4.app.Fragment fragment) {
+        public IntentBuilder_(Fragment fragment) {
             super(fragment.getActivity(), OrderActivity_.class);
             fragmentSupport_ = fragment;
         }
@@ -147,11 +138,7 @@ public final class OrderActivity_
             if (fragmentSupport_!= null) {
                 fragmentSupport_.startActivityForResult(intent, requestCode);
             } else {
-                if (fragment_!= null) {
-                    fragment_.startActivityForResult(intent, requestCode);
-                } else {
-                    super.startForResult(requestCode);
-                }
+                super.startForResult(requestCode);
             }
         }
 

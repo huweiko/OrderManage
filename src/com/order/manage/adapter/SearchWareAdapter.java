@@ -24,13 +24,17 @@ public class SearchWareAdapter extends BaseAdapter implements Filterable{
 	private Context ctx;
 	private WareFilter filter;
 	private List<StructInventoryMaster> listItems;
+	private List<StructInventoryMaster> data;
 	private int layout = R.layout.ware_list_item;
 	public SearchWareAdapter(Context context,List<StructInventoryMaster> data,int layout){
 		this.ctx = context;
 		this.listItems = data;
 		this.layout = layout;
 	}
-	public void setListItem(List<StructInventoryMaster> data){
+	public void setWareFilter(List<StructInventoryMaster> data){
+		this.data = data;
+	}
+	public void setlistItems(List<StructInventoryMaster> data){
 		this.listItems = data;
 	}
 	
@@ -90,7 +94,7 @@ public class SearchWareAdapter extends BaseAdapter implements Filterable{
 	public Filter getFilter() {
 		// TODO Auto-generated method stub
 		if(filter == null){
-			filter = new WareFilter(listItems);
+			filter = new WareFilter(data);
 		}
 		return filter;
 	}
