@@ -3,6 +3,7 @@ package com.order.manage.adapter;
 
 import java.util.List;
 
+import com.order.manage.PinyinHelper;
 import com.order.manage.R;
 import com.order.manage.struct.StructInventoryMaster;
 
@@ -28,6 +29,7 @@ public class WareMoreAdapter extends BaseAdapter {
 	private int position = 0;
 	private int layout = R.layout.ware_list_item;
 	private OnWareItemClickClass onItemClickClass;
+	
 	public WareMoreAdapter(Context ctx, List<StructInventoryMaster> data) {
 		this.ctx = ctx;
 		this.listItems = data;

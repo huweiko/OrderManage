@@ -86,10 +86,10 @@ public class FrameActivity extends ActivityGroup
 	//商品表
 	private BDInventoryMaster mBDInventoryMaster;
 	
-	public static final String[] LeiMuArray = {"leibie1","leibie2","leibie3","leibie4","leibie5","leibie6","leibie7","leibie8","leibie9","leibie10","leibie11","leibie12","leibie13","leibie14","leibie15","leibie16","leibie17","leibie18","leibie19"};
-	public static final String[] WareArray = {"cailiao1","cailiao2","cailiao3","cailiao4","cailiao5","cailiao6","cailiao7","cailiao8","cailiao9","cailiao10","cailiao11","cailiao12","cailiao13","cailiao14","cailiao15","cailiao16","cailiao17","cailiao18","cailiao19"};
-//	public static final String[] LeiMuArray = {"leibie1","leibie2","leibie3","leibie4","leibie5","leibie6","leibie7","leibie8","leibie9","leibie10","leibie11","leibie12","leibie13","leibie14","leibie15","leibie16","leibie17","leibie18","leibie19"};
-//	public static final String[] WareArray = {"cailiao1","cailiao2","cailiao3","cailiao4","cailiao5","cailiao6","cailiao7","cailiao8","cailiao9","cailiao10","cailiao11","cailiao12","cailiao13","cailiao14","cailiao15","cailiao16","cailiao17","cailiao18","cailiao19"};
+	public static final String[] LeiMuArray = {"类别1","类别2","类别3","类别4","类别5","类别6","类别7","类别8","类别9","类别10","类别11","类别12","类别13","类别14","类别15","类别16","类别17","类别18","类别19"};
+	public static final String[] WareArray = {"材料1","材料2","材料3","材料4","材料5","材料6","材料7","材料8","材料9","材料10","材料11","材料12","材料13","材料14","材料15","材料16","材料17","材料18","材料19"};
+//	public static final String[] LeiMuArray = {"类别1","类别2","类别3","类别4","类别5","类别6","类别7","类别8","类别9","类别10","类别11","类别12","类别13","类别14","类别15","类别16","类别17","类别18","类别19"};
+//	public static final String[] WareArray = {"材料1","材料2","材料3","材料4","材料5","材料6","材料7","材料8","材料9","材料10","材料11","材料12","材料13","材料14","材料15","材料16","材料17","材料18","材料19"};
 	public Handler mHandler=new Handler()  
 	{  
 		public void handleMessage(Message msg)  

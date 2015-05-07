@@ -14,6 +14,7 @@ import android.text.TextWatcher;
 import android.widget.EditText;
 import android.widget.ListView;
 
+import com.order.manage.PinyinHelper;
 import com.order.manage.R;
 import com.order.manage.adapter.SearchWareAdapter;
 import com.order.manage.db.BDInventoryMaster;
@@ -27,6 +28,10 @@ public class SearchWareActivity extends BaseActivity{
 	private Cursor myInventoryMasterCursor;
 	//商品表
 	private BDInventoryMaster mBDInventoryMaster;
+	
+	PinyinHelper mPinyinHelper;
+	
+	
 	@ViewById
 	ListView ListViewSearch;
 	@ViewById
@@ -34,7 +39,12 @@ public class SearchWareActivity extends BaseActivity{
 	@AfterViews
 	void Init(){
 		context = getApplicationContext();
+		mPinyinHelper = PinyinHelper.getInstance(context);
 
+		mPinyinHelper.toPinYin("和平公处");
+		mPinyinHelper.toPinYin("和1234");
+		mPinyinHelper.toPinYin("hello world");
+		mPinyinHelper.toPinYin("和");
 		mSearchWareAdapter = new SearchWareAdapter(context, new ArrayList<StructInventoryMaster>(), R.layout.ware_list_item);
 		ListViewSearch.setAdapter(mSearchWareAdapter);
 		

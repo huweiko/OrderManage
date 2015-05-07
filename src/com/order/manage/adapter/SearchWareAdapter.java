@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 
+import com.order.manage.PinyinHelper;
 import com.order.manage.R;
 import com.order.manage.struct.StructInventoryMaster;
 import com.order.manage.ui.SearchWareActivity;
@@ -26,10 +27,12 @@ public class SearchWareAdapter extends BaseAdapter implements Filterable{
 	private List<StructInventoryMaster> listItems;
 	private List<StructInventoryMaster> data;
 	private int layout = R.layout.ware_list_item;
+	PinyinHelper mPinyinHelper;
 	public SearchWareAdapter(Context context,List<StructInventoryMaster> data,int layout){
 		this.ctx = context;
 		this.listItems = data;
 		this.layout = layout;
+		mPinyinHelper = PinyinHelper.getInstance(context);
 	}
 	public void setWareFilter(List<StructInventoryMaster> data){
 		this.data = data;
@@ -111,19 +114,18 @@ public class SearchWareAdapter extends BaseAdapter implements Filterable{
 			// TODO Auto-generated method stub
 			FilterResults results = new FilterResults();
 			if (TextUtils.isEmpty(constraint)) { // 无过滤
-				results.values = filterDatas;
-				results.count = filterDatas.size();
+				List<StructInventoryMaster> lists = new ArrayList<StructInventoryMaster>();
+				results.values = lists;
+				results.count = lists.size();
 			} else {// 过滤
 				List<StructInventoryMaster> lists = new ArrayList<StructInventoryMaster>();
 				// lists.add(datas.get(0));// 固定当前城市
 				for (StructInventoryMaster data : filterDatas) {
 					// 过滤规则: 名字或者名字拼音中包含关键字
-					String keyWord = constraint.toString().toLowerCase(
-							Locale.CHINA);
-					String pinyin = data.getInvName().toLowerCase(
-							Locale.CHINA);
+					String keyWord = mPinyinHelper.getFullPinyin(constraint.toString());
+					String pinyin =  mPinyinHelper.getFullPinyin(data.getInvName());
 					// boolean a = s.matches("^[a-zA-Z]*");
-					if (keyWord.matches("^[a-zA-Z]*")) {// 全英文
+//					if (keyWord.matches("^[a-zA-Z]*")) {// 全英文
 						boolean isContain = true;
 						char[] b = keyWord.toCharArray();
 						for (char c : b) {
@@ -134,7 +136,7 @@ public class SearchWareAdapter extends BaseAdapter implements Filterable{
 						if (isContain) {
 							lists.add(data);
 						}
-					}
+//					}
 				}
 				results.values = lists;
 				results.count = lists.size();
