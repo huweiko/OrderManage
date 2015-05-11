@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" >
+
+    <LinearLayout
+        android:id="@+id/LinearLayoutTop"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/title_background"
+        android:orientation="horizontal" >
+
+        <LinearLayout
+            android:id="@+id/LinearLayoutOrderSearchElement"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_weight="5"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            android:padding="10dp" >
+
+            <TextView
+                android:id="@+id/TextViewOrderSearchElement"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:gravity="center_vertical"
+                android:text="品名"
+                android:textColor="#FF8C00"
+                android:textSize="18sp" />
+
+            <ImageView
+                android:id="@+id/ImageViewOrderSearchElement"
+                android:layout_width="22dp"
+                android:layout_height="22dp"
+                android:src="@drawable/search_city" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/LinearLayoutOrderSearchContent"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_marginBottom="5dp"
+            android:layout_marginTop="5dp"
+            android:layout_weight="300"
+            android:background="@drawable/search_input"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            android:padding="5dp" >
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:src="@drawable/ic_search" />
+
+            <EditText
+                android:id="@+id/EditTextOrderSearchInput"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:gravity="center_vertical"
+                android:background="@color/transparent"
+                android:hint="商户名 , 地点等..."
+                android:textColor="#666666"
+                android:textSize="15sp" />
+        </LinearLayout>
+
+        <Button
+            android:id="@+id/ButtonOrderSearchClear"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:padding="10dp"
+            android:text="取消"
+            android:textColor="#666666"
+            android:background="@color/transparent"/>
+    </LinearLayout>
+
+	<ListView
+	    android:layout_below="@+id/LinearLayoutTop"
+        android:id="@+id/ListViewOrderSearch"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#F4F4F4"
+        android:divider="@null"
+        android:listSelector="@drawable/search_more_morelistselect"/>
+    <ListView
+        android:layout_below="@+id/LinearLayoutTop"
+	    android:id="@+id/ListViewOrderSearchElement"
+	    android:layout_width="match_parent"
+	    android:layout_height="350dp"
+	    android:background="#f4f4f4"
+	    android:divider="@null"
+	    android:listSelector="@drawable/search_more_morelistselect"
+	    android:padding="10dp"
+	    android:visibility="gone" />
+</RelativeLayout>

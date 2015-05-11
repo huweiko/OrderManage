@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.androidannotations.annotations.AfterViews;
+import org.androidannotations.annotations.Click;
 import org.androidannotations.annotations.EActivity;
 import org.androidannotations.annotations.ViewById;
 
@@ -48,6 +49,8 @@ public class HistoryActivity extends BaseActivity implements OnWareItemClickClas
 	private List<StructOrderDetail> lp_StructOrderDetail = new ArrayList<StructOrderDetail>();
 	
 	public static final String INTERNAL_ACTION_SUBMITORDER="broadcast.SUBMITORDER";
+	
+	public final int HISTORY_DISTRICT = 1;
 	@ViewById
 	ListView ListViewOrderHistory;
 	@ViewById
@@ -64,7 +67,12 @@ public class HistoryActivity extends BaseActivity implements OnWareItemClickClas
 	TextView TextViewOrderRemarks;
 	@ViewById
 	TextView TextViewOrderSubmitTime;
-	
+	@Click(R.id.LinearLayoutHistoryOrderInputClick)
+	void OnclickHistoryOrderInputClick(){
+		Intent intent = new Intent();
+		intent.setClass(mContext, OrderSearchActivity_.class);
+		startActivityForResult(intent,HISTORY_DISTRICT);
+	}
 	@AfterViews
 	void initView() {
 		mContext =  HistoryActivity.this;
@@ -79,6 +87,36 @@ public class HistoryActivity extends BaseActivity implements OnWareItemClickClas
 		IntentFilter filter = new IntentFilter();
 		filter.addAction(INTERNAL_ACTION_SUBMITORDER);
 		mContext.registerReceiver(receiver, filter);
+	}
+	@Override
+	public void onActivityResult(int requestCode, int resultCode,  Intent data)  
+	{   
+		super.onActivityResult(requestCode, resultCode, data);
+		if(requestCode == HISTORY_DISTRICT)
+		{
+			if(resultCode == RESULT_OK)
+			{
+				if(data != null)
+				{
+					if(data.getStringExtra("orderitem") != null){
+						int item = getListItem(data.getStringExtra("orderitem"));
+						
+						ListViewOrderHistory.setSelection(item);
+					}
+
+				}
+			}
+		}
+	}
+	int getListItem(String billID){
+		int result = 0;
+		for(int i = 0;i < lp_StructOrderHeader.size();i++){
+			if(lp_StructOrderHeader.get(i).getBillId().equals(billID)){
+				result = i;
+				break;
+			}
+		}
+		return result;
 	}
 	void InitOrderHeaderData(){
 		Cursor cursor = mBDOrderHeader.select();
