@@ -81,7 +81,12 @@ public class OrderActivity extends BaseActivity implements OnOrderItemClickClass
 	
 	@Click(R.id.ButtonSubmit)
 	void OnclickButtonSubmit(){
-		showEditRemarksDialog();
+		if(mOrderStructInventoryMaster.size()>0){
+			showEditRemarksDialog();
+		}else{
+			UIHealper.DisplayToast(appContext, "没有订单！");
+		}
+		
 
 	}
 	//插入订单头信息到数据库
@@ -118,7 +123,7 @@ public class OrderActivity extends BaseActivity implements OnOrderItemClickClass
 			l_StructOrderDetail.setPrice(price);
 			l_StructOrderDetail.setOrderMny(ordernum*price);
 			l_StructOrderDetail.setInvName(mOrderStructInventoryMaster.get(i).getInvName());
-			l_StructOrderDetail.setInvCode(mOrderStructInventoryMaster.get(i).getInvCode());
+			l_StructOrderDetail.setInvIdCode(mOrderStructInventoryMaster.get(i).getInvIdCode());
 			l_StructOrderDetail.setTotalNum(ordertotalnum);
 			mBDOrderDetail.insert(l_StructOrderDetail);
 		}
@@ -312,11 +317,11 @@ public class OrderActivity extends BaseActivity implements OnOrderItemClickClass
 						mOrderListViewAdapter.setListItems(l_OrderStructInventoryMaster);
 						mOrderListViewAdapter.notifyDataSetChanged();
 					}
-					
+					Message msg = new Message();
+					msg.what = HANDLE_UPDATE;
+					mHandler.sendMessage(msg);
 				}
-				Message msg = new Message();
-				msg.what = HANDLE_UPDATE;
-				mHandler.sendMessage(msg);
+
 			}
 			
 		}

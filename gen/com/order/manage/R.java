@@ -192,7 +192,11 @@ containing a value of this type.
         public static final int yy_list_bkg_line_top=0x7f020058;
     }
     public static final class id {
-        public static final int ButtonOrderDelete=0x7f0a0049;
+        public static final int ButtonHistoryOrderCopy=0x7f0a003d;
+        public static final int ButtonHistoryOrderDelete=0x7f0a003e;
+        public static final int ButtonHistoryOrderSubmit=0x7f0a003f;
+        public static final int ButtonHistoryOrderUpdate=0x7f0a003c;
+        public static final int ButtonOrderDelete=0x7f0a004d;
         public static final int ButtonOrderListEdit=0x7f0a0019;
         public static final int ButtonOrderSearchClear=0x7f0a0025;
         public static final int ButtonSearchClear=0x7f0a002d;
@@ -200,14 +204,14 @@ containing a value of this type.
         public static final int CheckBoxSelectAll=0x7f0a001b;
         public static final int EditTextAddressName=0x7f0a0032;
         public static final int EditTextOrderSearchInput=0x7f0a0024;
-        public static final int EditTextRemarks=0x7f0a004a;
+        public static final int EditTextRemarks=0x7f0a004e;
         public static final int EditTextSearchInput=0x7f0a002c;
         public static final int Fragment01Linear=0x7f0a0033;
         public static final int FramePager=0x7f0a0011;
         public static final int Frame_BottemView=0x7f0a0007;
-        public static final int ImageButtonNumAdd=0x7f0a0047;
-        public static final int ImageButtonNumSubtract=0x7f0a0045;
-        public static final int ImageButton_ware_add=0x7f0a0050;
+        public static final int ImageButtonNumAdd=0x7f0a004b;
+        public static final int ImageButtonNumSubtract=0x7f0a0049;
+        public static final int ImageButton_ware_add=0x7f0a0054;
         public static final int ImageViewArrow=0x7f0a0038;
         public static final int ImageViewOrderSearchElement=0x7f0a0022;
         public static final int ImageViewSearchCategory=0x7f0a002a;
@@ -219,8 +223,8 @@ containing a value of this type.
         public static final int LinearLayoutHistoryOrderInputClick=0x7f0a0016;
         public static final int LinearLayoutHistoryOrderListItem=0x7f0a0035;
         public static final int LinearLayoutOrderDetail=0x7f0a0039;
-        public static final int LinearLayoutOrderList=0x7f0a003f;
-        public static final int LinearLayoutOrderListEdit=0x7f0a0043;
+        public static final int LinearLayoutOrderList=0x7f0a0043;
+        public static final int LinearLayoutOrderListEdit=0x7f0a0047;
         public static final int LinearLayoutOrderSearchContent=0x7f0a0023;
         public static final int LinearLayoutOrderSearchElement=0x7f0a0020;
         public static final int LinearLayoutSearchEdit=0x7f0a002b;
@@ -231,7 +235,7 @@ containing a value of this type.
         public static final int ListViewOrderSearchElement=0x7f0a0027;
         public static final int ListViewSearch=0x7f0a002e;
         public static final int ListViewWareListItem=0x7f0a003b;
-        public static final int More_list_lishi=0x7f0a004b;
+        public static final int More_list_lishi=0x7f0a004f;
         public static final int MyBottemCheckinBtn=0x7f0a000e;
         public static final int MyBottemCheckinImg=0x7f0a000f;
         public static final int MyBottemCheckinTxt=0x7f0a0010;
@@ -246,33 +250,33 @@ containing a value of this type.
         public static final int Search_city=0x7f0a0000;
         public static final int Search_city_img=0x7f0a0002;
         public static final int Search_city_txt=0x7f0a0001;
-        public static final int Search_more_moreitem_txt=0x7f0a004c;
+        public static final int Search_more_moreitem_txt=0x7f0a0050;
         public static final int Shoplist_mainlist2=0x7f0a0004;
         public static final int Shoplist_onelist2=0x7f0a0005;
         public static final int Shoplist_twolist2=0x7f0a0006;
-        public static final int TextViewEditOrderName=0x7f0a0044;
+        public static final int TextViewEditOrderName=0x7f0a0048;
         public static final int TextViewMoney=0x7f0a001d;
-        public static final int TextViewOderNum=0x7f0a0046;
-        public static final int TextViewOrderEditPrice=0x7f0a0048;
+        public static final int TextViewOderNum=0x7f0a004a;
+        public static final int TextViewOrderEditPrice=0x7f0a004c;
         public static final int TextViewOrderId=0x7f0a003a;
-        public static final int TextViewOrderName=0x7f0a0040;
-        public static final int TextViewOrderNum=0x7f0a0042;
-        public static final int TextViewOrderPrice=0x7f0a0041;
-        public static final int TextViewOrderRemarks=0x7f0a003d;
+        public static final int TextViewOrderName=0x7f0a0044;
+        public static final int TextViewOrderNum=0x7f0a0046;
+        public static final int TextViewOrderPrice=0x7f0a0045;
+        public static final int TextViewOrderRemarks=0x7f0a0041;
         public static final int TextViewOrderSearchElement=0x7f0a0021;
-        public static final int TextViewOrderSubmitTime=0x7f0a003e;
-        public static final int TextViewPriceTotalNum=0x7f0a003c;
+        public static final int TextViewOrderSubmitTime=0x7f0a0042;
+        public static final int TextViewPriceTotalNum=0x7f0a0040;
         public static final int TextViewRemarks=0x7f0a0036;
         public static final int TextViewSearchCategory=0x7f0a0029;
         public static final int TextViewSearchOrderText=0x7f0a0014;
         public static final int TextViewTotalPrice=0x7f0a0037;
-        public static final int TextView_ware_name=0x7f0a004e;
-        public static final int TextView_ware_price=0x7f0a004f;
+        public static final int TextView_ware_name=0x7f0a0052;
+        public static final int TextView_ware_price=0x7f0a0053;
         public static final int category_mainitem_img=0x7f0a0030;
         public static final int category_mainitem_layout=0x7f0a002f;
         public static final int category_mainitem_txt=0x7f0a0031;
         public static final int textView1=0x7f0a001c;
-        public static final int ware_list_lishi=0x7f0a004d;
+        public static final int ware_list_lishi=0x7f0a0051;
     }
     public static final class layout {
         public static final int activity_category=0x7f030000;
@@ -350,7 +354,7 @@ in (inches), mm (millimeters).
 theme attribute (in the form
 "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
 containing a value of this type.
-          @attr name android:rightPadding
+          @attr name com.order.manage:rightPadding
         */
         public static final int SlidingMenu_rightPadding = 0;
     };

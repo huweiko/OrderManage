@@ -16,6 +16,7 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -99,12 +100,24 @@ public class HistoryOrderAdapter extends BaseAdapter {
 					.findViewById(R.id.TextViewOrderRemarks);
 			hold.mTextViewOrderSubmitTime = (TextView) arg1
 					.findViewById(R.id.TextViewOrderSubmitTime);
+			hold.mButtonHistoryOrderUpdate = (Button) arg1
+					.findViewById(R.id.ButtonHistoryOrderUpdate);
+			hold.mButtonHistoryOrderCopy = (Button) arg1
+					.findViewById(R.id.ButtonHistoryOrderCopy);
+			hold.mButtonHistoryOrderDelete = (Button) arg1
+					.findViewById(R.id.ButtonHistoryOrderDelete);
+			hold.mButtonHistoryOrderSubmit = (Button) arg1
+					.findViewById(R.id.ButtonHistoryOrderSubmit);
 			
 			arg1.setTag(hold);
 		} else {
 			hold = (Holder) arg1.getTag();
 		}
 		hold.layout.setOnClickListener(new OnOptionsClick(arg0));
+		hold.mButtonHistoryOrderUpdate.setOnClickListener(new OnOptionsClick(arg0));
+		hold.mButtonHistoryOrderCopy.setOnClickListener(new OnOptionsClick(arg0));
+		hold.mButtonHistoryOrderDelete.setOnClickListener(new OnOptionsClick(arg0));
+		hold.mButtonHistoryOrderSubmit.setOnClickListener(new OnOptionsClick(arg0));
 			hold.txt.setTextColor(Color.parseColor("#FF666666"));
 		if (arg0 == position) {
 			hold.layout
@@ -115,7 +128,7 @@ public class HistoryOrderAdapter extends BaseAdapter {
 			hold.mLinearLayoutOrderDetail.setVisibility(View.VISIBLE);
 			hold.mImageViewArrow.setImageResource(R.drawable.arrow_down);
 			
-			hold.mTextViewOrderId.setText(listItemOrderDetail.get(0).getBillId());
+			hold.mTextViewOrderId.setText(listItemsOrderHeader.get(arg0).getBillId());
 			hold.mTextViewPriceTotalNum.setText(listItemsOrderHeader.get(arg0).getTotalMny()+"Ԫ");
 			hold.mTextViewOrderRemarks.setText(listItemsOrderHeader.get(arg0).getMemo());
 			hold.mTextViewOrderSubmitTime.setText(listItemsOrderHeader.get(arg0).getBillDate());
@@ -153,6 +166,11 @@ public class HistoryOrderAdapter extends BaseAdapter {
 		TextView mTextViewPriceTotalNum;
 		TextView mTextViewOrderRemarks;
 		TextView mTextViewOrderSubmitTime;
+		Button mButtonHistoryOrderUpdate;
+		Button mButtonHistoryOrderCopy;
+		Button mButtonHistoryOrderDelete;
+		Button mButtonHistoryOrderSubmit;
+		
 	}
 	public interface OnWareItemClickClass{
 		public void OnItemClick(View v,int Position);

@@ -165,17 +165,21 @@ public class CategoryActivity extends BaseActivity implements OnWareItemClickCla
 	@Override
 	public void OnItemClick(View v, int Position) {
 		// TODO Auto-generated method stub
+		boolean isHave = false;
 		mCurrentSecondItem = Position;
 		String WareId = mStructBDInventoryClassBrand.get(mCurrentMainItem).getmBDInventoryClassBrand().get(Position).getInvIdCode();
+		
 		for(int i = 0;i<OrderActivity.mOrderStructInventoryMaster.size();i++){
 			if(OrderActivity.mOrderStructInventoryMaster.get(i).getInvIdCode().equals(WareId)){
 				OrderActivity.mOrderStructInventoryMaster.get(i).setOrderNumber(OrderActivity.mOrderStructInventoryMaster.get(i).getOrderNumber()+1);
-				Intent intent = new Intent(OrderActivity.INTERNAL_ACTION_UPDATEORDERACTIVITY);
-				appContext.sendBroadcast(intent);
-				return;
+				isHave = true;
+				break;
 			}
 		}
-		OrderActivity.mOrderStructInventoryMaster.add(mStructBDInventoryClassBrand.get(mCurrentMainItem).getmBDInventoryClassBrand().get(Position));
+		if(!isHave){
+			OrderActivity.mOrderStructInventoryMaster.add(mStructBDInventoryClassBrand.get(mCurrentMainItem).getmBDInventoryClassBrand().get(Position));
+		}
+
 		Intent intent = new Intent(OrderActivity.INTERNAL_ACTION_UPDATEORDERACTIVITY);
 		appContext.sendBroadcast(intent);
 	};

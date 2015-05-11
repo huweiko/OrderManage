@@ -13,8 +13,10 @@ import org.androidannotations.annotations.ViewById;
 import com.order.manage.R;
 import com.order.manage.adapter.HistoryOrderAdapter;
 import com.order.manage.adapter.HistoryOrderAdapter.OnWareItemClickClass;
+import com.order.manage.db.BDInventoryMaster;
 import com.order.manage.db.BDOrderDetail;
 import com.order.manage.db.BDOrderHeader;
+import com.order.manage.struct.StructInventoryMaster;
 import com.order.manage.struct.StructOrderDetail;
 import com.order.manage.struct.StructOrderHeader;
 
@@ -25,8 +27,10 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.database.Cursor;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
@@ -51,6 +55,9 @@ public class HistoryActivity extends BaseActivity implements OnWareItemClickClas
 	public static final String INTERNAL_ACTION_SUBMITORDER="broadcast.SUBMITORDER";
 	
 	public final int HISTORY_DISTRICT = 1;
+	
+	private Cursor myInventoryMasterCursor;
+	private BDInventoryMaster mBDInventoryMaster;
 	@ViewById
 	ListView ListViewOrderHistory;
 	@ViewById
@@ -67,6 +74,8 @@ public class HistoryActivity extends BaseActivity implements OnWareItemClickClas
 	TextView TextViewOrderRemarks;
 	@ViewById
 	TextView TextViewOrderSubmitTime;
+
+	
 	@Click(R.id.LinearLayoutHistoryOrderInputClick)
 	void OnclickHistoryOrderInputClick(){
 		Intent intent = new Intent();
@@ -80,6 +89,8 @@ public class HistoryActivity extends BaseActivity implements OnWareItemClickClas
 		mBDOrderHeader.createDBtable();
 		mBDOrderDetail = new BDOrderDetail(mContext);
 		mBDOrderDetail.createDBtable();
+		mBDInventoryMaster = new BDInventoryMaster(mContext);
+		mBDInventoryMaster.createDBtable();
 		InitOrderHeaderData();
 		mHistoryOrderAdapter = new HistoryOrderAdapter(mContext, lp_StructOrderHeader,lp_StructOrderDetail);
 		ListViewOrderHistory.setAdapter(mHistoryOrderAdapter);
@@ -147,7 +158,7 @@ public class HistoryActivity extends BaseActivity implements OnWareItemClickClas
 			l_StructOrderDetail.setPrice(cursor.getDouble(15));
 			l_StructOrderDetail.setOrderMny(cursor.getDouble(16));
 			l_StructOrderDetail.setInvName(cursor.getString(11));
-			l_StructOrderDetail.setInvCode(cursor.getString(8));
+			l_StructOrderDetail.setInvIdCode(cursor.getString(3));
 			l_StructOrderDetail.setTotalNum(cursor.getInt(18));
 			lp_StructOrderDetail.add(l_StructOrderDetail);
 		}
@@ -190,28 +201,97 @@ public class HistoryActivity extends BaseActivity implements OnWareItemClickClas
 		mContext.unregisterReceiver(receiver);
 		mBDOrderHeader.close();
 		mBDOrderDetail.close();
+		mBDInventoryMaster.close();
 		super.onDestroy();
+	}
+	private void FromDBToInventory(Cursor cursor,StructInventoryMaster l_StructInventoryMaster){
+		for(int j =0;j<cursor.getCount();j++){
+			cursor.moveToPosition(j);
+			l_StructInventoryMaster.setInvIdCode(cursor.getString(0));
+			l_StructInventoryMaster.setInvName(cursor.getString(7));
+			l_StructInventoryMaster.setSalePrice(cursor.getDouble(12));
+		}
 	}
 	@Override
 	public void OnItemClick(View v, int Position) {
 		// TODO Auto-generated method stub
-		for(int i = 0;i< lp_StructOrderHeader.size();i++){
-			if(i == Position){
-				if(lp_StructOrderHeader.get(Position).getOrderUnfoldSstatus()){
-					lp_StructOrderHeader.get(Position).setOrderUnfoldSstatus(false);
-				}else{
-					lp_StructOrderHeader.get(Position).setOrderUnfoldSstatus(true);
+		int id = v.getId();
+		switch(id){
+			case R.id.ButtonHistoryOrderUpdate:
+				Log.i("huwei", "Update Position = "+Position);
+				break;
+			case R.id.ButtonHistoryOrderCopy:{
+				Log.i("huwei", "Copy Position = "+Position);
+				String BillId = lp_StructOrderHeader.get(Position).getBillId();
+				Cursor OrderDetailCursor = mBDOrderDetail.selectByAttribute(BillId);
+				for(int i = 0;i < OrderDetailCursor.getCount();i++){
+					OrderDetailCursor.moveToPosition(i);
+					boolean isHave = false;
+					String InvIdCode = OrderDetailCursor.getString(3);
+					for(int j = 0;j<OrderActivity.mOrderStructInventoryMaster.size();j++){
+						if(OrderActivity.mOrderStructInventoryMaster.get(j).getInvIdCode().equals(InvIdCode)){
+							int OrderNumber = OrderActivity.mOrderStructInventoryMaster.get(j).getOrderNumber();
+							OrderActivity.mOrderStructInventoryMaster.get(j).setOrderNumber(lp_StructOrderDetail.get(i).getNum()+OrderNumber);
+							isHave = true;
+							break;
+						}
+					}
+					if(!isHave){
+						Cursor cursor = mBDInventoryMaster.selectByAttribute(InvIdCode);
+						StructInventoryMaster l_StructInventoryMaster = new StructInventoryMaster();
+						FromDBToInventory(cursor, l_StructInventoryMaster);
+						if(cursor != null){
+							cursor.close();
+						}
+						l_StructInventoryMaster.setOrderNumber(lp_StructOrderDetail.get(i).getNum());
+						OrderActivity.mOrderStructInventoryMaster.add(l_StructInventoryMaster);
+					}
 				}
-			}else{
-				lp_StructOrderHeader.get(i).setOrderUnfoldSstatus(false);
+				if(OrderDetailCursor != null){
+					OrderDetailCursor.close();
+				}
+				
+				Intent intent = new Intent(OrderActivity.INTERNAL_ACTION_UPDATEORDERACTIVITY);
+				mContext.sendBroadcast(intent);
+				
 			}
+				break;
+			case R.id.ButtonHistoryOrderDelete:{
+				Log.i("huwei", "Delete Position = "+Position);
+				String BillId = lp_StructOrderHeader.get(Position).getBillId();
+				lp_StructOrderHeader.remove(Position);
+				mBDOrderHeader.delete(BillId);
+				mBDOrderDetail.delete(BillId);
+				mHistoryOrderAdapter.setListItem(lp_StructOrderHeader,lp_StructOrderDetail);
+				mHistoryOrderAdapter.notifyDataSetChanged();
+			}
+				break;
+			case R.id.ButtonHistoryOrderSubmit:
+				Log.i("huwei", "Submit Position = "+Position);
+				break;
+			case R.id.LinearLayoutHistoryOrderListItem:{
+				for(int i = 0;i< lp_StructOrderHeader.size();i++){
+					if(i == Position){
+						if(lp_StructOrderHeader.get(Position).getOrderUnfoldSstatus()){
+							lp_StructOrderHeader.get(Position).setOrderUnfoldSstatus(false);
+						}else{
+							lp_StructOrderHeader.get(Position).setOrderUnfoldSstatus(true);
+						}
+					}else{
+						lp_StructOrderHeader.get(i).setOrderUnfoldSstatus(false);
+					}
 
+				}
+				mHistoryOrderAdapter.setSelectItem(Position);
+				String l_BillId = lp_StructOrderHeader.get(Position).getBillId();
+				loadOrderDetailData(l_BillId);
+				mHistoryOrderAdapter.setListItem(lp_StructOrderHeader,lp_StructOrderDetail);
+				mHistoryOrderAdapter.notifyDataSetChanged();
+			}
+				break;
+				default:break;
 		}
-		mHistoryOrderAdapter.setSelectItem(Position);
-		String l_BillId = lp_StructOrderHeader.get(Position).getBillId();
-		loadOrderDetailData(l_BillId);
-		mHistoryOrderAdapter.setListItem(lp_StructOrderHeader,lp_StructOrderDetail);
-		mHistoryOrderAdapter.notifyDataSetChanged();
+
 	};
 
 }

@@ -80,6 +80,38 @@
 		    android:orientation="horizontal"
 		    android:layout_gravity="right|center_vertical"
 		    android:layout_marginTop="10dp">
+			<Button 
+			    android:id="@+id/ButtonHistoryOrderUpdate"
+			    android:layout_width="wrap_content"
+			    android:layout_height="wrap_content"
+			    android:text="修改"
+			    android:textColor="#666666"
+            	android:textSize="17sp"
+			    />
+			<Button 
+			    android:id="@+id/ButtonHistoryOrderCopy"
+			    android:layout_width="wrap_content"
+			    android:layout_height="wrap_content"
+			    android:text="复制"
+			    android:textColor="#666666"
+            	android:textSize="17sp"
+			    />
+			<Button 
+			    android:id="@+id/ButtonHistoryOrderDelete"
+			    android:layout_width="wrap_content"
+			    android:layout_height="wrap_content"
+			    android:text="删除"
+			    android:textColor="#666666"
+            	android:textSize="17sp"
+			    />
+			<Button 
+			    android:id="@+id/ButtonHistoryOrderSubmit"
+			    android:layout_width="wrap_content"
+			    android:layout_height="wrap_content"
+			    android:text="提交"
+			    android:textColor="#666666"
+            	android:textSize="17sp"
+			    />
 			<TextView 
 			    android:layout_width="match_parent"
 		    	android:layout_height="wrap_content"
