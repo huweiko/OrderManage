@@ -58,7 +58,6 @@
                 android:layout_height="match_parent"
                 android:gravity="center_vertical"
                 android:background="@color/transparent"
-                android:hint="商户名 , 地点等..."
                 android:textColor="#666666"
                 android:textSize="15sp" />
         </LinearLayout>
