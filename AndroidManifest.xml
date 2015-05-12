@@ -55,6 +55,12 @@
         <activity
             android:name="com.order.manage.ui.OrderSearchActivity_">
         </activity>
+        <activity
+            android:name="com.order.manage.ui.MoreActivity_">
+        </activity>
+        <activity
+            android:name="com.order.manage.ui.AboutActivity_">
+        </activity>
         
     </application>
 </manifest>

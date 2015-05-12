@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" >
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:background="@drawable/title_background"
+        android:orientation="horizontal"
+        android:paddingBottom="1dp" >
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:text="更多"
+            android:textSize="18sp" />
+    </LinearLayout>
+    <ScrollView
+        android:id="@+id/MyMoreScroll"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" >
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="#F4F4F4"
+            android:orientation="vertical" >
+            <LinearLayout
+                android:id="@+id/LinearLayoutMoreServiceAddress"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/my_tab_background"
+                android:gravity="center_vertical"
+                android:paddingBottom="0dp"
+                android:paddingLeft="15dp" >
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="9"
+                    android:background="@drawable/my_list_txt_background"
+                    android:gravity="center_vertical"
+                    android:paddingBottom="10dp"
+                    android:paddingTop="10dp"
+                    android:text="服务器地址配置"
+                    android:textSize="18sp" />
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:background="@drawable/my_list_txt_background"
+                    android:paddingRight="10dp"
+                    android:src="@drawable/arrow" />
+            </LinearLayout>
+            <LinearLayout
+                android:id="@+id/LinearLayoutMoreLoadNewDada"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/my_tab_background"
+                android:gravity="center_vertical"
+                android:paddingBottom="0dp"
+                android:paddingLeft="15dp" >
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="9"
+                    android:background="@drawable/my_list_txt_background"
+                    android:gravity="center_vertical"
+                    android:paddingBottom="10dp"
+                    android:paddingTop="10dp"
+                    android:text="下载新资料"
+                    android:textSize="18sp" />
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:background="@drawable/my_list_txt_background"
+                    android:paddingRight="10dp"
+                    android:src="@drawable/arrow" />
+            </LinearLayout>
+            <LinearLayout
+                android:id="@+id/LinearLayoutMoreAbaout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/my_tab_background"
+                android:gravity="center_vertical"
+                android:paddingBottom="0dp"
+                android:paddingLeft="15dp" >
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="9"
+                    android:background="@drawable/my_list_txt_background"
+                    android:gravity="center_vertical"
+                    android:paddingBottom="10dp"
+                    android:paddingTop="10dp"
+                    android:text="关于我们"
+                    android:textSize="18sp" />
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:background="@drawable/my_list_txt_background"
+                    android:paddingRight="10dp"
+                    android:src="@drawable/arrow" />
+            </LinearLayout>
+
+
+        </LinearLayout>
+    </ScrollView>
+</LinearLayout>

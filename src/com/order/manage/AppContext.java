@@ -1,11 +1,33 @@
 package com.order.manage;
 
+import com.order.manage.http.FinalHttp;
+
 import android.app.Application;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 public class AppContext extends Application{ 
 	public String ApplicationName;
 	public String AppVesion;
+	private static AppContext application;
+	private static FinalHttp finalHttp;
+	
+	public static AppContext getInstance() {
+		if(application == null){
+			application = new AppContext();
+		}
+		return application;
+	}
+
+	public User getUser() {
+		return null;
+	}
+
+	public FinalHttp getFinalHttp() {
+		if(finalHttp == null){
+			finalHttp = new FinalHttp();
+		}
+		return finalHttp;
+	}
     @Override 
     public void onCreate() { 
         // TODO Auto-generated method stub 

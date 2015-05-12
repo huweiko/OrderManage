@@ -63,22 +63,29 @@ public class FrameActivity extends ActivityGroup
 	@ViewById
 	LinearLayout MyBottemCheckinBtn;
 	@ViewById
+	LinearLayout MyBottemMoreBtn;
+	@ViewById
 	ImageView MyBottemSearchImg;
 	@ViewById
 	ImageView MyBottemTuanImg;
 	@ViewById
 	ImageView MyBottemCheckinImg;
 	@ViewById
+	ImageView MyBottemMoreImg;
+	@ViewById
 	TextView MyBottemSearchTxt;
 	@ViewById
 	TextView MyBottemTuanTxt;
 	@ViewById
 	TextView MyBottemCheckinTxt;
+	@ViewById
+	TextView MyBottemMoreTxt;
 	
 	private List<View> list = new ArrayList<View>();// 相当于数据源
 	private View view = null;
 	private View view1 = null;
 	private View view2 = null;
+	private View view3 = null;
 	private PagerAdapter pagerAdapter = null;// 数据源和viewpager之间的桥梁
 	
 	//类目表
@@ -155,6 +162,7 @@ public class FrameActivity extends ActivityGroup
 		MyBottemSearchBtn.setOnClickListener(mytouchlistener);
 		MyBottemTuanBtn.setOnClickListener(mytouchlistener);
 		MyBottemCheckinBtn.setOnClickListener(mytouchlistener);
+		MyBottemMoreBtn.setOnClickListener(mytouchlistener);
 		
 		// 设置viewpager界面切换监听,监听viewpager切换第几个界面以及滑动的
 		mViewPager.setOnPageChangeListener(new OnPageChangeListener() {
@@ -179,7 +187,12 @@ public class FrameActivity extends ActivityGroup
 							.setImageResource(R.drawable.main_index_checkin_pressed);
 					MyBottemCheckinTxt.setTextColor(Color
 							.parseColor("#FF8C00"));
-				}
+				}else if (flag == 3) {
+					MyBottemMoreImg
+							.setImageResource(R.drawable.main_index_more_pressed);
+					MyBottemMoreTxt.setTextColor(Color
+							.parseColor("#FF8C00"));
+		}
 			}
 
 			/**
@@ -225,6 +238,13 @@ public class FrameActivity extends ActivityGroup
 				.getDecorView();
 		view2.setTag(2);
 		list.add(view2);
+		view3 = FrameActivity.this
+				.getLocalActivityManager()
+				.startActivity("more",
+						new Intent(FrameActivity.this, MoreActivity_.class))
+						.getDecorView();
+		view3.setTag(3);
+		list.add(view3);
 	}
 	/**
 	 * 初始化控件的颜色
@@ -233,11 +253,14 @@ public class FrameActivity extends ActivityGroup
 		MyBottemSearchImg.setImageResource(R.drawable.search_bottem_search);
 		MyBottemTuanImg.setImageResource(R.drawable.search_bottem_tuan);
 		MyBottemCheckinImg.setImageResource(R.drawable.search_bottem_checkin);
+		MyBottemMoreImg.setImageResource(R.drawable.search_bottem_more);
 		MyBottemSearchTxt.setTextColor(getResources().getColor(
 				R.color.search_bottem_textcolor));
 		MyBottemTuanTxt.setTextColor(getResources().getColor(
 				R.color.search_bottem_textcolor));
 		MyBottemCheckinTxt.setTextColor(getResources().getColor(
+				R.color.search_bottem_textcolor));
+		MyBottemMoreTxt.setTextColor(getResources().getColor(
 				R.color.search_bottem_textcolor));
 	}
 	public BroadcastReceiver receiver = new BroadcastReceiver() {
@@ -345,6 +368,14 @@ public class FrameActivity extends ActivityGroup
 						.setImageResource(R.drawable.main_index_checkin_pressed);
 				MyBottemCheckinTxt.setTextColor(Color.parseColor("#FF8C00"));
 				break;
+			
+			case R.id.MyBottemMoreBtn:
+				mViewPager.setCurrentItem(3);
+				initBottemBtn();
+				MyBottemMoreImg
+					.setImageResource(R.drawable.main_index_more_pressed);
+				MyBottemMoreTxt.setTextColor(Color.parseColor("#FF8C00"));
+				break;
 			}
 		}
 		/**
@@ -354,6 +385,7 @@ public class FrameActivity extends ActivityGroup
 			MyBottemSearchImg.setImageResource(R.drawable.search_bottem_search);
 			MyBottemTuanImg.setImageResource(R.drawable.search_bottem_tuan);
 			MyBottemCheckinImg.setImageResource(R.drawable.search_bottem_checkin);
+			MyBottemMoreImg.setImageResource(R.drawable.search_bottem_more);
 			MyBottemSearchTxt.setTextColor(getResources().getColor(
 					R.color.search_bottem_textcolor));
 		}

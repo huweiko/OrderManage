@@ -217,8 +217,33 @@ public class HistoryActivity extends BaseActivity implements OnWareItemClickClas
 		// TODO Auto-generated method stub
 		int id = v.getId();
 		switch(id){
-			case R.id.ButtonHistoryOrderUpdate:
+			case R.id.ButtonHistoryOrderUpdate:{
 				Log.i("huwei", "Update Position = "+Position);
+				if(OrderActivity.mOrderStructInventoryMaster.size()>0){
+					OrderActivity.mOrderStructInventoryMaster.clear();
+				}
+				String BillId = lp_StructOrderHeader.get(Position).getBillId();
+				Cursor OrderDetailCursor = mBDOrderDetail.selectByAttribute(BillId);
+				for(int i = 0;i < OrderDetailCursor.getCount();i++){
+					OrderDetailCursor.moveToPosition(i);
+					String InvIdCode = OrderDetailCursor.getString(3);
+					Cursor cursor = mBDInventoryMaster.selectByAttribute(InvIdCode);
+					StructInventoryMaster l_StructInventoryMaster = new StructInventoryMaster();
+					FromDBToInventory(cursor, l_StructInventoryMaster);
+					if(cursor != null){
+						cursor.close();
+					}
+					l_StructInventoryMaster.setOrderNumber(lp_StructOrderDetail.get(i).getNum());
+					OrderActivity.mOrderStructInventoryMaster.add(l_StructInventoryMaster);
+				}
+				if(OrderDetailCursor != null){
+					OrderDetailCursor.close();
+				}
+				
+				Intent intent = new Intent(OrderActivity.INTERNAL_ACTION_UPDATEORDERACTIVITY);
+				mContext.sendBroadcast(intent);
+			}
+				
 				break;
 			case R.id.ButtonHistoryOrderCopy:{
 				Log.i("huwei", "Copy Position = "+Position);

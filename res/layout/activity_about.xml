@@ -1,0 +1,28 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent" 
+    android:background="@color/white">
+    <include layout="@layout/include_fragment_navigation_bar" />
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal" 
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="20dp">
+        <TextView
+		      android:layout_width="wrap_content"
+		      android:layout_height="wrap_content"
+		      android:text="版本号：" 
+		      android:textSize="19sp"/>
+        <TextView
+		      android:id="@+id/TextViewVersion"
+		      android:layout_width="wrap_content"
+		      android:layout_height="wrap_content"
+		      android:text="" 
+		      android:textSize="19sp"/>
+    </LinearLayout>
+        
+
+</RelativeLayout>

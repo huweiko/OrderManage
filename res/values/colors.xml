@@ -42,7 +42,8 @@
     <color name="theme_green">#5ca353</color>
     <color name="theme_gray">#ecebeb</color>
     <color name="arrow_green">#6eba64</color>
-    
+    <color name="bg">#f2f2f2</color> 
+    <color name="orange_text_color">#FF8C00</color> 
     
     
 </resources>

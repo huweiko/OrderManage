@@ -49,9 +49,9 @@ public class CategoryActivity extends BaseActivity implements OnWareItemClickCla
 	private WareMoreAdapter mWareMoreAdapter;
 	
 	private List<StructBDInventoryClassBrand> mStructBDInventoryClassBrand = new ArrayList<StructBDInventoryClassBrand>(); 
-	//ÀàÄ¿±í
+	//ï¿½ï¿½Ä¿ï¿½ï¿½
 	private BDInventoryClassBrand mBDInventoryClassBrand;
-	//ÉÌÆ·±í
+	//ï¿½ï¿½Æ·ï¿½ï¿½
 	private BDInventoryMaster mBDInventoryMaster;
 	private Cursor myInventoryClassBrandCursor;
 	private Cursor myInventoryMasterCursor;
@@ -110,7 +110,7 @@ public class CategoryActivity extends BaseActivity implements OnWareItemClickCla
 		mWareMoreAdapter.notifyDataSetChanged();
 	}
 	/*
-	 * ³õÊ¼»¯ÀàÄ¿£¬´ÓÊý¾Ý¿â»ñÈ¡Êý¾Ý
+	 * ï¿½ï¿½Ê¼ï¿½ï¿½ï¿½ï¿½Ä¿ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ý¿ï¿½ï¿½È¡ï¿½ï¿½ï¿½
 	 * 
 	 * */
 	private void initCategory() {
@@ -121,7 +121,7 @@ public class CategoryActivity extends BaseActivity implements OnWareItemClickCla
 		
 		myInventoryClassBrandCursor = mBDInventoryClassBrand.select();
 
-//		°Ñ´ÓÊý¾Ý¿âÖÐ»ñÈ¡µÄÊý¾Ý·ÅÈëÊý×éÁÐ±í
+//		ï¿½Ñ´ï¿½ï¿½ï¿½Ý¿ï¿½ï¿½Ð»ï¿½È¡ï¿½ï¿½ï¿½ï¿½Ý·ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ð±ï¿½
 		for(int i = 0;i < myInventoryClassBrandCursor.getCount();i++){
 			myInventoryClassBrandCursor.moveToPosition(i);
 			StructBDInventoryClassBrand l_StructBDInventoryClassBrand = new StructBDInventoryClassBrand();
@@ -185,19 +185,19 @@ public class CategoryActivity extends BaseActivity implements OnWareItemClickCla
 	};
 	private static long firstTime;
 	/**
-	 * Á¬Ðø°´Á½´Î·µ»Ø¼ü¾ÍÍË³ö
+	 * ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Î·ï¿½ï¿½Ø¼ï¿½ï¿½ï¿½Ë³ï¿½
 	 */
 	@Override
 	public void onBackPressed() {
 		// TODO Auto-generated method stub
 		if (firstTime + 2000 > System.currentTimeMillis()) {
-			Log.i("huwei", getPackageName()+"³ÌÐòÍË³ö£¡");
+			Log.i("huwei", getPackageName()+"ï¿½ï¿½ï¿½ï¿½ï¿½Ë³ï¿½ï¿½ï¿½");
 //			ActivityManager am = (ActivityManager) getSystemService(ACTIVITY_SERVICE); 
-//			am.killBackgroundProcesses(getPackageName()); // API LevelÖÁÉÙÎª8²ÅÄÜÊ¹ÓÃ
+//			am.killBackgroundProcesses(getPackageName()); // API Levelï¿½ï¿½ï¿½ï¿½Îª8ï¿½ï¿½ï¿½ï¿½Ê¹ï¿½ï¿½
 			AppManager.getAppManager().AppExit(this);
 			super.onBackPressed();
 		} else {
-			UIHealper.DisplayToast(this, "ÔÙ°´Ò»´ÎÍË³ö³ÌÐò");
+			UIHealper.DisplayToast(this, "ï¿½Ù°ï¿½Ò»ï¿½ï¿½ï¿½Ë³ï¿½ï¿½ï¿½ï¿½ï¿½");
 		}
 		firstTime = System.currentTimeMillis();
 	}
