@@ -25,6 +25,8 @@ import android.view.SurfaceHolder.Callback;
 import android.view.SurfaceView;
 import android.view.View;
 import android.widget.Button;
+import android.widget.FrameLayout;
+import android.widget.TextView;
 
 import com.google.zxing.BarcodeFormat;
 import com.google.zxing.Result;
@@ -51,12 +53,24 @@ public class CaptureActivity extends BaseActivity implements Callback{
 	private static final float BEEP_VOLUME = 0.10f;
 	private boolean mVibrate;
 	private AppContext appContext;
+	
 	@Click
 	void ButtonRestartScanning(){
 		showScanningView();
 	}
+	@Click
+	void ButtonConfirm(){
+        Intent intent = new Intent();
+        intent.putExtra("barcode", TextViewScanningResultText.getText().toString());
+        this.setResult(RESULT_OK, intent);
+        this.finish();
+	}
 	@ViewById
 	ViewfinderView viewfinder_view;
+	@ViewById
+	TextView TextViewScanningResultText;
+	@ViewById
+	FrameLayout FrameLayoutScanEnd;
 	@AfterViews
 	void Init(){
 		appContext = (AppContext) getApplication();
@@ -122,7 +136,7 @@ public class CaptureActivity extends BaseActivity implements Callback{
 		String resultString = result.getText();
 		Log.i("huwei", resultString);
 		playBeepSoundAndVibrate();
-		
+		TextViewScanningResultText.setText(resultString);
 		mInactivityTimer.onActivity();
 		viewfinder_view.drawResultBitmap(barcode);
 		
@@ -132,14 +146,15 @@ public class CaptureActivity extends BaseActivity implements Callback{
 	private void showScanningView(){
 //		mTitleView.setVisibility(View.VISIBLE);
 		viewfinder_view.setVisibility(View.VISIBLE);
+		FrameLayoutScanEnd.setVisibility(View.GONE);
 		if (mHandler != null) {
 			mHandler.sendEmptyMessage(R.id.restart_preview);
 		}
 	}
 	/*显示扫描后的界面*/
 	private void showScanningBehindView(){
-//		mTitleView.setVisibility(View.GONE);
 		viewfinder_view.setVisibility(View.GONE);
+		FrameLayoutScanEnd.setVisibility(View.VISIBLE);
 	}
 	private void initCamera(SurfaceHolder surfaceHolder) {
 		try {

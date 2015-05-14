@@ -12,9 +12,48 @@
       android:id="@+id/viewfinder_view"
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"/>
-	<Button 
-	    android:id="@+id/ButtonRestartScanning"
-	    android:layout_width="match_parent"
-	    android:layout_height="wrap_content"
-	    android:text="重新扫描"/>
+ 	 <FrameLayout 
+ 	    android:id="@+id/FrameLayoutScanEnd"
+ 	    android:layout_width="match_parent"
+	    android:layout_height="match_parent"
+	    android:visibility="gone">
+	 	<LinearLayout 
+	 	    android:layout_width="match_parent"
+		    android:layout_height="wrap_content"
+		    android:orientation="horizontal">
+	 	    <Button 
+			    android:id="@+id/ButtonRestartScanning"
+			    android:layout_width="match_parent"
+			    android:layout_height="wrap_content"
+			    android:layout_weight="1"
+			    android:text="重新扫描"/>
+		 	<Button 
+			    android:id="@+id/ButtonConfirm"
+			    android:layout_width="match_parent"
+			    android:layout_height="wrap_content"
+			    android:layout_weight="1"
+			    android:text="确定"/>
+	 	</LinearLayout>
+	 	<LinearLayout 
+	 	    android:layout_width="wrap_content"
+		    android:layout_height="wrap_content"
+		    android:layout_gravity="center"
+		    android:orientation="horizontal">
+		 	<TextView 
+		 	    android:layout_width="wrap_content"
+		 	    android:layout_height="wrap_content"
+		 	    android:layout_weight="1"
+		 	    android:text="扫描结果："
+		 	    android:textSize="19sp"
+		 	    android:textColor="@color/orange_text_color"/>
+		 	<TextView 
+		 	    android:id="@+id/TextViewScanningResultText"
+		 	    android:layout_width="wrap_content"
+		 	    android:layout_height="wrap_content"
+		 	    android:layout_weight="1"
+		 	    android:textSize="19sp"
+		 	    android:textColor="@color/green"/>
+	 	</LinearLayout>
+ 	</FrameLayout>
+
 </FrameLayout>

@@ -1,10 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical" >
 
     <LinearLayout
+        android:id="@+id/LinearLayoutWareSearchEdit"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@drawable/title_background"
@@ -74,10 +75,20 @@
     </LinearLayout>
 	<ListView
             android:id="@+id/ListViewSearch"
+            android:layout_below="@+id/LinearLayoutWareSearchEdit"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:background="#F4F4F4"
             android:divider="@null"
             android:listSelector="@drawable/search_more_morelistselect"/>
-
-</LinearLayout>
+    <ListView
+	    android:id="@+id/ListViewWareSearchElement"
+	    android:layout_below="@+id/LinearLayoutWareSearchEdit"
+	    android:layout_width="match_parent"
+	    android:layout_height="350dp"
+	    android:background="#f4f4f4"
+	    android:divider="@null"
+	    android:listSelector="@drawable/search_more_morelistselect"
+	    android:padding="10dp"
+	    android:visibility="gone" />
+</RelativeLayout>

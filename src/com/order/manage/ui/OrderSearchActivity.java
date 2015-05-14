@@ -34,7 +34,7 @@ public class OrderSearchActivity extends BaseActivity implements OnSearchOrderEl
 	private OrderSearchAdapter mOrderSearchAdapter;
 	private BDOrderHeader mBDOrderHeader;
 	private boolean toplistview = false;
-	public static String[] ORDERLIST_TOPLIST = new String[] { "备注", "总金额","日期范围"};
+	public final static String[] ORDERLIST_TOPLIST = new String[] { "备注", "总金额","日期范围"};
 	private SearchMoreAdapter mSearchMoreAdapter;
 	@ViewById
 	EditText EditTextOrderSearchInput;

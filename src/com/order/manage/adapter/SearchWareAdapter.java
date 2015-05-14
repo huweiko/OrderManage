@@ -6,6 +6,8 @@ import java.util.List;
 import com.order.manage.PinyinHelper;
 import com.order.manage.R;
 import com.order.manage.struct.StructInventoryMaster;
+import com.order.manage.ui.OrderSearchActivity;
+import com.order.manage.ui.SearchWareActivity;
 
 import android.content.Context;
 import android.text.TextUtils;
@@ -26,6 +28,7 @@ public class SearchWareAdapter extends BaseAdapter implements Filterable{
 	private List<StructInventoryMaster> data;
 	private int layout = R.layout.ware_list_item;
 	PinyinHelper mPinyinHelper;
+	private String SearchElement;
 	public SearchWareAdapter(Context context,List<StructInventoryMaster> data,int layout){
 		this.ctx = context;
 		this.listItems = data;
@@ -38,7 +41,9 @@ public class SearchWareAdapter extends BaseAdapter implements Filterable{
 	public void setlistItems(List<StructInventoryMaster> data){
 		this.listItems = data;
 	}
-	
+	public void setSearchElement(String SearchElement){
+		this.SearchElement = SearchElement;
+	}
 	@Override
 	public int getCount() {
 		// TODO Auto-generated method stub
@@ -121,7 +126,17 @@ public class SearchWareAdapter extends BaseAdapter implements Filterable{
 				for (StructInventoryMaster data : filterDatas) {
 					// 过滤规则: 名字或者名字拼音中包含关键字
 					String keyWord = mPinyinHelper.getFullPinyin(constraint.toString());
-					String pinyin =  mPinyinHelper.getFullPinyin(data.getInvName());
+					String l_SerarchElement = "";
+					if(SearchElement.equals(SearchWareActivity.WARELIST_TOPLIST[0])){
+						l_SerarchElement = data.getInvName();
+					}
+					else if(SearchElement.equals(SearchWareActivity.WARELIST_TOPLIST[1])){
+						l_SerarchElement = data.getInvBarCode();
+					}
+					else if(SearchElement.equals(SearchWareActivity.WARELIST_TOPLIST[2])){
+						l_SerarchElement = data.getInvBarCode();
+					}
+					String pinyin =  mPinyinHelper.getFullPinyin(l_SerarchElement);
 					// boolean a = s.matches("^[a-zA-Z]*");
 //					if (keyWord.matches("^[a-zA-Z]*")) {// 全英文
 						boolean isContain = true;
