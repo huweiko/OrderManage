@@ -3,4 +3,5 @@
     <string name="app_name">统计报价系统</string>
 	<string name="back">返回</string>
 	<string name="login_userinfo_not_exist">登录用户信息不存在</string>
+	<string name="scan_text">将二维码放入框内, 即可自动扫描</string>
 </resources>
