@@ -18,12 +18,11 @@ import com.order.manage.db.BDInventoryClassBrand;
 import com.order.manage.db.BDInventoryMaster;
 import com.order.manage.struct.StructBDInventoryClassBrand;
 import com.order.manage.struct.StructInventoryMaster;
+import com.order.manage.util.AssetUtils;
 
 import android.annotation.SuppressLint;
-import android.app.Activity;
 import android.content.Intent;
 import android.database.Cursor;
-import android.os.Bundle;
 import android.os.Handler;
 import android.util.Log;
 import android.view.View;
@@ -49,9 +48,7 @@ public class CategoryActivity extends BaseActivity implements OnWareItemClickCla
 	private WareMoreAdapter mWareMoreAdapter;
 	
 	private List<StructBDInventoryClassBrand> mStructBDInventoryClassBrand = new ArrayList<StructBDInventoryClassBrand>(); 
-	//ï¿½ï¿½Ä¿ï¿½ï¿½
 	private BDInventoryClassBrand mBDInventoryClassBrand;
-	//ï¿½ï¿½Æ·ï¿½ï¿½
 	private BDInventoryMaster mBDInventoryMaster;
 	private Cursor myInventoryClassBrandCursor;
 	private Cursor myInventoryMasterCursor;
@@ -70,7 +67,7 @@ public class CategoryActivity extends BaseActivity implements OnWareItemClickCla
 	void initView() {
 		appContext = (AppContext) getApplication();
 		initCategory();
-
+		String t = AssetUtils.getDataFromAssets(this, "question.txt");
 		if(mStructBDInventoryClassBrand.size() > 0){
 			mCategoryMainAdapter = new CategoryMainAdapter(appContext, mStructBDInventoryClassBrand);
 			mCategoryMainAdapter.setSelectItem(0);
@@ -109,10 +106,6 @@ public class CategoryActivity extends BaseActivity implements OnWareItemClickCla
 		mWareMoreAdapter.SetOnWareItemClickClassListener(this);
 		mWareMoreAdapter.notifyDataSetChanged();
 	}
-	/*
-	 * ï¿½ï¿½Ê¼ï¿½ï¿½ï¿½ï¿½Ä¿ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ý¿ï¿½ï¿½È¡ï¿½ï¿½ï¿½
-	 * 
-	 * */
 	private void initCategory() {
 		mBDInventoryClassBrand = new BDInventoryClassBrand(appContext);
 		mBDInventoryClassBrand.createDBtable();
@@ -121,7 +114,6 @@ public class CategoryActivity extends BaseActivity implements OnWareItemClickCla
 		
 		myInventoryClassBrandCursor = mBDInventoryClassBrand.select();
 
-//		ï¿½Ñ´ï¿½ï¿½ï¿½Ý¿ï¿½ï¿½Ð»ï¿½È¡ï¿½ï¿½ï¿½ï¿½Ý·ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ð±ï¿½
 		for(int i = 0;i < myInventoryClassBrandCursor.getCount();i++){
 			myInventoryClassBrandCursor.moveToPosition(i);
 			StructBDInventoryClassBrand l_StructBDInventoryClassBrand = new StructBDInventoryClassBrand();
@@ -184,20 +176,15 @@ public class CategoryActivity extends BaseActivity implements OnWareItemClickCla
 		appContext.sendBroadcast(intent);
 	};
 	private static long firstTime;
-	/**
-	 * ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Î·ï¿½ï¿½Ø¼ï¿½ï¿½ï¿½Ë³ï¿½
-	 */
 	@Override
 	public void onBackPressed() {
 		// TODO Auto-generated method stub
 		if (firstTime + 2000 > System.currentTimeMillis()) {
-			Log.i("huwei", getPackageName()+"ï¿½ï¿½ï¿½ï¿½ï¿½Ë³ï¿½ï¿½ï¿½");
-//			ActivityManager am = (ActivityManager) getSystemService(ACTIVITY_SERVICE); 
-//			am.killBackgroundProcesses(getPackageName()); // API Levelï¿½ï¿½ï¿½ï¿½Îª8ï¿½ï¿½ï¿½ï¿½Ê¹ï¿½ï¿½
+			Log.i("huwei", getPackageName()+"³ÌÐòÍË³ö");
 			AppManager.getAppManager().AppExit(this);
 			super.onBackPressed();
 		} else {
-			UIHealper.DisplayToast(this, "ï¿½Ù°ï¿½Ò»ï¿½ï¿½ï¿½Ë³ï¿½ï¿½ï¿½ï¿½ï¿½");
+			UIHealper.DisplayToast(this, "ÔÙ°´Ò»´ÎÍË³ö³ÌÐò");
 		}
 		firstTime = System.currentTimeMillis();
 	}
