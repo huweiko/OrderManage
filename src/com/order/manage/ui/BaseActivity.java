@@ -35,7 +35,7 @@ public class BaseActivity extends FragmentActivity implements IProvideActionBar{
 		overridePendingTransition(R.anim.in_from_right, R.anim.out_to_left); 
 		AppManager.getAppManager().addActivity(this);
 		tag = getClass().getSimpleName();
-		// ç¦æ­¢æ¨ªå±
+		// ½ûÖ¹ºáÆÁ
 		setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
 
 		if (null == preferences) {
@@ -66,7 +66,7 @@ public class BaseActivity extends FragmentActivity implements IProvideActionBar{
 	}
 
 	/**
-	 * æ˜¾ç¤ºå¯¹è¯æ¡†
+	 * ÏÔÊ¾¶Ô»°¿ò
 	 * @param strId
 	 */
 	public void showReqeustDialog(int strId){
@@ -82,7 +82,7 @@ public class BaseActivity extends FragmentActivity implements IProvideActionBar{
 	}
 	
 	/**
-	 * å–æ¶ˆå¯¹è¯æ¡†
+	 * È¡Ïû¶Ô»°¿ò
 	 */
 	public void cancelRequestDialog(){
 		if(requestDialog != null && requestDialog.isShowing()){
@@ -92,12 +92,12 @@ public class BaseActivity extends FragmentActivity implements IProvideActionBar{
 	
 	
 	/**
-	 * æ·»åŠ æ ‡é¢˜
+	 * Ìí¼Ó±êÌâ
 	 * 
 	 * @param title
-	 *            -- æ ‡é¢˜
+	 *            -- ±êÌâ
 	 * @param listener
-	 *            -- ç›‘å¬äº‹ä»¶
+	 *            -- ¼àÌıÊÂ¼ş
 	 */
 	@Override
 	public void setTitle(CharSequence title, OnClickListener listener) {
@@ -124,10 +124,10 @@ public class BaseActivity extends FragmentActivity implements IProvideActionBar{
  
  
 	/**
-	 * æ·»åŠ é¡¶éƒ¨æ ‡é¢˜æ å·¦ä¾§è¿”å›æŒ‰é’®
+	 * Ìí¼Ó¶¥²¿±êÌâÀ¸×ó²à·µ»Ø°´Å¥
 	 * 
 	 * @param listener
-	 *            å¦‚æœä¸ºnullï¼Œå°±pass Activity activity
+	 *            Èç¹ûÎªnull£¬¾Ípass Activity activity
 	 */
 	protected void addBackBtn(View.OnClickListener listener) {
 		getSelfDefActionBar();
@@ -145,7 +145,7 @@ public class BaseActivity extends FragmentActivity implements IProvideActionBar{
 	}
 
 	/**
-	 * æ·»åŠ é¡¶éƒ¨æ ‡é¢˜æ å·¦ä¾§è¿”å›æŒ‰é’®
+	 * Ìí¼Ó¶¥²¿±êÌâÀ¸×ó²à·µ»Ø°´Å¥
 	 * 
 	 * @param listener
 	 */
@@ -165,10 +165,10 @@ public class BaseActivity extends FragmentActivity implements IProvideActionBar{
 	}
 	
 	/**
-	 * æ·»åŠ é¡¶éƒ¨æ ‡é¢˜æ å·¦ä¾§è¿”å›æŒ‰é’®
+	 * Ìí¼Ó¶¥²¿±êÌâÀ¸×ó²à·µ»Ø°´Å¥
 	 * 
 	 * @param listener
-	 *            å¦‚æœä¸ºnullï¼Œå°±pass Activity activity
+	 *            Èç¹ûÎªnull£¬¾Ípass Activity activity
 	 */
 	protected void addRightBtn(int strId, OnClickListener listener) {
 		getSelfDefActionBar();
@@ -186,7 +186,7 @@ public class BaseActivity extends FragmentActivity implements IProvideActionBar{
 	}
 
 	/**
-	 * æ·»åŠ é¡¶éƒ¨æ ‡é¢˜æ å·¦ä¾§è¿”å›æŒ‰é’®
+	 * Ìí¼Ó¶¥²¿±êÌâÀ¸×ó²à·µ»Ø°´Å¥
 	 * 
 	 * @param listener
 	 */
@@ -224,7 +224,7 @@ public class BaseActivity extends FragmentActivity implements IProvideActionBar{
 	}
 	
 	/**
-	 * è·å–å½“å‰ç™»å½•ç”¨æˆ·ä¿¡æ¯
+	 * »ñÈ¡µ±Ç°µÇÂ¼ÓÃ»§ĞÅÏ¢
 	 */
 	protected void getCurrentUser() {
 		try {
@@ -238,7 +238,7 @@ public class BaseActivity extends FragmentActivity implements IProvideActionBar{
 	}
 
 	/**
-	 * éšè—è¾“å…¥æ³•
+	 * Òş²ØÊäÈë·¨
 	 */
 	protected void hideInput() {
 		View view = getWindow().peekDecorView();

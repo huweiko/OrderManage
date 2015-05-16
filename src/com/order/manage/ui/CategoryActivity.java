@@ -7,6 +7,8 @@ import org.androidannotations.annotations.Click;
 import org.androidannotations.annotations.EActivity;
 import org.androidannotations.annotations.ViewById;
 
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 import com.order.manage.AppContext;
 import com.order.manage.AppManager;
 import com.order.manage.R;
@@ -14,8 +16,11 @@ import com.order.manage.UIHealper;
 import com.order.manage.adapter.CategoryMainAdapter;
 import com.order.manage.adapter.WareMoreAdapter;
 import com.order.manage.adapter.WareMoreAdapter.OnWareItemClickClass;
+import com.order.manage.bean.Urls;
 import com.order.manage.db.BDInventoryClassBrand;
 import com.order.manage.db.BDInventoryMaster;
+import com.order.manage.http.AjaxCallBack;
+import com.order.manage.http.AjaxParams;
 import com.order.manage.struct.StructBDInventoryClassBrand;
 import com.order.manage.struct.StructInventoryMaster;
 
@@ -49,9 +54,7 @@ public class CategoryActivity extends BaseActivity implements OnWareItemClickCla
 	private WareMoreAdapter mWareMoreAdapter;
 	
 	private List<StructBDInventoryClassBrand> mStructBDInventoryClassBrand = new ArrayList<StructBDInventoryClassBrand>(); 
-	//��Ŀ��
 	private BDInventoryClassBrand mBDInventoryClassBrand;
-	//��Ʒ��
 	private BDInventoryMaster mBDInventoryMaster;
 	private Cursor myInventoryClassBrandCursor;
 	private Cursor myInventoryMasterCursor;
@@ -70,7 +73,7 @@ public class CategoryActivity extends BaseActivity implements OnWareItemClickCla
 	void initView() {
 		appContext = (AppContext) getApplication();
 		initCategory();
-
+		getWareList();
 		if(mStructBDInventoryClassBrand.size() > 0){
 			mCategoryMainAdapter = new CategoryMainAdapter(appContext, mStructBDInventoryClassBrand);
 			mCategoryMainAdapter.setSelectItem(0);
@@ -85,6 +88,31 @@ public class CategoryActivity extends BaseActivity implements OnWareItemClickCla
 		
 		mShoplist_onelist2.setOnItemClickListener(new Onelistclick2());
 		mShoplist_twolist2.setOnItemClickListener(new Onelistclick1());
+	}
+	void getWareList(){
+		AjaxParams params = new AjaxParams();
+		params.put("tab","BD_InventoryMaster");
+		params.put("condition"," and InvIdCode<>'' ");
+		params.put("fldList","");
+//		final LoginCallBack callback = new LoginCallBack(isBackLogin, btnLoad, user, LoginActivity.this, isShowLoading);
+		getFinalHttp().post(Urls.getWare, params, new AjaxCallBack<String>(){
+
+			@Override
+			public void onSuccess(String t) {
+				super.onSuccess(t);
+//				callback.parseData(t);
+				parseData(t);
+				cancelRequestDialog();
+			}
+			private void parseData(String t) {
+
+			}
+			@Override
+			public void onFailure(Throwable t, int errorNo, String strMsg) {
+				super.onFailure(t, errorNo, strMsg);
+				cancelRequestDialog();
+			}
+		});
 	}
 	private class Onelistclick1 implements OnItemClickListener {
 		public void onItemClick(AdapterView<?> arg0, View arg1, int arg2,
@@ -109,10 +137,6 @@ public class CategoryActivity extends BaseActivity implements OnWareItemClickCla
 		mWareMoreAdapter.SetOnWareItemClickClassListener(this);
 		mWareMoreAdapter.notifyDataSetChanged();
 	}
-	/*
-	 * ��ʼ����Ŀ������ݿ��ȡ���
-	 * 
-	 * */
 	private void initCategory() {
 		mBDInventoryClassBrand = new BDInventoryClassBrand(appContext);
 		mBDInventoryClassBrand.createDBtable();
@@ -121,7 +145,6 @@ public class CategoryActivity extends BaseActivity implements OnWareItemClickCla
 		
 		myInventoryClassBrandCursor = mBDInventoryClassBrand.select();
 
-//		�Ѵ���ݿ��л�ȡ����ݷ��������б�
 		for(int i = 0;i < myInventoryClassBrandCursor.getCount();i++){
 			myInventoryClassBrandCursor.moveToPosition(i);
 			StructBDInventoryClassBrand l_StructBDInventoryClassBrand = new StructBDInventoryClassBrand();
@@ -164,7 +187,6 @@ public class CategoryActivity extends BaseActivity implements OnWareItemClickCla
 	}
 	@Override
 	public void OnItemClick(View v, int Position) {
-		// TODO Auto-generated method stub
 		boolean isHave = false;
 		mCurrentSecondItem = Position;
 		String WareId = mStructBDInventoryClassBrand.get(mCurrentMainItem).getmBDInventoryClassBrand().get(Position).getInvIdCode();
@@ -183,22 +205,4 @@ public class CategoryActivity extends BaseActivity implements OnWareItemClickCla
 		Intent intent = new Intent(OrderActivity.INTERNAL_ACTION_UPDATEORDERACTIVITY);
 		appContext.sendBroadcast(intent);
 	};
-	private static long firstTime;
-	/**
-	 * �������η��ؼ���˳�
-	 */
-	@Override
-	public void onBackPressed() {
-		// TODO Auto-generated method stub
-		if (firstTime + 2000 > System.currentTimeMillis()) {
-			Log.i("huwei", getPackageName()+"�����˳���");
-//			ActivityManager am = (ActivityManager) getSystemService(ACTIVITY_SERVICE); 
-//			am.killBackgroundProcesses(getPackageName()); // API Level����Ϊ8����ʹ��
-			AppManager.getAppManager().AppExit(this);
-			super.onBackPressed();
-		} else {
-			UIHealper.DisplayToast(this, "�ٰ�һ���˳�����");
-		}
-		firstTime = System.currentTimeMillis();
-	}
 }

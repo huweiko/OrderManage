@@ -441,7 +441,7 @@ in (inches), mm (millimeters).
 theme attribute (in the form
 "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
 containing a value of this type.
-          @attr name android:rightPadding
+          @attr name com.order.manage:rightPadding
         */
         public static final int SlidingMenu_rightPadding = 0;
     };
