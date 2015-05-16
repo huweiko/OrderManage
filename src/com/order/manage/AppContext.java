@@ -10,7 +10,7 @@ public class AppContext extends Application{
 	public String AppVesion;
 	private static AppContext application;
 	private static FinalHttp finalHttp;
-	
+	private int a = 0;
 	public static AppContext getInstance() {
 		if(application == null){
 			application = new AppContext();
