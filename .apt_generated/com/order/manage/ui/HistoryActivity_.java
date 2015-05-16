@@ -81,13 +81,13 @@ public final class HistoryActivity_
     @Override
     public void onViewChanged(HasViews hasViews) {
         LinearLayoutOrderDetail = ((LinearLayout) hasViews.findViewById(id.LinearLayoutOrderDetail));
-        ListViewOrderHistory = ((ListView) hasViews.findViewById(id.ListViewOrderHistory));
+        TextViewOrderId = ((TextView) hasViews.findViewById(id.TextViewOrderId));
         TextViewOrderRemarks = ((TextView) hasViews.findViewById(id.TextViewOrderRemarks));
         TextViewPriceTotalNum = ((TextView) hasViews.findViewById(id.TextViewPriceTotalNum));
-        ImageViewArrow = ((ImageView) hasViews.findViewById(id.ImageViewArrow));
-        TextViewOrderId = ((TextView) hasViews.findViewById(id.TextViewOrderId));
         ListViewWareListItem = ((ListView) hasViews.findViewById(id.ListViewWareListItem));
         TextViewOrderSubmitTime = ((TextView) hasViews.findViewById(id.TextViewOrderSubmitTime));
+        ImageViewArrow = ((ImageView) hasViews.findViewById(id.ImageViewArrow));
+        ListViewOrderHistory = ((ListView) hasViews.findViewById(id.ListViewOrderHistory));
         {
             View view = hasViews.findViewById(id.LinearLayoutHistoryOrderInputClick);
             if (view!= null) {

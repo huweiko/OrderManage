@@ -2,7 +2,7 @@ package com.order.manage.adapter;
 
 import java.util.List;
 import com.order.manage.R;
-import com.order.manage.struct.StructBDInventoryClassBrand;
+import com.order.manage.struct.StructInventoryClassBrand;
 import android.content.Context;
 import android.view.View;
 import android.view.ViewGroup;
@@ -20,17 +20,17 @@ import android.widget.TextView;
 public class CategoryMainAdapter extends BaseAdapter {
 
 	private Context ctx;
-	private List<StructBDInventoryClassBrand> listItem;
+	private List<StructInventoryClassBrand> listItem;
 	private int position = 0;
 	private boolean islodingimg = true;
 	private int layout = R.layout.category_list_item;
 
-	public CategoryMainAdapter(Context ctx, List<StructBDInventoryClassBrand> data) {
+	public CategoryMainAdapter(Context ctx, List<StructInventoryClassBrand> data) {
 		this.ctx = ctx;
 		this.listItem = data;
 	}
 
-	public CategoryMainAdapter(Context ctx, List<StructBDInventoryClassBrand> data,
+	public CategoryMainAdapter(Context ctx, List<StructInventoryClassBrand> data,
 			int layout, boolean islodingimg) {
 		this.ctx = ctx;
 		this.listItem = data;

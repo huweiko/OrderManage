@@ -1,7 +1,7 @@
 package com.order.manage.db;
 
 
-import com.order.manage.struct.StructInventoryMaster;
+import com.order.manage.struct.StructWare;
 
 import android.content.ContentValues;
 import android.content.Context;
@@ -88,7 +88,7 @@ public class BDInventoryMaster extends DBHelper {
 		String where = InvIdCode + "=?";
 		super.delete(TABLE_NAME, where, whereValue);
 	}
-	public long insert(StructInventoryMaster mStructInventoryMaster)
+	public long insert(StructWare mStructInventoryMaster)
 	{
 		ContentValues cv=new ContentValues(); 
 		cv.put(InvIdCode, mStructInventoryMaster.getInvIdCode());
@@ -110,7 +110,7 @@ public class BDInventoryMaster extends DBHelper {
 		return super.insert(TABLE_NAME, cv);
 	}
 	
-	public void update(StructInventoryMaster mStructInventoryMaster,String x_invIdCode)
+	public void update(StructWare mStructInventoryMaster,String x_invIdCode)
 	{
 		String [] whereValue = {x_invIdCode};
 		String where = InvIdCode + "=?";

@@ -31,14 +31,14 @@ import com.order.manage.adapter.SearchWareAdapter.OnSearchWareItemClickClass;
 import com.order.manage.adapter.WareSearchItemAdapter;
 import com.order.manage.adapter.WareSearchItemAdapter.OnSearchWareElementClickClass;
 import com.order.manage.db.BDInventoryMaster;
-import com.order.manage.struct.StructInventoryMaster;
+import com.order.manage.struct.StructWare;
 
 @EActivity(R.layout.activity_search)
 public class SearchWareActivity extends BaseActivity implements OnSearchWareItemClickClass,OnSearchWareElementClickClass{
 	private Context context;
 	private SearchWareAdapter mSearchWareAdapter;
 	private WareSearchItemAdapter mWareSearchItemAdapter;
-	private List<StructInventoryMaster> data = new ArrayList<StructInventoryMaster>();
+	private List<StructWare> data = new ArrayList<StructWare>();
 	private Cursor myInventoryMasterCursor;
 	private boolean toplistview = false;
 	public final static String[] WARELIST_TOPLIST = new String[] { "品名", "条码字段","扫描条码"};
@@ -78,7 +78,7 @@ public class SearchWareActivity extends BaseActivity implements OnSearchWareItem
 	@AfterViews
 	void Init(){
 		context = getApplicationContext();
-		mSearchWareAdapter = new SearchWareAdapter(context, new ArrayList<StructInventoryMaster>(), R.layout.ware_list_item);
+		mSearchWareAdapter = new SearchWareAdapter(context, new ArrayList<StructWare>(), R.layout.ware_list_item);
 		mSearchWareAdapter.SetOnWareItemClickClassListener(this);
 		ListViewSearch.setAdapter(mSearchWareAdapter);
 		mWareSearchItemAdapter = new WareSearchItemAdapter(context, WARELIST_TOPLIST);
@@ -90,7 +90,7 @@ public class SearchWareActivity extends BaseActivity implements OnSearchWareItem
 		myInventoryMasterCursor = mBDInventoryMaster.select();
 		for(int j =0;j<myInventoryMasterCursor.getCount();j++){
 			myInventoryMasterCursor.moveToPosition(j);
-			StructInventoryMaster l_StructInventoryMaster = new StructInventoryMaster();
+			StructWare l_StructInventoryMaster = new StructWare();
 			
 			l_StructInventoryMaster.setInvIdCode(myInventoryMasterCursor.getString(0));
 			l_StructInventoryMaster.setInvName(myInventoryMasterCursor.getString(7));

@@ -1,13 +1,7 @@
 package com.order.manage.struct;
 
 
-public class StructInventoryMaster{
-	//订单勾选状态
-	private boolean OrderChooseStatus = true;
-	//订单数量
-	private int OrderNumber = 1;
-	private boolean OrderEditStatus = false; 
-	
+public class StructDBInventoryMaster{
 	private String InvIdCode;//商品内码
 	private String InvClassCode;//类别代码
 	private String InvClassName;//类别名称
@@ -119,23 +113,5 @@ public class StructInventoryMaster{
 	}
 	public void setOrderId(int orderId) {
 		OrderId = orderId;
-	}
-	public boolean getOrderChooseStatus() {
-		return OrderChooseStatus;
-	}
-	public void setOrderChooseStatus(boolean orderChooseStatus) {
-		OrderChooseStatus = orderChooseStatus;
-	}
-	public int getOrderNumber() {
-		return OrderNumber;
-	}
-	public void setOrderNumber(int orderNumber) {
-		OrderNumber = orderNumber;
-	}
-	public boolean getOrderEditStatus() {
-		return OrderEditStatus;
-	}
-	public void setOrderEditStatus(boolean orderEditStatus) {
-		OrderEditStatus = orderEditStatus;
 	}
 }

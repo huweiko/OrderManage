@@ -16,14 +16,18 @@ import com.order.manage.UIHealper;
 import com.order.manage.adapter.CategoryMainAdapter;
 import com.order.manage.adapter.WareMoreAdapter;
 import com.order.manage.adapter.WareMoreAdapter.OnWareItemClickClass;
+import com.order.manage.bean.Response;
 import com.order.manage.bean.Urls;
 import com.order.manage.db.BDInventoryClassBrand;
 import com.order.manage.db.BDInventoryMaster;
 import com.order.manage.http.AjaxCallBack;
 import com.order.manage.http.AjaxParams;
-import com.order.manage.struct.StructBDInventoryClassBrand;
-import com.order.manage.struct.StructInventoryMaster;
+import com.order.manage.struct.CopyOfStructDBInventoryMaster;
+import com.order.manage.struct.StructDBInventoryMaster;
+import com.order.manage.struct.StructInventoryClassBrand;
+import com.order.manage.struct.StructWare;
 import com.order.manage.util.AssetUtils;
+import com.order.manage.util.ToastHelper;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
@@ -52,7 +56,7 @@ public class CategoryActivity extends BaseActivity implements OnWareItemClickCla
 	private CategoryMainAdapter mCategoryMainAdapter;
 	private WareMoreAdapter mWareMoreAdapter;
 	
-	private List<StructBDInventoryClassBrand> mStructBDInventoryClassBrand = new ArrayList<StructBDInventoryClassBrand>(); 
+	private List<StructInventoryClassBrand> mStructBDInventoryClassBrand = new ArrayList<StructInventoryClassBrand>(); 
 	private BDInventoryClassBrand mBDInventoryClassBrand;
 	private BDInventoryMaster mBDInventoryMaster;
 	private Cursor myInventoryClassBrandCursor;
@@ -72,7 +76,9 @@ public class CategoryActivity extends BaseActivity implements OnWareItemClickCla
 	void initView() {
 		appContext = (AppContext) getApplication();
 		initCategory();
-		String t = AssetUtils.getDataFromAssets(this, "question.txt");
+		String t = AssetUtils.getDataFromAssets(this, "ware_list.txt");
+		Response<List<CopyOfStructDBInventoryMaster>> response = new Gson().fromJson(t, 
+				new TypeToken<Response<List<CopyOfStructDBInventoryMaster>>>(){}.getType());
 		getWareList();
 		if(mStructBDInventoryClassBrand.size() > 0){
 			mCategoryMainAdapter = new CategoryMainAdapter(appContext, mStructBDInventoryClassBrand);
@@ -105,8 +111,16 @@ public class CategoryActivity extends BaseActivity implements OnWareItemClickCla
 				cancelRequestDialog();
 			}
 			private void parseData(String t) {
+				Response<StructDBInventoryMaster> response = new Gson().fromJson(t, 
+						new TypeToken<Response<StructDBInventoryMaster>>(){}.getType());
+				if(response.getResult()){
+					StructDBInventoryMaster aa = response.getResponse();
+					
+				}else{
+					ToastHelper.ToastLg(response.getMessage(), getActivity());
+				}
 
-			}
+		}
 			@Override
 			public void onFailure(Throwable t, int errorNo, String strMsg) {
 				super.onFailure(t, errorNo, strMsg);
@@ -131,7 +145,7 @@ public class CategoryActivity extends BaseActivity implements OnWareItemClickCla
 			mCategoryMainAdapter.notifyDataSetChanged();
 		}
 	}
-	private void initAdapter2(List<StructInventoryMaster> array) {
+	private void initAdapter2(List<StructWare> array) {
 		mWareMoreAdapter = new WareMoreAdapter(appContext, array,R.layout.ware_list_item);
 		mShoplist_twolist2.setAdapter(mWareMoreAdapter);
 		mWareMoreAdapter.SetOnWareItemClickClassListener(this);
@@ -147,7 +161,7 @@ public class CategoryActivity extends BaseActivity implements OnWareItemClickCla
 
 		for(int i = 0;i < myInventoryClassBrandCursor.getCount();i++){
 			myInventoryClassBrandCursor.moveToPosition(i);
-			StructBDInventoryClassBrand l_StructBDInventoryClassBrand = new StructBDInventoryClassBrand();
+			StructInventoryClassBrand l_StructBDInventoryClassBrand = new StructInventoryClassBrand();
 			l_StructBDInventoryClassBrand.setInvClassIdCode(myInventoryClassBrandCursor.getString(0));
 			l_StructBDInventoryClassBrand.setClassOrBrand(myInventoryClassBrandCursor.getInt(1));
 			l_StructBDInventoryClassBrand.setInvClassCode(myInventoryClassBrandCursor.getString(2));
@@ -156,7 +170,7 @@ public class CategoryActivity extends BaseActivity implements OnWareItemClickCla
 			myInventoryMasterCursor = mBDInventoryMaster.selectByInvClassCode(l_StructBDInventoryClassBrand.getInvClassCode());
 			for(int j =0;j<myInventoryMasterCursor.getCount();j++){
 				myInventoryMasterCursor.moveToPosition(j);
-				StructInventoryMaster l_StructInventoryMaster = new StructInventoryMaster();
+				StructWare l_StructInventoryMaster = new StructWare();
 				
 				l_StructInventoryMaster.setInvIdCode(myInventoryMasterCursor.getString(0));
 				l_StructInventoryMaster.setInvName(myInventoryMasterCursor.getString(7));

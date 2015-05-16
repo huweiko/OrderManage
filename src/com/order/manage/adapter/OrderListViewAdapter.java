@@ -5,7 +5,7 @@ import java.util.List;
 
 import com.order.manage.R;
 import com.order.manage.adapter.WareMoreAdapter.OnWareItemClickClass;
-import com.order.manage.struct.StructInventoryMaster;
+import com.order.manage.struct.StructWare;
 
 import android.app.AlertDialog;
 import android.app.AlertDialog.Builder;
@@ -35,24 +35,24 @@ import android.widget.TextView;
 
 public class OrderListViewAdapter extends BaseAdapter {
 	private Context ctx;
-	private List<StructInventoryMaster> listItems;
+	private List<StructWare> listItems;
 	private int position = 0;
 	private int layout = R.layout.order_list_item;
 	private OnOrderItemClickClass onItemClickClass;
-	public OrderListViewAdapter(Context ctx, List<StructInventoryMaster> data) {
+	public OrderListViewAdapter(Context ctx, List<StructWare> data) {
 		this.ctx = ctx;
 		this.listItems = data;
 	}
 
-	public OrderListViewAdapter(Context ctx, List<StructInventoryMaster> data, int layout) {
+	public OrderListViewAdapter(Context ctx, List<StructWare> data, int layout) {
 		this.ctx = ctx;
 		this.listItems = data;
 		this.layout = layout;
 	}
-	public void setListItems(List<StructInventoryMaster> data){
+	public void setListItems(List<StructWare> data){
 		this.listItems = data;
 	}
-	public List<StructInventoryMaster> getListItems(){
+	public List<StructWare> getListItems(){
 		return this.listItems;
 	}
 	public int getCount() {
@@ -162,7 +162,7 @@ public class OrderListViewAdapter extends BaseAdapter {
 	}
 	public interface OnOrderItemClickClass{
 		public void OnItemClick(int Position,boolean OnOptionsStatus);
-		public void UpdateUI(List<StructInventoryMaster> data);
+		public void UpdateUI(List<StructWare> data);
 	}
 	class OnButtonClick implements OnClickListener{
 		int position;

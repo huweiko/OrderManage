@@ -16,7 +16,7 @@ import com.order.manage.adapter.HistoryOrderAdapter.OnWareItemClickClass;
 import com.order.manage.db.BDInventoryMaster;
 import com.order.manage.db.BDOrderDetail;
 import com.order.manage.db.BDOrderHeader;
-import com.order.manage.struct.StructInventoryMaster;
+import com.order.manage.struct.StructWare;
 import com.order.manage.struct.StructOrderDetail;
 import com.order.manage.struct.StructOrderHeader;
 
@@ -204,7 +204,7 @@ public class HistoryActivity extends BaseActivity implements OnWareItemClickClas
 		mBDInventoryMaster.close();
 		super.onDestroy();
 	}
-	private void FromDBToInventory(Cursor cursor,StructInventoryMaster l_StructInventoryMaster){
+	private void FromDBToInventory(Cursor cursor,StructWare l_StructInventoryMaster){
 		for(int j =0;j<cursor.getCount();j++){
 			cursor.moveToPosition(j);
 			l_StructInventoryMaster.setInvIdCode(cursor.getString(0));
@@ -228,7 +228,7 @@ public class HistoryActivity extends BaseActivity implements OnWareItemClickClas
 					OrderDetailCursor.moveToPosition(i);
 					String InvIdCode = OrderDetailCursor.getString(3);
 					Cursor cursor = mBDInventoryMaster.selectByAttribute(InvIdCode);
-					StructInventoryMaster l_StructInventoryMaster = new StructInventoryMaster();
+					StructWare l_StructInventoryMaster = new StructWare();
 					FromDBToInventory(cursor, l_StructInventoryMaster);
 					if(cursor != null){
 						cursor.close();
@@ -263,7 +263,7 @@ public class HistoryActivity extends BaseActivity implements OnWareItemClickClas
 					}
 					if(!isHave){
 						Cursor cursor = mBDInventoryMaster.selectByAttribute(InvIdCode);
-						StructInventoryMaster l_StructInventoryMaster = new StructInventoryMaster();
+						StructWare l_StructInventoryMaster = new StructWare();
 						FromDBToInventory(cursor, l_StructInventoryMaster);
 						if(cursor != null){
 							cursor.close();
