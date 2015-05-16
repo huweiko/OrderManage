@@ -351,24 +351,6 @@ public class OrderActivity extends BaseActivity implements OnOrderItemClickClass
 		mBDOrderDetail.close();
 		super.onDestroy();
 	}
-	private static long firstTime;
-	/**
-	 * 连续按两次返回键就退出
-	 */
-	@Override
-	public void onBackPressed() {
-		// TODO Auto-generated method stub
-		if (firstTime + 2000 > System.currentTimeMillis()) {
-			Log.i("huwei", getPackageName()+"程序退出！");
-//			ActivityManager am = (ActivityManager) getSystemService(ACTIVITY_SERVICE); 
-//			am.killBackgroundProcesses(getPackageName()); // API Level至少为8才能使用
-			AppManager.getAppManager().AppExit(this);
-			super.onBackPressed();
-		} else {
-			UIHealper.DisplayToast(this, "再按一次退出程序");
-		}
-		firstTime = System.currentTimeMillis();
-	}
 	@Override
 	public void UpdateUI(List<StructInventoryMaster> data) {
 		// TODO Auto-generated method stub
