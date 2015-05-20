@@ -17,7 +17,7 @@ public class DatabaseSyncManager{
 		}
 		return instance;
 	}
-	public boolean doSyncData(Context context,,Handler handler){
+	public boolean doSyncData(Context context,String a,Handler handler){
 		return false;
 	}
 }

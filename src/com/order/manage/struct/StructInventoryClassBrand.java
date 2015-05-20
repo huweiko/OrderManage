@@ -3,7 +3,7 @@ package com.order.manage.struct;
 import java.util.ArrayList;
 import java.util.List;
 
-public class StructBDInventoryClassBrand{
+public class StructInventoryClassBrand{
 	private String InvClassIdCode;//内码
 	private int ClassOrBrand;//类别或者品牌
 	private String InvClassCode;//类别代码
@@ -12,7 +12,7 @@ public class StructBDInventoryClassBrand{
 	private String EndSaveTime;//最后更新时间
 	private int OrderId;//排序
 	
-	private List<StructInventoryMaster> mBDInventoryClassBrand = new ArrayList<StructInventoryMaster>();
+	private List<StructWare> mBDInventoryClassBrand = new ArrayList<StructWare>();
 	public String getInvClassIdCode() {
 		return InvClassIdCode;
 	}
@@ -43,13 +43,13 @@ public class StructBDInventoryClassBrand{
 	public void setEndSaveTime(String endSaveTime) {
 		EndSaveTime = endSaveTime;
 	}
-	public List<StructInventoryMaster> getmBDInventoryClassBrand() {
+	public List<StructWare> getmBDInventoryClassBrand() {
 		return mBDInventoryClassBrand;
 	}
-	public void setmBDInventoryClassBrand(List<StructInventoryMaster> mBDInventoryClassBrand) {
+	public void setmBDInventoryClassBrand(List<StructWare> mBDInventoryClassBrand) {
 		this.mBDInventoryClassBrand = mBDInventoryClassBrand;
 	}
-	public void addmBDInventoryClassBrand(StructInventoryMaster mBDInventoryClassBrand){
+	public void addmBDInventoryClassBrand(StructWare mBDInventoryClassBrand){
 		this.mBDInventoryClassBrand.add(mBDInventoryClassBrand);
 	}
 	public int getClassOrBrand() {

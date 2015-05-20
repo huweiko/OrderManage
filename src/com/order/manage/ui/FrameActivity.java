@@ -23,8 +23,8 @@ import com.order.manage.R;
 import com.order.manage.UIHealper;
 import com.order.manage.db.BDInventoryClassBrand;
 import com.order.manage.db.BDInventoryMaster;
-import com.order.manage.struct.StructBDInventoryClassBrand;
-import com.order.manage.struct.StructInventoryMaster;
+import com.order.manage.struct.StructInventoryClassBrand;
+import com.order.manage.struct.StructWare;
 
 import android.app.ActivityGroup;
 import android.app.AlertDialog;
@@ -314,7 +314,7 @@ public class FrameActivity extends ActivityGroup
 //		把从数据库中获取的数据放入数组列表
 		for(int i = 0;i < LeiMuArray.length;i++){
 
-			StructBDInventoryClassBrand l_StructBDInventoryClassBrand = new StructBDInventoryClassBrand();
+			StructInventoryClassBrand l_StructBDInventoryClassBrand = new StructInventoryClassBrand();
 			l_StructBDInventoryClassBrand.setInvClassIdCode(""+i);
 			l_StructBDInventoryClassBrand.setClassOrBrand(i);
 			l_StructBDInventoryClassBrand.setInvClassCode(""+i);
@@ -323,7 +323,7 @@ public class FrameActivity extends ActivityGroup
 
 			for(int j = 0;j<WareArray.length;j++){
 				
-				StructInventoryMaster l_StructInventoryMaster = new StructInventoryMaster();
+				StructWare l_StructInventoryMaster = new StructWare();
 				l_StructInventoryMaster.setInvIdCode(i+"_"+j);
 				l_StructInventoryMaster.setInvName(WareArray[i]);
 				l_StructInventoryMaster.setInvClassCode(""+j);

@@ -5,7 +5,7 @@ import java.util.List;
 
 import com.order.manage.PinyinHelper;
 import com.order.manage.R;
-import com.order.manage.struct.StructInventoryMaster;
+import com.order.manage.struct.StructWare;
 import com.order.manage.ui.OrderSearchActivity;
 import com.order.manage.ui.SearchWareActivity;
 
@@ -24,21 +24,21 @@ import android.widget.TextView;
 public class SearchWareAdapter extends BaseAdapter implements Filterable{
 	private Context ctx;
 	private WareFilter filter;
-	private List<StructInventoryMaster> listItems;
-	private List<StructInventoryMaster> data;
+	private List<StructWare> listItems;
+	private List<StructWare> data;
 	private int layout = R.layout.ware_list_item;
 	PinyinHelper mPinyinHelper;
 	private String SearchElement;
-	public SearchWareAdapter(Context context,List<StructInventoryMaster> data,int layout){
+	public SearchWareAdapter(Context context,List<StructWare> data,int layout){
 		this.ctx = context;
 		this.listItems = data;
 		this.layout = layout;
 		mPinyinHelper = PinyinHelper.getInstance(context);
 	}
-	public void setWareFilter(List<StructInventoryMaster> data){
+	public void setWareFilter(List<StructWare> data){
 		this.data = data;
 	}
-	public void setlistItems(List<StructInventoryMaster> data){
+	public void setlistItems(List<StructWare> data){
 		this.listItems = data;
 	}
 	public void setSearchElement(String SearchElement){
@@ -106,9 +106,9 @@ public class SearchWareAdapter extends BaseAdapter implements Filterable{
 	}
 	
 	private class WareFilter extends Filter{
-		private List<StructInventoryMaster> filterDatas;
+		private List<StructWare> filterDatas;
 
-		public WareFilter(List<StructInventoryMaster> datas) {
+		public WareFilter(List<StructWare> datas) {
 			this.filterDatas = datas;
 		}
 
@@ -117,13 +117,13 @@ public class SearchWareAdapter extends BaseAdapter implements Filterable{
 			// TODO Auto-generated method stub
 			FilterResults results = new FilterResults();
 			if (TextUtils.isEmpty(constraint)) { // 无过滤
-				List<StructInventoryMaster> lists = new ArrayList<StructInventoryMaster>();
+				List<StructWare> lists = new ArrayList<StructWare>();
 				results.values = lists;
 				results.count = lists.size();
 			} else {// 过滤
-				List<StructInventoryMaster> lists = new ArrayList<StructInventoryMaster>();
+				List<StructWare> lists = new ArrayList<StructWare>();
 				// lists.add(datas.get(0));// 固定当前城市
-				for (StructInventoryMaster data : filterDatas) {
+				for (StructWare data : filterDatas) {
 					// 过滤规则: 名字或者名字拼音中包含关键字
 					String keyWord = mPinyinHelper.getFullPinyin(constraint.toString());
 					String l_SerarchElement = "";
@@ -162,7 +162,7 @@ public class SearchWareAdapter extends BaseAdapter implements Filterable{
 		protected void publishResults(CharSequence constraint,
 				FilterResults results) {
 			// TODO Auto-generated method stub
-			listItems = (List<StructInventoryMaster>) results.values;
+			listItems = (List<StructWare>) results.values;
 			notifyDataSetChanged();
 		}
 		

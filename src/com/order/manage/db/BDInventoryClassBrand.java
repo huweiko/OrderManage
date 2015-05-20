@@ -1,7 +1,7 @@
 package com.order.manage.db;
 
 
-import com.order.manage.struct.StructBDInventoryClassBrand;
+import com.order.manage.struct.StructInventoryClassBrand;
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
@@ -65,7 +65,7 @@ public class BDInventoryClassBrand extends DBHelper {
 		String where = InvClassIdCode + "=?";
 		super.delete(TABLE_NAME, where, whereValue);
 	}
-	public long insert(StructBDInventoryClassBrand mStructBDInventoryClassBrand)
+	public long insert(StructInventoryClassBrand mStructBDInventoryClassBrand)
 	{
 		ContentValues cv=new ContentValues(); 
 		cv.put(InvClassIdCode, mStructBDInventoryClassBrand.getInvClassIdCode());
@@ -76,7 +76,7 @@ public class BDInventoryClassBrand extends DBHelper {
 		return super.insert(TABLE_NAME, cv);
 	}
 	
-	public void update(StructBDInventoryClassBrand mStructBDInventoryClassBrand,String x_InvClassIdCode)
+	public void update(StructInventoryClassBrand mStructBDInventoryClassBrand,String x_InvClassIdCode)
 	{
 		String [] whereValue = {x_InvClassIdCode};
 		String where = InvClassIdCode + "=?";

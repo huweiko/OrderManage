@@ -6,7 +6,7 @@ import java.util.List;
 import org.androidannotations.annotations.ViewById;
 
 import com.order.manage.R;
-import com.order.manage.struct.StructInventoryMaster;
+import com.order.manage.struct.StructWare;
 import com.order.manage.struct.StructOrderDetail;
 import com.order.manage.struct.StructOrderHeader;
 

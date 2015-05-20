@@ -5,7 +5,7 @@ import java.util.List;
 
 import com.order.manage.PinyinHelper;
 import com.order.manage.R;
-import com.order.manage.struct.StructInventoryMaster;
+import com.order.manage.struct.StructWare;
 import com.order.manage.struct.StructOrderHeader;
 import com.order.manage.ui.OrderSearchActivity;
 

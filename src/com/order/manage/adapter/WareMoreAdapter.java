@@ -5,7 +5,7 @@ import java.util.List;
 
 import com.order.manage.PinyinHelper;
 import com.order.manage.R;
-import com.order.manage.struct.StructInventoryMaster;
+import com.order.manage.struct.StructWare;
 
 import android.content.Context;
 import android.graphics.Color;
@@ -25,17 +25,17 @@ import android.widget.TextView;
 
 public class WareMoreAdapter extends BaseAdapter {
 	private Context ctx;
-	private List<StructInventoryMaster> listItems;
+	private List<StructWare> listItems;
 	private int position = 0;
 	private int layout = R.layout.ware_list_item;
 	private OnWareItemClickClass onItemClickClass;
 	
-	public WareMoreAdapter(Context ctx, List<StructInventoryMaster> data) {
+	public WareMoreAdapter(Context ctx, List<StructWare> data) {
 		this.ctx = ctx;
 		this.listItems = data;
 	}
 
-	public WareMoreAdapter(Context ctx, List<StructInventoryMaster> data, int layout) {
+	public WareMoreAdapter(Context ctx, List<StructWare> data, int layout) {
 		this.ctx = ctx;
 		this.listItems = data;
 		this.layout = layout;
