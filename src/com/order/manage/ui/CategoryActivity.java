@@ -1,12 +1,11 @@
 package com.order.manage.ui;
+
 import java.util.ArrayList;
 import java.util.List;
-
 import org.androidannotations.annotations.AfterViews;
 import org.androidannotations.annotations.Click;
 import org.androidannotations.annotations.EActivity;
 import org.androidannotations.annotations.ViewById;
-
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.order.manage.AppContext;
@@ -22,22 +21,24 @@ import com.order.manage.db.BDInventoryClassBrand;
 import com.order.manage.db.BDInventoryMaster;
 import com.order.manage.http.AjaxCallBack;
 import com.order.manage.http.AjaxParams;
-import com.order.manage.struct.CopyOfStructDBInventoryMaster;
 import com.order.manage.struct.StructDBInventoryMaster;
 import com.order.manage.struct.StructInventoryClassBrand;
 import com.order.manage.struct.StructWare;
 import com.order.manage.util.AssetUtils;
+import com.order.manage.util.DatabaseSyncManager;
 import com.order.manage.util.ToastHelper;
-
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.database.Cursor;
+import android.os.AsyncTask;
 import android.os.Handler;
+import android.os.Message;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
+import android.widget.Toast;
 import android.widget.AdapterView.OnItemClickListener;
 
 @EActivity(R.layout.activity_category)
@@ -64,6 +65,8 @@ public class CategoryActivity extends BaseActivity implements OnWareItemClickCla
 	
 	private int mCurrentMainItem = 0;
 	private int mCurrentSecondItem = 0;
+	
+	List<StructDBInventoryMaster> mListStructDBInventoryMaster;
 	@Click(R.id.LinearLayoutGategoryClick)
 	void OnClickLinearLayoutGategoryClick(View v){
 		
@@ -77,8 +80,11 @@ public class CategoryActivity extends BaseActivity implements OnWareItemClickCla
 		appContext = (AppContext) getApplication();
 		initCategory();
 		String t = AssetUtils.getDataFromAssets(this, "ware_list.txt");
-		Response<List<CopyOfStructDBInventoryMaster>> response = new Gson().fromJson(t, 
-				new TypeToken<Response<List<CopyOfStructDBInventoryMaster>>>(){}.getType());
+		Response<List<StructDBInventoryMaster>> response = new Gson().fromJson(t, 
+				new TypeToken<Response<List<StructDBInventoryMaster>>>(){}.getType());
+		mListStructDBInventoryMaster = response.getResponse();
+		DataSyncTask mDataSyncTask = new DataSyncTask();
+		mDataSyncTask.execute();
 		getWareList();
 		if(mStructBDInventoryClassBrand.size() > 0){
 			mCategoryMainAdapter = new CategoryMainAdapter(appContext, mStructBDInventoryClassBrand);
@@ -89,12 +95,44 @@ public class CategoryActivity extends BaseActivity implements OnWareItemClickCla
 				mWareMoreAdapter.SetOnWareItemClickClassListener(this);
 				mShoplist_twolist2.setAdapter(mWareMoreAdapter);
 			}
-
 		}
 		
 		mShoplist_onelist2.setOnItemClickListener(new Onelistclick2());
 		mShoplist_twolist2.setOnItemClickListener(new Onelistclick1());
 	}
+	private class DataSyncTask extends AsyncTask<String, Void, Boolean>{
+		
+    	@Override
+		protected void onPreExecute() {
+			super.onPreExecute();
+		}
+
+		protected Boolean doInBackground(String... params) {
+    		return DatabaseSyncManager.getInstance().doSyncData(getApplicationContext(), mListStructDBInventoryMaster, mHandler);
+    	}  
+    	
+    	protected void onPostExecute(Boolean result){
+			if(result){
+				Toast.makeText(CategoryActivity.this, R.string.db_sync_success, Toast.LENGTH_SHORT).show();
+			}else{
+				Toast.makeText(CategoryActivity.this, R.string.db_sync_fail, Toast.LENGTH_SHORT).show();
+
+			}
+    	}
+	}
+	private Handler mHandler = new Handler() {
+		@Override
+		public void handleMessage(Message msg) {
+			switch (msg.what) {
+			case DatabaseSyncManager.POST_PROGRESS_NOTIFY:
+				int completePercent = msg.arg1;
+				Toast.makeText(CategoryActivity.this, R.string.db_sync_success, Toast.LENGTH_SHORT).show();
+				break;
+			default:
+				break;
+			}
+		}
+	};
 	void getWareList(){
 		AjaxParams params = new AjaxParams();
 		params.put("tab","BD_InventoryMaster");
