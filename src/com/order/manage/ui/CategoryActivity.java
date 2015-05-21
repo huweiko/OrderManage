@@ -95,7 +95,6 @@ public class CategoryActivity extends BaseActivity implements OnWareItemClickCla
 				mWareMoreAdapter.SetOnWareItemClickClassListener(this);
 				mShoplist_twolist2.setAdapter(mWareMoreAdapter);
 			}
-
 		}
 		
 		mShoplist_onelist2.setOnItemClickListener(new Onelistclick2());

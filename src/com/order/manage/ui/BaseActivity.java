@@ -35,7 +35,6 @@ public class BaseActivity extends FragmentActivity implements IProvideActionBar{
 		overridePendingTransition(R.anim.in_from_right, R.anim.out_to_left); 
 		AppManager.getAppManager().addActivity(this);
 		tag = getClass().getSimpleName();
-		// 禁止横屏
 		setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
 
 		if (null == preferences) {
@@ -65,10 +64,6 @@ public class BaseActivity extends FragmentActivity implements IProvideActionBar{
 		return this;
 	}
 
-	/**
-	 * 显示对话框
-	 * @param strId
-	 */
 	public void showReqeustDialog(int strId){
 		if(requestDialog == null){
 			requestDialog = new RequestDialog(this);
@@ -81,24 +76,12 @@ public class BaseActivity extends FragmentActivity implements IProvideActionBar{
 		}
 	}
 	
-	/**
-	 * 取消对话框
-	 */
 	public void cancelRequestDialog(){
 		if(requestDialog != null && requestDialog.isShowing()){
 			requestDialog.cancel();
 		}
 	}
 	
-	
-	/**
-	 * 添加标题
-	 * 
-	 * @param title
-	 *            -- 标题
-	 * @param listener
-	 *            -- 监听事件
-	 */
 	@Override
 	public void setTitle(CharSequence title, OnClickListener listener) {
 		getSelfDefActionBar();
@@ -122,13 +105,6 @@ public class BaseActivity extends FragmentActivity implements IProvideActionBar{
 		}
 	}
  
- 
-	/**
-	 * 添加顶部标题栏左侧返回按钮
-	 * 
-	 * @param listener
-	 *            如果为null，就pass Activity activity
-	 */
 	protected void addBackBtn(View.OnClickListener listener) {
 		getSelfDefActionBar();
 		if (actionBar != null) {
@@ -143,12 +119,6 @@ public class BaseActivity extends FragmentActivity implements IProvideActionBar{
 			actionBar.addBackText(R.string.back, listener);
 		}
 	}
-
-	/**
-	 * 添加顶部标题栏左侧返回按钮
-	 * 
-	 * @param listener
-	 */
 	protected void addBackImage(int drawId, OnClickListener listener) {
 		getSelfDefActionBar();
 		if (actionBar != null) {
@@ -164,12 +134,6 @@ public class BaseActivity extends FragmentActivity implements IProvideActionBar{
 		}
 	}
 	
-	/**
-	 * 添加顶部标题栏左侧返回按钮
-	 * 
-	 * @param listener
-	 *            如果为null，就pass Activity activity
-	 */
 	protected void addRightBtn(int strId, OnClickListener listener) {
 		getSelfDefActionBar();
 		if (actionBar != null) {
@@ -185,11 +149,6 @@ public class BaseActivity extends FragmentActivity implements IProvideActionBar{
 		}
 	}
 
-	/**
-	 * 添加顶部标题栏左侧返回按钮
-	 * 
-	 * @param listener
-	 */
 	protected void addRightImage(int drawId, OnClickListener listener) {
 		getSelfDefActionBar();
 		if (actionBar != null) {
@@ -223,9 +182,6 @@ public class BaseActivity extends FragmentActivity implements IProvideActionBar{
 		return http;
 	}
 	
-	/**
-	 * 获取当前登录用户信息
-	 */
 	protected void getCurrentUser() {
 		try {
 			user = new Gson().fromJson(
@@ -237,9 +193,6 @@ public class BaseActivity extends FragmentActivity implements IProvideActionBar{
 		}
 	}
 
-	/**
-	 * 隐藏输入法
-	 */
 	protected void hideInput() {
 		View view = getWindow().peekDecorView();
 		if (view != null) {

@@ -3,9 +3,16 @@ package com.order.manage.util;
 import java.util.Date;
 import java.util.List;
 
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 import com.order.manage.OtherHealper;
+import com.order.manage.bean.Response;
+import com.order.manage.bean.Urls;
 import com.order.manage.db.BDInventoryMaster;
+import com.order.manage.http.AjaxCallBack;
+import com.order.manage.http.AjaxParams;
 import com.order.manage.struct.StructDBInventoryMaster;
+import com.order.manage.struct.StructOrder;
 
 import android.content.Context;
 import android.database.Cursor;
@@ -59,6 +66,10 @@ public class DatabaseSyncManager{
 			}
 		}
 		
+		return true;
+	}
+	public boolean doSubmitOrder(Context context,StructOrder order,Handler handler){
+
 		return true;
 	}
 }

@@ -11,17 +11,26 @@ import org.androidannotations.annotations.Click;
 import org.androidannotations.annotations.EActivity;
 import org.androidannotations.annotations.ViewById;
 
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 import com.order.manage.AppContext;
 import com.order.manage.AppManager;
 import com.order.manage.R;
 import com.order.manage.UIHealper;
 import com.order.manage.adapter.OrderListViewAdapter;
 import com.order.manage.adapter.OrderListViewAdapter.OnOrderItemClickClass;
+import com.order.manage.bean.Response;
+import com.order.manage.bean.Urls;
 import com.order.manage.db.BDOrderDetail;
 import com.order.manage.db.BDOrderHeader;
+import com.order.manage.http.AjaxCallBack;
+import com.order.manage.http.AjaxParams;
+import com.order.manage.struct.StructDBInventoryMaster;
+import com.order.manage.struct.StructOrder;
 import com.order.manage.struct.StructWare;
 import com.order.manage.struct.StructOrderDetail;
 import com.order.manage.struct.StructOrderHeader;
+import com.order.manage.util.ToastHelper;
 
 import android.annotation.SuppressLint;
 import android.app.Activity;
@@ -127,9 +136,40 @@ public class OrderActivity extends BaseActivity implements OnOrderItemClickClass
 			l_StructOrderDetail.setTotalNum(ordertotalnum);
 			mBDOrderDetail.insert(l_StructOrderDetail);
 		}
-		
-		
-	
+	}
+	void submitOrder(StructOrder order){
+		String jsonOrder = new Gson().toJson(order);
+		AjaxParams params = new AjaxParams();
+		params.put("tab","co_order");
+		params.put("condition","	");
+		params.put("jsons",jsonOrder);
+//		final LoginCallBack callback = new LoginCallBack(isBackLogin, btnLoad, user, LoginActivity.this, isShowLoading);
+		getFinalHttp().post(Urls.submitOrder, params, new AjaxCallBack<String>(){
+
+			@Override
+			public void onSuccess(String t) {
+				super.onSuccess(t);
+//				callback.parseData(t);
+				parseData(t);
+				cancelRequestDialog();
+			}
+			private void parseData(String t) {
+				Response<StructDBInventoryMaster> response = new Gson().fromJson(t, 
+						new TypeToken<Response<StructDBInventoryMaster>>(){}.getType());
+				if(response.getResult()){
+					StructDBInventoryMaster aa = response.getResponse();
+					
+				}else{
+					ToastHelper.ToastLg(response.getMessage(), getActivity());
+				}
+
+			}
+			@Override
+			public void onFailure(Throwable t, int errorNo, String strMsg) {
+				super.onFailure(t, errorNo, strMsg);
+				cancelRequestDialog();
+			}
+		});
 	}
 	void showEditRemarksDialog(){
 		final EditText mEditTextAddressName;
@@ -215,8 +255,6 @@ public class OrderActivity extends BaseActivity implements OnOrderItemClickClass
 			}
 
 		}
-
-
 	}
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
