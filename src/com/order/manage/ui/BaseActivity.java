@@ -13,6 +13,7 @@ import com.order.manage.view.SelfDefineActionBar;
 import com.order.manage.view.SelfDefineActionBar.IProvideActionBar;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.SharedPreferences;
 import android.content.pm.ActivityInfo;
 import android.os.Bundle;
@@ -29,6 +30,7 @@ public class BaseActivity extends FragmentActivity implements IProvideActionBar{
 	private FinalHttp http;
 	protected SelfDefineActionBar actionBar;
 	protected RequestDialog requestDialog;
+	Context activity;
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -41,6 +43,7 @@ public class BaseActivity extends FragmentActivity implements IProvideActionBar{
 			preferences = Preference.getSharedPreferences(this);
 		} 
 		getFinalHttp();
+		activity = this;
 	}
 
 	@Override

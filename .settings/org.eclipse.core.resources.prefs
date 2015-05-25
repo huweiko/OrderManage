@@ -3,6 +3,7 @@
 >>>>>>>=branch 'master' of https\://github.com/huweiko/OrderManage.git
 eclipse.preferences.version=1
 encoding//assets/ware_list.txt=UTF-8
+encoding//assets/ware_list_all.txt=UTF-8
 encoding//src/com/order/manage/http=UTF-8
 encoding//src/com/order/manage/ui/AboutActivity.java=UTF-8
 encoding//src/com/order/manage/ui/BaseActivity.java=UTF-8

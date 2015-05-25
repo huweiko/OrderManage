@@ -66,7 +66,6 @@ public class CategoryActivity extends BaseActivity implements OnWareItemClickCla
 	private int mCurrentMainItem = 0;
 	private int mCurrentSecondItem = 0;
 	
-	List<StructDBInventoryMaster> mListStructDBInventoryMaster;
 	@Click(R.id.LinearLayoutGategoryClick)
 	void OnClickLinearLayoutGategoryClick(View v){
 		
@@ -79,13 +78,8 @@ public class CategoryActivity extends BaseActivity implements OnWareItemClickCla
 	void initView() {
 		appContext = (AppContext) getApplication();
 		initCategory();
-		String t = AssetUtils.getDataFromAssets(this, "ware_list.txt");
-		Response<List<StructDBInventoryMaster>> response = new Gson().fromJson(t, 
-				new TypeToken<Response<List<StructDBInventoryMaster>>>(){}.getType());
-		mListStructDBInventoryMaster = response.getResponse();
-		DataSyncTask mDataSyncTask = new DataSyncTask();
-		mDataSyncTask.execute();
-		getWareList();
+
+
 		if(mStructBDInventoryClassBrand.size() > 0){
 			mCategoryMainAdapter = new CategoryMainAdapter(appContext, mStructBDInventoryClassBrand);
 			mCategoryMainAdapter.setSelectItem(0);
@@ -100,72 +94,7 @@ public class CategoryActivity extends BaseActivity implements OnWareItemClickCla
 		mShoplist_onelist2.setOnItemClickListener(new Onelistclick2());
 		mShoplist_twolist2.setOnItemClickListener(new Onelistclick1());
 	}
-	private class DataSyncTask extends AsyncTask<String, Void, Boolean>{
-		
-    	@Override
-		protected void onPreExecute() {
-			super.onPreExecute();
-		}
 
-		protected Boolean doInBackground(String... params) {
-    		return DatabaseSyncManager.getInstance().doSyncData(getApplicationContext(), mListStructDBInventoryMaster, mHandler);
-    	}  
-    	
-    	protected void onPostExecute(Boolean result){
-			if(result){
-				Toast.makeText(CategoryActivity.this, R.string.db_sync_success, Toast.LENGTH_SHORT).show();
-			}else{
-				Toast.makeText(CategoryActivity.this, R.string.db_sync_fail, Toast.LENGTH_SHORT).show();
-
-			}
-    	}
-	}
-	private Handler mHandler = new Handler() {
-		@Override
-		public void handleMessage(Message msg) {
-			switch (msg.what) {
-			case DatabaseSyncManager.POST_PROGRESS_NOTIFY:
-				int completePercent = msg.arg1;
-				Toast.makeText(CategoryActivity.this, R.string.db_sync_success, Toast.LENGTH_SHORT).show();
-				break;
-			default:
-				break;
-			}
-		}
-	};
-	void getWareList(){
-		AjaxParams params = new AjaxParams();
-		params.put("tab","BD_InventoryMaster");
-		params.put("condition"," and InvIdCode<>'' ");
-		params.put("fldList","");
-//		final LoginCallBack callback = new LoginCallBack(isBackLogin, btnLoad, user, LoginActivity.this, isShowLoading);
-		getFinalHttp().post(Urls.getWare, params, new AjaxCallBack<String>(){
-
-			@Override
-			public void onSuccess(String t) {
-				super.onSuccess(t);
-//				callback.parseData(t);
-				parseData(t);
-				cancelRequestDialog();
-			}
-			private void parseData(String t) {
-				Response<StructDBInventoryMaster> response = new Gson().fromJson(t, 
-						new TypeToken<Response<StructDBInventoryMaster>>(){}.getType());
-				if(response.getResult()){
-					StructDBInventoryMaster aa = response.getResponse();
-					
-				}else{
-					ToastHelper.ToastLg(response.getMessage(), getActivity());
-				}
-
-		}
-			@Override
-			public void onFailure(Throwable t, int errorNo, String strMsg) {
-				super.onFailure(t, errorNo, strMsg);
-				cancelRequestDialog();
-			}
-		});
-	}
 	private class Onelistclick1 implements OnItemClickListener {
 		public void onItemClick(AdapterView<?> arg0, View arg1, int arg2,
 				long arg3) {

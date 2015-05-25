@@ -1,17 +1,16 @@
 package com.order.manage.util;
 
-import java.util.Date;
-import java.util.List;
+import java.util.Iterator;
 
-import com.google.gson.Gson;
-import com.google.gson.reflect.TypeToken;
-import com.order.manage.OtherHealper;
-import com.order.manage.bean.Response;
-import com.order.manage.bean.Urls;
+
+
+
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import com.order.manage.db.BDInventoryMaster;
-import com.order.manage.http.AjaxCallBack;
-import com.order.manage.http.AjaxParams;
-import com.order.manage.struct.StructDBInventoryMaster;
 import com.order.manage.struct.StructOrder;
 
 import android.content.Context;
@@ -39,7 +38,20 @@ public class DatabaseSyncManager{
 		return instance;
 	}
 	//更新商品，同步到数据库
-	public boolean doSyncData(Context context,List<StructDBInventoryMaster> waredata,Handler handler){
+	@SuppressWarnings("rawtypes")
+	public boolean doSyncData(Context context,String waredata,Handler handler) throws JSONException {
+		JSONObject jsonObject1 = new JSONObject(waredata);
+		String value = jsonObject1.getString("BD_InventoryMaster");
+		JSONArray jsonArray = new JSONArray(value);
+		for (int i = 0; i< jsonArray.length();i++){
+			String json_c = jsonArray.getString(i);
+			JSONObject jsonObject = new JSONObject(json_c);
+			for (Iterator iter = jsonObject.keys(); iter.hasNext();) { //先遍历整个 people 对象
+			    String key = (String)iter.next();
+			    System.out.println(key + "#" + jsonObject.getString(key));
+			}	
+		}
+/*
 		mBDInventoryMaster = new BDInventoryMaster(context);
 		mBDInventoryMaster.createDBtable();
 		for(int i = 0;i < waredata.size();i++){
@@ -65,7 +77,7 @@ public class DatabaseSyncManager{
 				mBDInventoryMaster.insert(waredata.get(i));
 			}
 		}
-		
+		*/
 		return true;
 	}
 	public boolean doSubmitOrder(Context context,StructOrder order,Handler handler){

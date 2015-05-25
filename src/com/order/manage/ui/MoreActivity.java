@@ -1,24 +1,45 @@
 package com.order.manage.ui;
 
 import java.lang.reflect.Field;
+import java.util.Iterator;
+import java.util.List;
+
+import net.sf.json.JSONArray;
+import net.sf.json.JSONObject;
+import net.sf.json.JSONSerializer;
 
 import org.androidannotations.annotations.AfterViews;
 import org.androidannotations.annotations.Click;
 import org.androidannotations.annotations.EActivity;
+import org.json.JSONException;
 
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.app.AlertDialog.Builder;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.os.AsyncTask;
+import android.os.Handler;
+import android.os.Message;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.Toast;
 
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 import com.order.manage.AppContext;
 import com.order.manage.Constant;
 import com.order.manage.R;
 import com.order.manage.UIHealper;
+import com.order.manage.bean.Response;
+import com.order.manage.bean.Urls;
+import com.order.manage.http.AjaxCallBack;
+import com.order.manage.http.AjaxParams;
+import com.order.manage.struct.StructDBInventoryMaster;
+import com.order.manage.util.AssetUtils;
+import com.order.manage.util.DatabaseSyncManager;
+import com.order.manage.util.ToastHelper;
 
 /**
  * ¸ü¶àÄ£¿é
@@ -26,6 +47,7 @@ import com.order.manage.UIHealper;
 @EActivity(R.layout.activity_more)
 public class MoreActivity extends BaseActivity {
 	private AppContext appcontext;
+	List<StructDBInventoryMaster> mListStructDBInventoryMaster;
 	@AfterViews
 	void initView(){
 		appcontext = (AppContext) getApplicationContext();
@@ -36,7 +58,13 @@ public class MoreActivity extends BaseActivity {
 	}
 	@Click
 	void LinearLayoutMoreLoadNewDada(){
-		
+		String json = AssetUtils.getDataFromAssets(this, "ware_list_all.txt");
+		/*	Response<List<StructDBInventoryMaster>> response = new Gson().fromJson(t, 
+				new TypeToken<Response<List<StructDBInventoryMaster>>>(){}.getType());
+		mListStructDBInventoryMaster = response.getResponse();*/
+		DataSyncTask mDataSyncTask = new DataSyncTask();
+		mDataSyncTask.execute(json);
+//		getWareList();
 	}
 	@Click
 	void LinearLayoutMoreAbaout(){
@@ -95,5 +123,78 @@ public class MoreActivity extends BaseActivity {
 		}catch(Exception e) {
 		    e.printStackTrace();
 		}
+	}
+	private class DataSyncTask extends AsyncTask<String, Void, Boolean>{
+		
+    	@Override
+		protected void onPreExecute() {
+			super.onPreExecute();
+		}
+
+		protected Boolean doInBackground(String... params) {
+    		boolean retult = false;
+			try {
+				retult = DatabaseSyncManager.getInstance().doSyncData(getApplicationContext(), params[0], mHandler);
+			} catch (JSONException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			return retult;
+    	}  
+    	
+    	protected void onPostExecute(Boolean result){
+			if(result){
+				Toast.makeText(activity, R.string.db_sync_success, Toast.LENGTH_SHORT).show();
+			}else{
+				Toast.makeText(activity, R.string.db_sync_fail, Toast.LENGTH_SHORT).show();
+
+			}
+    	}
+	}
+	private Handler mHandler = new Handler() {
+		@Override
+		public void handleMessage(Message msg) {
+			switch (msg.what) {
+			case DatabaseSyncManager.POST_PROGRESS_NOTIFY:
+				int completePercent = msg.arg1;
+				Toast.makeText(activity, R.string.db_sync_success, Toast.LENGTH_SHORT).show();
+				break;
+			default:
+				break;
+			}
+		}
+	};
+	void getWareList(){
+		AjaxParams params = new AjaxParams();
+		params.put("tab","BD_InventoryMaster");
+		params.put("condition"," and InvIdCode<>'' ");
+		params.put("fldList","");
+//		final LoginCallBack callback = new LoginCallBack(isBackLogin, btnLoad, user, LoginActivity.this, isShowLoading);
+		getFinalHttp().post(Urls.getWare, params, new AjaxCallBack<String>(){
+
+			@Override
+			public void onSuccess(String t) {
+				super.onSuccess(t);
+//				callback.parseData(t);
+				parseData(t);
+				cancelRequestDialog();
+			}
+			private void parseData(String t) {
+				Response<StructDBInventoryMaster> response = new Gson().fromJson(t, 
+						new TypeToken<Response<StructDBInventoryMaster>>(){}.getType());
+				if(response.getResult()){
+					StructDBInventoryMaster aa = response.getResponse();
+					
+				}else{
+					ToastHelper.ToastLg(response.getMessage(), getActivity());
+				}
+
+		}
+			@Override
+			public void onFailure(Throwable t, int errorNo, String strMsg) {
+				super.onFailure(t, errorNo, strMsg);
+				cancelRequestDialog();
+			}
+		});
 	}
 }

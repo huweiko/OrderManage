@@ -113,7 +113,7 @@ public class FrameActivity extends ActivityGroup
 	@AfterViews
 	public void init(){
 		appContext = (AppContext) getApplication();
-		insertDB();
+//		insertDB();
 		createView();
 		// 写一个内部类pageradapter
 		pagerAdapter = new PagerAdapter() {
