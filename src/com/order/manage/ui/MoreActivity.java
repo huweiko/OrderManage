@@ -58,13 +58,12 @@ public class MoreActivity extends BaseActivity {
 	}
 	@Click
 	void LinearLayoutMoreLoadNewDada(){
-		String json = AssetUtils.getDataFromAssets(this, "ware_list_all.txt");
+//		String json = AssetUtils.getDataFromAssets(this, "ware_list_all.txt");
 		/*	Response<List<StructDBInventoryMaster>> response = new Gson().fromJson(t, 
 				new TypeToken<Response<List<StructDBInventoryMaster>>>(){}.getType());
 		mListStructDBInventoryMaster = response.getResponse();*/
-		DataSyncTask mDataSyncTask = new DataSyncTask();
-		mDataSyncTask.execute(json);
-//		getWareList();
+
+		getWareList();
 	}
 	@Click
 	void LinearLayoutMoreAbaout(){
@@ -180,14 +179,9 @@ public class MoreActivity extends BaseActivity {
 				cancelRequestDialog();
 			}
 			private void parseData(String t) {
-				Response<StructDBInventoryMaster> response = new Gson().fromJson(t, 
-						new TypeToken<Response<StructDBInventoryMaster>>(){}.getType());
-				if(response.getResult()){
-					StructDBInventoryMaster aa = response.getResponse();
+					DataSyncTask mDataSyncTask = new DataSyncTask();
+					mDataSyncTask.execute(t);
 					
-				}else{
-					ToastHelper.ToastLg(response.getMessage(), getActivity());
-				}
 
 		}
 			@Override

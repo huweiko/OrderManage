@@ -78,6 +78,7 @@ public class OrderActivity extends BaseActivity implements OnOrderItemClickClass
 	private final String mOrderHeader = "ODR_";
 	private BDOrderHeader mBDOrderHeader;
 	private BDOrderDetail mBDOrderDetail;
+	private StructOrder mStructOrder;
 	@ViewById
 	ListView ListViewOrder;
 	@ViewById
@@ -112,6 +113,7 @@ public class OrderActivity extends BaseActivity implements OnOrderItemClickClass
 		l_StructOrderHeader.setBillDate(DateString);
 		l_StructOrderHeader.setMemo(x_remarks);
 		mBDOrderHeader.insert(l_StructOrderHeader);
+		mStructOrder.setmStructOrderHeader(l_StructOrderHeader);
 		InsertOrderDetailToDB(mOrderHeader+Time.getTime());
 		
 	}
@@ -134,6 +136,7 @@ public class OrderActivity extends BaseActivity implements OnOrderItemClickClass
 			l_StructOrderDetail.setInvName(mOrderStructInventoryMaster.get(i).getInvName());
 			l_StructOrderDetail.setInvIdCode(mOrderStructInventoryMaster.get(i).getInvIdCode());
 			l_StructOrderDetail.setTotalNum(ordertotalnum);
+			mStructOrder.getListOrderDetail().add(l_StructOrderDetail);
 			mBDOrderDetail.insert(l_StructOrderDetail);
 		}
 	}
@@ -189,7 +192,9 @@ public class OrderActivity extends BaseActivity implements OnOrderItemClickClass
 			{
 				String Remarks = mEditTextAddressName.getText().toString();
 				if(!Remarks.equals("")){
+					mStructOrder = new StructOrder();
 					InsertOrderHeaderToDB(Remarks);
+					submitOrder(mStructOrder);
 					Intent intent = new Intent(HistoryActivity.INTERNAL_ACTION_SUBMITORDER);
 					appContext.sendBroadcast(intent);
 					mOrderStructInventoryMaster.clear();
