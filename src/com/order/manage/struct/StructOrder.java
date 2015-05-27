@@ -1,11 +1,12 @@
 package com.order.manage.struct;
 
+import java.util.ArrayList;
 import java.util.List;
 
 
 public class StructOrder{
 	private StructOrderHeader mStructOrderHeader;
-	private List<StructOrderDetail> ListOrderDetail;
+	private List<StructOrderDetail> ListOrderDetail = new ArrayList<StructOrderDetail>();
 	public StructOrderHeader getmStructOrderHeader() {
 		return mStructOrderHeader;
 	}

@@ -86,8 +86,20 @@ public final class OrderActivity_
     public void onViewChanged(HasViews hasViews) {
         TextViewMoney = ((TextView) hasViews.findViewById(id.TextViewMoney));
         CheckBoxSelectAll = ((CheckBox) hasViews.findViewById(id.CheckBoxSelectAll));
-        ListViewOrder = ((ListView) hasViews.findViewById(id.ListViewOrder));
         ButtonOrderListEdit = ((Button) hasViews.findViewById(id.ButtonOrderListEdit));
+        ListViewOrder = ((ListView) hasViews.findViewById(id.ListViewOrder));
+        if (ButtonOrderListEdit!= null) {
+            ButtonOrderListEdit.setOnClickListener(new OnClickListener() {
+
+
+                @Override
+                public void onClick(View view) {
+                    OrderActivity_.this.OnclickButtonOrderListEdit();
+                }
+
+            }
+            );
+        }
         {
             View view = hasViews.findViewById(id.ButtonSubmit);
             if (view!= null) {
@@ -102,18 +114,6 @@ public final class OrderActivity_
                 }
                 );
             }
-        }
-        if (ButtonOrderListEdit!= null) {
-            ButtonOrderListEdit.setOnClickListener(new OnClickListener() {
-
-
-                @Override
-                public void onClick(View view) {
-                    OrderActivity_.this.OnclickButtonOrderListEdit();
-                }
-
-            }
-            );
         }
         initView();
     }

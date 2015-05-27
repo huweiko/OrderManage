@@ -4,22 +4,15 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
-
-
-
-
-
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
-
 import com.order.manage.OtherHealper;
 import com.order.manage.db.BDInventoryClassBrand;
 import com.order.manage.db.BDInventoryMaster;
 import com.order.manage.struct.StructDBInventoryMaster;
 import com.order.manage.struct.StructInventoryClassBrand;
 import com.order.manage.struct.StructOrder;
-
 import android.content.Context;
 import android.database.Cursor;
 import android.os.Handler;

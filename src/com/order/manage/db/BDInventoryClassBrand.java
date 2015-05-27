@@ -82,12 +82,12 @@ public class BDInventoryClassBrand extends DBHelper {
 		String where = InvClassIdCode + "=?";
 		ContentValues cv=new ContentValues(); 
 		cv.put(InvClassIdCode, mStructBDInventoryClassBrand.getInvClassIdCode());
-		cv.put(ClassOrBrand, mStructBDInventoryClassBrand.getInvClassIdCode());
-		cv.put(InvClassCode, mStructBDInventoryClassBrand.getInvClassIdCode());
-		cv.put(InvClassName, mStructBDInventoryClassBrand.getInvClassIdCode());
-		cv.put(ParentId, mStructBDInventoryClassBrand.getInvClassIdCode());
-		cv.put(EndSaveTime, mStructBDInventoryClassBrand.getInvClassIdCode());
-		cv.put(OrderId, mStructBDInventoryClassBrand.getInvClassIdCode());
+		cv.put(ClassOrBrand, mStructBDInventoryClassBrand.getClassOrBrand());
+		cv.put(InvClassCode, mStructBDInventoryClassBrand.getInvClassCode());
+		cv.put(InvClassName, mStructBDInventoryClassBrand.getInvClassName());
+		cv.put(ParentId, mStructBDInventoryClassBrand.getParentId());
+		cv.put(EndSaveTime, mStructBDInventoryClassBrand.getEndSaveTime());
+		cv.put(OrderId, mStructBDInventoryClassBrand.getOrderId());
 
 		super.update(TABLE_NAME, where, whereValue, cv);
 	}
