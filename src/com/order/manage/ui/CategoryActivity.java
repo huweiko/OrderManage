@@ -73,6 +73,20 @@ public class CategoryActivity extends BaseActivity implements OnWareItemClickCla
 		intent.setClass(appContext, SearchWareActivity_.class);
 		startActivity(intent);
 	}
+	@Click(R.id.ImageButtonRefresh)
+	void OnClickImageButtonRefresh(View v){
+		initCategory();
+		if(mStructBDInventoryClassBrand.size() > 0){
+			mCategoryMainAdapter = new CategoryMainAdapter(appContext, mStructBDInventoryClassBrand);
+			mCategoryMainAdapter.setSelectItem(0);
+			mShoplist_onelist2.setAdapter(mCategoryMainAdapter);
+			if(mStructBDInventoryClassBrand.get(0).getmBDInventoryClassBrand()!=null){
+				mWareMoreAdapter = new WareMoreAdapter(appContext, mStructBDInventoryClassBrand.get(0).getmBDInventoryClassBrand());
+				mWareMoreAdapter.SetOnWareItemClickClassListener(this);
+				mShoplist_twolist2.setAdapter(mWareMoreAdapter);
+			}
+		}
+	}
 	
 	@AfterViews
 	void initView() {

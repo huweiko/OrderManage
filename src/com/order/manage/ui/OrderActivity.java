@@ -112,6 +112,7 @@ public class OrderActivity extends BaseActivity implements OnOrderItemClickClass
 		l_StructOrderHeader.setBizDate(DateString);
 		l_StructOrderHeader.setBillDate(DateString);
 		l_StructOrderHeader.setMemo(x_remarks);
+		l_StructOrderHeader.setEndSaveTime(DateString);
 		mBDOrderHeader.insert(l_StructOrderHeader);
 		mStructOrder.setmStructOrderHeader(l_StructOrderHeader);
 		InsertOrderDetailToDB(mOrderHeader+Time.getTime());

@@ -65,7 +65,11 @@ public class BDOrderHeader extends DBHelper {
 	{
 		return super.selectByAttribute(TABLE_NAME,BillId,x_BillId);
 	}
-	
+	public Cursor selectByDateRange(String startTime,String stopTime){
+		SQLiteDatabase db=this.getReadableDatabase();
+		Cursor cursor= db.rawQuery("select * from "+TABLE_NAME+" where "+EndSaveTime + "> '"+startTime +"' and "+"EndSaveTime < '"+stopTime+"'",null);
+		return cursor;
+	}
 	public void delete(String x_BillId)
 	{
 		String [] whereValue = {x_BillId};

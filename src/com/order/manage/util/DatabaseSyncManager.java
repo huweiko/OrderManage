@@ -149,7 +149,7 @@ public class DatabaseSyncManager{
 						Date DBEndUpdateTime = OtherHealper.stringToDate(DBEndUpdateString);
 						Date NetEndUpdateTime = OtherHealper.stringToDate(NetEndUpdateTimeString);
 						//判断商品是否需要更新
-						if(DBEndUpdateTime == null&&NetEndUpdateTime == null){
+						if(DBEndUpdateTime == null || NetEndUpdateTime == null){
 							Log.e(TAG, "商品更新时间为空");
 						}else{
 							if(NetEndUpdateTime.getTime()>DBEndUpdateTime.getTime()){
@@ -186,7 +186,7 @@ public class DatabaseSyncManager{
 						Date DBEndUpdateTime = OtherHealper.stringToDate(DBEndUpdateString);
 						Date NetEndUpdateTime = OtherHealper.stringToDate(NetEndUpdateTimeString);
 						//判断商品是否需要更新
-						if(DBEndUpdateTime == null&&NetEndUpdateTime == null){
+						if(DBEndUpdateTime == null || NetEndUpdateTime == null){
 							Log.e(TAG, "类目更新时间为空");
 						}else{
 							if(NetEndUpdateTime.getTime()>DBEndUpdateTime.getTime()){

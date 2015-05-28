@@ -37,6 +37,7 @@
         </LinearLayout>
 
         <LinearLayout
+            android:visibility="visible"
             android:id="@+id/LinearLayoutOrderSearchContent"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
@@ -55,25 +56,32 @@
 
             <EditText
                 android:id="@+id/EditTextOrderSearchInput"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:gravity="center_vertical"
                 android:background="@color/transparent"
                 android:textColor="#666666"
                 android:textSize="15sp" />
         </LinearLayout>
-
+		<include 
+		    android:id="@+id/LinearLayoutDateSwitch"
+		    android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+		    android:gravity="center_vertical"
+		    android:visibility="gone"
+		    android:layout_weight="300"
+		    layout="@layout/view_date"/>
         <Button
             android:id="@+id/ButtonOrderSearchClear"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:padding="10dp"
-            android:text="取消"
+            android:text="搜索"
             android:textColor="#666666"
             android:background="@color/transparent"/>
     </LinearLayout>
-
+	
 	<ListView
 	    android:layout_below="@+id/LinearLayoutTop"
         android:id="@+id/ListViewOrderSearch"

@@ -7,7 +7,6 @@ package com.order.manage.ui;
 
 import android.content.Context;
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -64,7 +63,11 @@ public final class CategoryActivity_
         return new CategoryActivity_.IntentBuilder_(context);
     }
 
-    public static CategoryActivity_.IntentBuilder_ intent(Fragment supportFragment) {
+    public static CategoryActivity_.IntentBuilder_ intent(android.app.Fragment fragment) {
+        return new CategoryActivity_.IntentBuilder_(fragment);
+    }
+
+    public static CategoryActivity_.IntentBuilder_ intent(android.support.v4.app.Fragment supportFragment) {
         return new CategoryActivity_.IntentBuilder_(supportFragment);
     }
 
@@ -79,8 +82,23 @@ public final class CategoryActivity_
     @Override
     public void onViewChanged(HasViews hasViews) {
         mShoplist_mainlist2 = ((LinearLayout) hasViews.findViewById(id.Shoplist_mainlist2));
-        mShoplist_onelist2 = ((ListView) hasViews.findViewById(id.Shoplist_onelist2));
         mShoplist_twolist2 = ((ListView) hasViews.findViewById(id.Shoplist_twolist2));
+        mShoplist_onelist2 = ((ListView) hasViews.findViewById(id.Shoplist_onelist2));
+        {
+            View view = hasViews.findViewById(id.ImageButtonRefresh);
+            if (view!= null) {
+                view.setOnClickListener(new OnClickListener() {
+
+
+                    @Override
+                    public void onClick(View view) {
+                        CategoryActivity_.this.OnClickImageButtonRefresh(view);
+                    }
+
+                }
+                );
+            }
+        }
         {
             View view = hasViews.findViewById(id.LinearLayoutGategoryClick);
             if (view!= null) {
@@ -103,13 +121,19 @@ public final class CategoryActivity_
         extends ActivityIntentBuilder<CategoryActivity_.IntentBuilder_>
     {
 
-        private Fragment fragmentSupport_;
+        private android.app.Fragment fragment_;
+        private android.support.v4.app.Fragment fragmentSupport_;
 
         public IntentBuilder_(Context context) {
             super(context, CategoryActivity_.class);
         }
 
-        public IntentBuilder_(Fragment fragment) {
+        public IntentBuilder_(android.app.Fragment fragment) {
+            super(fragment.getActivity(), CategoryActivity_.class);
+            fragment_ = fragment;
+        }
+
+        public IntentBuilder_(android.support.v4.app.Fragment fragment) {
             super(fragment.getActivity(), CategoryActivity_.class);
             fragmentSupport_ = fragment;
         }
@@ -119,7 +143,11 @@ public final class CategoryActivity_
             if (fragmentSupport_!= null) {
                 fragmentSupport_.startActivityForResult(intent, requestCode);
             } else {
-                super.startForResult(requestCode);
+                if (fragment_!= null) {
+                    fragment_.startActivityForResult(intent, requestCode);
+                } else {
+                    super.startForResult(requestCode);
+                }
             }
         }
 

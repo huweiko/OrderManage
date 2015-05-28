@@ -7,7 +7,6 @@ package com.order.manage.ui;
 
 import android.content.Context;
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -66,7 +65,11 @@ public final class HistoryActivity_
         return new HistoryActivity_.IntentBuilder_(context);
     }
 
-    public static HistoryActivity_.IntentBuilder_ intent(Fragment supportFragment) {
+    public static HistoryActivity_.IntentBuilder_ intent(android.app.Fragment fragment) {
+        return new HistoryActivity_.IntentBuilder_(fragment);
+    }
+
+    public static HistoryActivity_.IntentBuilder_ intent(android.support.v4.app.Fragment supportFragment) {
         return new HistoryActivity_.IntentBuilder_(supportFragment);
     }
 
@@ -80,14 +83,14 @@ public final class HistoryActivity_
 
     @Override
     public void onViewChanged(HasViews hasViews) {
-        TextViewPriceTotalNum = ((TextView) hasViews.findViewById(id.TextViewPriceTotalNum));
         ListViewWareListItem = ((ListView) hasViews.findViewById(id.ListViewWareListItem));
-        ImageViewArrow = ((ImageView) hasViews.findViewById(id.ImageViewArrow));
-        LinearLayoutOrderDetail = ((LinearLayout) hasViews.findViewById(id.LinearLayoutOrderDetail));
+        ListViewOrderHistory = ((ListView) hasViews.findViewById(id.ListViewOrderHistory));
         TextViewOrderId = ((TextView) hasViews.findViewById(id.TextViewOrderId));
         TextViewOrderSubmitTime = ((TextView) hasViews.findViewById(id.TextViewOrderSubmitTime));
+        TextViewPriceTotalNum = ((TextView) hasViews.findViewById(id.TextViewPriceTotalNum));
         TextViewOrderRemarks = ((TextView) hasViews.findViewById(id.TextViewOrderRemarks));
-        ListViewOrderHistory = ((ListView) hasViews.findViewById(id.ListViewOrderHistory));
+        LinearLayoutOrderDetail = ((LinearLayout) hasViews.findViewById(id.LinearLayoutOrderDetail));
+        ImageViewArrow = ((ImageView) hasViews.findViewById(id.ImageViewArrow));
         {
             View view = hasViews.findViewById(id.LinearLayoutHistoryOrderInputClick);
             if (view!= null) {
@@ -110,13 +113,19 @@ public final class HistoryActivity_
         extends ActivityIntentBuilder<HistoryActivity_.IntentBuilder_>
     {
 
-        private Fragment fragmentSupport_;
+        private android.app.Fragment fragment_;
+        private android.support.v4.app.Fragment fragmentSupport_;
 
         public IntentBuilder_(Context context) {
             super(context, HistoryActivity_.class);
         }
 
-        public IntentBuilder_(Fragment fragment) {
+        public IntentBuilder_(android.app.Fragment fragment) {
+            super(fragment.getActivity(), HistoryActivity_.class);
+            fragment_ = fragment;
+        }
+
+        public IntentBuilder_(android.support.v4.app.Fragment fragment) {
             super(fragment.getActivity(), HistoryActivity_.class);
             fragmentSupport_ = fragment;
         }
@@ -126,7 +135,11 @@ public final class HistoryActivity_
             if (fragmentSupport_!= null) {
                 fragmentSupport_.startActivityForResult(intent, requestCode);
             } else {
-                super.startForResult(requestCode);
+                if (fragment_!= null) {
+                    fragment_.startActivityForResult(intent, requestCode);
+                } else {
+                    super.startForResult(requestCode);
+                }
             }
         }
 

@@ -19,7 +19,7 @@ public class AssetUtils {
 			byte[] buffer = new byte[reads];
 			is.read(buffer);
 			result = EncodingUtils.getString(buffer, ENCODING);
-			result = result.replace("\r\n", "").replace(" ", "");
+			result = result.replace("\r\n", "");
 			is.close();
 		} catch (IOException e) {
 			e.printStackTrace();
