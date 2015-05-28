@@ -18,6 +18,6 @@ public class Constant {
 		}
 	}
 	public static String SERVER_IP = "serverip";
-	
+	public static final String PgyerAPPID="1319eb9690305ce9958a9cee68ca44a5";// 集成蒲公英sdk应用的appId
 
 }

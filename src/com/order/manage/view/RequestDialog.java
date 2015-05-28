@@ -10,7 +10,7 @@ public class RequestDialog extends Dialog{
 
 	public RequestDialog(Context context) {
 		super(context, R.style.dialog);
-		setContentView(R.layout.remarks_dialog);
+		setContentView(R.layout.request_dialog);
 	}
 	
 	public void setMessage(String msg){

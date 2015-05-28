@@ -1,6 +1,7 @@
 package com.order.manage;
 
 import com.order.manage.http.FinalHttp;
+import com.pgyersdk.crash.PgyCrashManager;
 
 import android.app.Application;
 import android.content.pm.PackageInfo;
@@ -39,6 +40,7 @@ public class AppContext extends Application{
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+        PgyCrashManager.register(this,Constant.PgyerAPPID);// 集成蒲公英sdk应用的appId
     } 
     /*
      * 获取应用版本号

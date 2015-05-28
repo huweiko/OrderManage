@@ -19,12 +19,15 @@ import org.androidannotations.annotations.ViewById;
 
 import com.order.manage.AppContext;
 import com.order.manage.AppManager;
+import com.order.manage.Constant;
 import com.order.manage.R;
 import com.order.manage.UIHealper;
 import com.order.manage.db.BDInventoryClassBrand;
 import com.order.manage.db.BDInventoryMaster;
 import com.order.manage.struct.StructInventoryClassBrand;
 import com.order.manage.struct.StructWare;
+import com.pgyersdk.feedback.PgyFeedbackShakeManager;
+import com.pgyersdk.update.PgyUpdateManager;
 
 import android.app.ActivityGroup;
 import android.app.AlertDialog;
@@ -113,6 +116,7 @@ public class FrameActivity extends ActivityGroup
 	@AfterViews
 	public void init(){
 		appContext = (AppContext) getApplication();
+		PgyUpdateManager.register(this,Constant.PgyerAPPID);
 //		insertDB();
 		createView();
 		// 写一个内部类pageradapter
@@ -408,4 +412,5 @@ public class FrameActivity extends ActivityGroup
 		}
 		firstTime = System.currentTimeMillis();
 	}
+
 }

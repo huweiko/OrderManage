@@ -146,6 +146,7 @@ public class OrderActivity extends BaseActivity implements OnOrderItemClickClass
 		params.put("tab","co_order");
 		params.put("condition","	");
 		params.put("jsons",jsonOrder);
+		showReqeustDialog(R.string.submit_order);
 //		final LoginCallBack callback = new LoginCallBack(isBackLogin, btnLoad, user, LoginActivity.this, isShowLoading);
 		getFinalHttp().post(Urls.submitOrder, params, new AjaxCallBack<String>(){
 
@@ -154,17 +155,18 @@ public class OrderActivity extends BaseActivity implements OnOrderItemClickClass
 				super.onSuccess(t);
 //				callback.parseData(t);
 				parseData(t);
+				ToastHelper.ToastLg(R.string.submit_order_success, activity);
 				cancelRequestDialog();
 			}
 			private void parseData(String t) {
-				Response<StructDBInventoryMaster> response = new Gson().fromJson(t, 
+/*				Response<StructDBInventoryMaster> response = new Gson().fromJson(t, 
 						new TypeToken<Response<StructDBInventoryMaster>>(){}.getType());
 				if(response.getResult()){
 					StructDBInventoryMaster aa = response.getResponse();
 					
 				}else{
 					ToastHelper.ToastLg(response.getMessage(), getActivity());
-				}
+				}*/
 
 			}
 			@Override

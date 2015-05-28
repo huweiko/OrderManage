@@ -40,6 +40,7 @@ import com.order.manage.struct.StructDBInventoryMaster;
 import com.order.manage.util.AssetUtils;
 import com.order.manage.util.DatabaseSyncManager;
 import com.order.manage.util.ToastHelper;
+import com.pgyersdk.feedback.PgyFeedbackShakeManager;
 
 /**
  * ¸ü¶àÄ£¿é
@@ -58,12 +59,10 @@ public class MoreActivity extends BaseActivity {
 	}
 	@Click
 	void LinearLayoutMoreLoadNewDada(){
-//		String json = AssetUtils.getDataFromAssets(this, "ware_list_all.txt");
-		/*	Response<List<StructDBInventoryMaster>> response = new Gson().fromJson(t, 
-				new TypeToken<Response<List<StructDBInventoryMaster>>>(){}.getType());
-		mListStructDBInventoryMaster = response.getResponse();*/
-
-		getWareList();
+		String json = AssetUtils.getDataFromAssets(this, "ware_list_all.txt");
+		DataSyncTask mDataSyncTask = new DataSyncTask();
+		mDataSyncTask.execute(json);
+//		getWareList();
 	}
 	@Click
 	void LinearLayoutMoreAbaout(){
@@ -191,4 +190,17 @@ public class MoreActivity extends BaseActivity {
 			}
 		});
 	}
+	@Override
+    protected void onResume() {
+        // TODO Auto-generated method stub
+        super.onResume();
+        PgyFeedbackShakeManager.register(this, Constant.PgyerAPPID);
+    }
+
+    @Override
+    protected void onPause() {
+        // TODO Auto-generated method stub
+        super.onPause();
+        PgyFeedbackShakeManager.unregister();
+    }
 }

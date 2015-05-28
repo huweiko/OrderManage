@@ -387,6 +387,8 @@ containing a value of this type.
         public static final int db_sync_success=0x7f0a0005;
         public static final int login_userinfo_not_exist=0x7f0a0002;
         public static final int scan_text=0x7f0a0003;
+        public static final int submit_order=0x7f0a0006;
+        public static final int submit_order_success=0x7f0a0007;
     }
     public static final class style {
         /** 

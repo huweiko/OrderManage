@@ -10,15 +10,21 @@ import org.androidannotations.annotations.Click;
 import org.androidannotations.annotations.EActivity;
 import org.androidannotations.annotations.ViewById;
 
+import com.google.gson.Gson;
 import com.order.manage.R;
 import com.order.manage.adapter.HistoryOrderAdapter;
 import com.order.manage.adapter.HistoryOrderAdapter.OnWareItemClickClass;
+import com.order.manage.bean.Urls;
 import com.order.manage.db.BDInventoryMaster;
 import com.order.manage.db.BDOrderDetail;
 import com.order.manage.db.BDOrderHeader;
+import com.order.manage.http.AjaxCallBack;
+import com.order.manage.http.AjaxParams;
+import com.order.manage.struct.StructOrder;
 import com.order.manage.struct.StructWare;
 import com.order.manage.struct.StructOrderDetail;
 import com.order.manage.struct.StructOrderHeader;
+import com.order.manage.util.ToastHelper;
 
 import android.app.Activity;
 import android.content.BroadcastReceiver;
@@ -58,6 +64,8 @@ public class HistoryActivity extends BaseActivity implements OnWareItemClickClas
 	
 	private Cursor myInventoryMasterCursor;
 	private BDInventoryMaster mBDInventoryMaster;
+	
+	private StructOrder mStructOrder;
 	@ViewById
 	ListView ListViewOrderHistory;
 	@ViewById
@@ -212,6 +220,41 @@ public class HistoryActivity extends BaseActivity implements OnWareItemClickClas
 			l_StructInventoryMaster.setSalePrice(cursor.getDouble(12));
 		}
 	}
+	void submitOrder(StructOrder order){
+		String jsonOrder = new Gson().toJson(order);
+		AjaxParams params = new AjaxParams();
+		params.put("tab","co_order");
+		params.put("condition","	");
+		params.put("jsons",jsonOrder);
+		showReqeustDialog(R.string.submit_order);
+//		final LoginCallBack callback = new LoginCallBack(isBackLogin, btnLoad, user, LoginActivity.this, isShowLoading);
+		getFinalHttp().post(Urls.submitOrder, params, new AjaxCallBack<String>(){
+
+			@Override
+			public void onSuccess(String t) {
+				super.onSuccess(t);
+//				callback.parseData(t);
+				parseData(t);
+				cancelRequestDialog();
+			}
+			private void parseData(String t) {
+/*				Response<StructDBInventoryMaster> response = new Gson().fromJson(t, 
+						new TypeToken<Response<StructDBInventoryMaster>>(){}.getType());
+				if(response.getResult()){
+					StructDBInventoryMaster aa = response.getResponse();
+					
+				}else{
+					ToastHelper.ToastLg(response.getMessage(), getActivity());
+				}*/
+				ToastHelper.ToastLg(R.string.submit_order_success, activity);
+			}
+			@Override
+			public void onFailure(Throwable t, int errorNo, String strMsg) {
+				super.onFailure(t, errorNo, strMsg);
+				cancelRequestDialog();
+			}
+		});
+	}
 	@Override
 	public void OnItemClick(View v, int Position) {
 		// TODO Auto-generated method stub
@@ -292,6 +335,10 @@ public class HistoryActivity extends BaseActivity implements OnWareItemClickClas
 			}
 				break;
 			case R.id.ButtonHistoryOrderSubmit:
+				mStructOrder = new StructOrder();
+				mStructOrder.setmStructOrderHeader(lp_StructOrderHeader.get(Position));
+				mStructOrder.setListOrderDetail(lp_StructOrderDetail);
+				submitOrder(mStructOrder);
 				Log.i("huwei", "Submit Position = "+Position);
 				break;
 			case R.id.LinearLayoutHistoryOrderListItem:{
