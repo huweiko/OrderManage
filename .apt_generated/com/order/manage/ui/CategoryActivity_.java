@@ -81,24 +81,9 @@ public final class CategoryActivity_
 
     @Override
     public void onViewChanged(HasViews hasViews) {
-        mShoplist_mainlist2 = ((LinearLayout) hasViews.findViewById(id.Shoplist_mainlist2));
         mShoplist_twolist2 = ((ListView) hasViews.findViewById(id.Shoplist_twolist2));
+        mShoplist_mainlist2 = ((LinearLayout) hasViews.findViewById(id.Shoplist_mainlist2));
         mShoplist_onelist2 = ((ListView) hasViews.findViewById(id.Shoplist_onelist2));
-        {
-            View view = hasViews.findViewById(id.ImageButtonRefresh);
-            if (view!= null) {
-                view.setOnClickListener(new OnClickListener() {
-
-
-                    @Override
-                    public void onClick(View view) {
-                        CategoryActivity_.this.OnClickImageButtonRefresh(view);
-                    }
-
-                }
-                );
-            }
-        }
         {
             View view = hasViews.findViewById(id.LinearLayoutGategoryClick);
             if (view!= null) {
@@ -108,6 +93,21 @@ public final class CategoryActivity_
                     @Override
                     public void onClick(View view) {
                         CategoryActivity_.this.OnClickLinearLayoutGategoryClick(view);
+                    }
+
+                }
+                );
+            }
+        }
+        {
+            View view = hasViews.findViewById(id.ImageButtonRefresh);
+            if (view!= null) {
+                view.setOnClickListener(new OnClickListener() {
+
+
+                    @Override
+                    public void onClick(View view) {
+                        CategoryActivity_.this.OnClickImageButtonRefresh(view);
                     }
 
                 }

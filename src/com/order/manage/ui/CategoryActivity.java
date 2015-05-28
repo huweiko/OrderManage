@@ -139,7 +139,7 @@ public class CategoryActivity extends BaseActivity implements OnWareItemClickCla
 		mBDInventoryMaster.createDBtable();
 		
 		myInventoryClassBrandCursor = mBDInventoryClassBrand.select();
-
+		mStructBDInventoryClassBrand.clear();
 		for(int i = 0;i < myInventoryClassBrandCursor.getCount();i++){
 			myInventoryClassBrandCursor.moveToPosition(i);
 			StructInventoryClassBrand l_StructBDInventoryClassBrand = new StructInventoryClassBrand();
