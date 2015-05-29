@@ -6,11 +6,9 @@ import java.util.List;
 
 public class StructOrder{
 	private StructOrderHeader mStructOrderHeader;
-<<<<<<< HEAD
+
 	private List<StructOrderDetail> ListOrderDetail = new ArrayList<StructOrderDetail>() ;
-=======
-	private List<StructOrderDetail> ListOrderDetail = new ArrayList<StructOrderDetail>();
->>>>>>> refs/remotes/origin/master
+
 	public StructOrderHeader getmStructOrderHeader() {
 		return mStructOrderHeader;
 	}
