@@ -83,13 +83,24 @@ public final class HistoryActivity_
 
     @Override
     public void onViewChanged(HasViews hasViews) {
+<<<<<<< HEAD
         TextViewPriceTotalNum = ((TextView) hasViews.findViewById(id.TextViewPriceTotalNum));
         ListViewOrderHistory = ((ListView) hasViews.findViewById(id.ListViewOrderHistory));
         ImageViewArrow = ((ImageView) hasViews.findViewById(id.ImageViewArrow));
+=======
+        ListViewOrderHistory = ((ListView) hasViews.findViewById(id.ListViewOrderHistory));
+        TextViewOrderSubmitTime = ((TextView) hasViews.findViewById(id.TextViewOrderSubmitTime));
+        ImageViewArrow = ((ImageView) hasViews.findViewById(id.ImageViewArrow));
+        TextViewPriceTotalNum = ((TextView) hasViews.findViewById(id.TextViewPriceTotalNum));
+        ListViewWareListItem = ((ListView) hasViews.findViewById(id.ListViewWareListItem));
+>>>>>>> refs/remotes/origin/master
         LinearLayoutOrderDetail = ((LinearLayout) hasViews.findViewById(id.LinearLayoutOrderDetail));
         TextViewOrderId = ((TextView) hasViews.findViewById(id.TextViewOrderId));
+<<<<<<< HEAD
         ListViewWareListItem = ((ListView) hasViews.findViewById(id.ListViewWareListItem));
         TextViewOrderSubmitTime = ((TextView) hasViews.findViewById(id.TextViewOrderSubmitTime));
+=======
+>>>>>>> refs/remotes/origin/master
         TextViewOrderRemarks = ((TextView) hasViews.findViewById(id.TextViewOrderRemarks));
         {
             View view = hasViews.findViewById(id.LinearLayoutHistoryOrderInputClick);
