@@ -15,9 +15,9 @@ public class Urls {
 		
 	}
 	private String getServerUrls(){
-		return "http://"+SERVER_IP+":888/josn.aspx";
+		return "http://"+SERVER_IP+"/josn.aspx";
 	}
-	private String SERVER_IP = "187.7.85.246";
+	private String SERVER_IP = "stjmry.gicp.net:888";
 
 	public String getSERVER_IP() {
 		return SERVER_IP;
