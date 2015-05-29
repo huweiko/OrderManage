@@ -63,11 +63,7 @@
             "SalesGetRateKnd": 1,
             "SalesGetRate": 0,
             "Memo": null,
-<<<<<<< HEAD
-            "EndSaveTime": "2015-05-14 17:07:29",
-=======
             "EndSaveTime": "2015-05-14 17:07:29.663",
->>>>>>> refs/remotes/origin/master
             "Creater": "系统管理员",
             "CreateDate": "2015-03-25 00:01:27.217",
             "LowSalePrice": 0,
@@ -140,11 +136,7 @@
             "SalesGetRateKnd": 1,
             "SalesGetRate": 0,
             "Memo": null,
-<<<<<<< HEAD
-            "EndSaveTime": "2015-05-14 17:07:25",
-=======
             "EndSaveTime": "2015-05-14 17:07:25.35",
->>>>>>> refs/remotes/origin/master
             "Creater": "系统管理员",
             "CreateDate": "2015-03-25 00:02:03.903",
             "LowSalePrice": 0,
@@ -156,7 +148,7 @@
         },
         {
             "InvIdCode": "0000000006",
-            "InvClassIdCode": "C00003",
+            "InvClassIdCode": "C00011",
             "InvClassCode": "C10",
             "InvClassName": "彩代",
             "InvBrandIdCode": null,
@@ -219,7 +211,7 @@
             "Memo": null,
             "EndSaveTime": "2015-05-14 17:07:58",
             "Creater": "系统管理员",
-            "CreateDate": "2015-03-25T00:02:44.577",
+            "CreateDate": "2015-03-25 00:02:44.577",
             "LowSalePrice": 0,
             "StoreNum": null,
             "ShowOnWeb": false,
@@ -292,7 +284,7 @@
             "Memo": null,
             "EndSaveTime": "2015-05-14 17:08:29",
             "Creater": "系统管理员",
-            "CreateDate": "2015-03-24T23:59:20.717",
+            "CreateDate": "2015-03-24 23:59:20.717",
             "LowSalePrice": 0,
             "StoreNum": null,
             "ShowOnWeb": false,
@@ -365,7 +357,7 @@
             "Memo": null,
             "EndSaveTime": "2015-05-14 17:08:32",
             "Creater": "系统管理员",
-            "CreateDate": "2015-03-25T00:00:17.937",
+            "CreateDate": "2015-03-25 00:00:17.937",
             "LowSalePrice": 0,
             "StoreNum": null,
             "ShowOnWeb": false,
@@ -436,7 +428,7 @@
             "SalesGetRateKnd": 1,
             "SalesGetRate": 0,
             "Memo": null,
-            "EndSaveTime": "2015-05-14T17:08:35",
+            "EndSaveTime": "2015-05-14 17:08:35.224",
             "Creater": "系统管理员",
             "CreateDate": "2015-03-25T00:00:49.543",
             "LowSalePrice": 0,

@@ -482,6 +482,7 @@ containing a value of this type.
      
          */
         public static final int day_picker_description=0x7f07000f;
+        public static final int db_sync_doing=0x7f070022;
         public static final int db_sync_fail=0x7f070020;
         public static final int db_sync_success=0x7f070021;
         /**  Accessibility announcement when a number that had been typed in is deleted [CHAR_LIMIT=NONE] 
@@ -532,8 +533,8 @@ containing a value of this type.
          */
         public static final int select_year=0x7f070012;
         public static final int selection_radius_multiplier=0x7f070002;
-        public static final int submit_order=0x7f070022;
-        public static final int submit_order_success=0x7f070023;
+        public static final int submit_order=0x7f070023;
+        public static final int submit_order_success=0x7f070024;
         public static final int text_size_multiplier_inner=0x7f070008;
         public static final int text_size_multiplier_normal=0x7f070007;
         public static final int text_size_multiplier_outer=0x7f070009;
@@ -631,7 +632,7 @@ in (inches), mm (millimeters).
 theme attribute (in the form
 "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
 containing a value of this type.
-          @attr name android:rightPadding
+          @attr name com.order.manage:rightPadding
         */
         public static final int SlidingMenu_rightPadding = 0;
     };

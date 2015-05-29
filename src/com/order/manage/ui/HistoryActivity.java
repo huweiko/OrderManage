@@ -228,7 +228,7 @@ public class HistoryActivity extends BaseActivity implements OnWareItemClickClas
 		params.put("jsons",jsonOrder);
 		showReqeustDialog(R.string.submit_order);
 //		final LoginCallBack callback = new LoginCallBack(isBackLogin, btnLoad, user, LoginActivity.this, isShowLoading);
-		getFinalHttp().post(Urls.submitOrder, params, new AjaxCallBack<String>(){
+		getFinalHttp().post(Urls.getInstance().getSubmitOrder(), params, new AjaxCallBack<String>(){
 
 			@Override
 			public void onSuccess(String t) {

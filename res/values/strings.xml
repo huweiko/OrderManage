@@ -6,6 +6,7 @@
 	<string name="scan_text">将条形码放入框内, 即可自动扫描</string>
 	<string name="db_sync_fail">数据库同步失败!</string>
 	<string name="db_sync_success">数据库同步成功!</string>
+	<string name="db_sync_doing">正在同步数据</string>
 	<string name="submit_order">提交订单</string>
 	<string name="submit_order_success">提交订单成功</string>
 	

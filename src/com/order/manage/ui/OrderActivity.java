@@ -15,6 +15,7 @@ import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.order.manage.AppContext;
 import com.order.manage.AppManager;
+import com.order.manage.OtherHealper;
 import com.order.manage.R;
 import com.order.manage.UIHealper;
 import com.order.manage.adapter.OrderListViewAdapter;
@@ -101,9 +102,8 @@ public class OrderActivity extends BaseActivity implements OnOrderItemClickClass
 	}
 	//插入订单头信息到数据库
 	private void InsertOrderHeaderToDB(String x_remarks){
-		SimpleDateFormat mSimpleDateFormat = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
 		Date Time = new Date();
-		String DateString = mSimpleDateFormat.format(Time);
+		String DateString = OtherHealper.dateToString(Time);
 		StructOrderHeader l_StructOrderHeader = new StructOrderHeader();
 		System.currentTimeMillis();
 		Long.toString(System.currentTimeMillis());
@@ -123,22 +123,27 @@ public class OrderActivity extends BaseActivity implements OnOrderItemClickClass
 		Date Time = new Date();
 		int ordertotalnum = 0;
 		for(int i = 0;i < mOrderStructInventoryMaster.size();i++){
-			ordertotalnum += mOrderStructInventoryMaster.get(i).getOrderNumber();
+			if(mOrderStructInventoryMaster.get(i).getOrderChooseStatus()){
+				ordertotalnum += mOrderStructInventoryMaster.get(i).getOrderNumber();
+			}
 		}
 		for(int i = 0;i < mOrderStructInventoryMaster.size();i++){
-			StructOrderDetail l_StructOrderDetail = new StructOrderDetail();
-			int ordernum = mOrderStructInventoryMaster.get(i).getOrderNumber();
-			Double price = mOrderStructInventoryMaster.get(i).getSalePrice();
-			l_StructOrderDetail.setBillId(x_BillId);
-			l_StructOrderDetail.setItemId((int) Time.getTime()+i);
-			l_StructOrderDetail.setNum(ordernum);
-			l_StructOrderDetail.setPrice(price);
-			l_StructOrderDetail.setOrderMny(ordernum*price);
-			l_StructOrderDetail.setInvName(mOrderStructInventoryMaster.get(i).getInvName());
-			l_StructOrderDetail.setInvIdCode(mOrderStructInventoryMaster.get(i).getInvIdCode());
-			l_StructOrderDetail.setTotalNum(ordertotalnum);
-			mStructOrder.getListOrderDetail().add(l_StructOrderDetail);
-			mBDOrderDetail.insert(l_StructOrderDetail);
+			//插入被选中的商品
+			if(mOrderStructInventoryMaster.get(i).getOrderChooseStatus()){
+				StructOrderDetail l_StructOrderDetail = new StructOrderDetail();
+				int ordernum = mOrderStructInventoryMaster.get(i).getOrderNumber();
+				Double price = mOrderStructInventoryMaster.get(i).getSalePrice();
+				l_StructOrderDetail.setBillId(x_BillId);
+				l_StructOrderDetail.setItemId((int) Time.getTime()+i);
+				l_StructOrderDetail.setNum(ordernum);
+				l_StructOrderDetail.setPrice(price);
+				l_StructOrderDetail.setOrderMny(ordernum*price);
+				l_StructOrderDetail.setInvName(mOrderStructInventoryMaster.get(i).getInvName());
+				l_StructOrderDetail.setInvIdCode(mOrderStructInventoryMaster.get(i).getInvIdCode());
+				l_StructOrderDetail.setTotalNum(ordertotalnum);
+				mStructOrder.getListOrderDetail().add(l_StructOrderDetail);
+				mBDOrderDetail.insert(l_StructOrderDetail);
+			}
 		}
 	}
 	void submitOrder(StructOrder order){
@@ -149,7 +154,7 @@ public class OrderActivity extends BaseActivity implements OnOrderItemClickClass
 		params.put("jsons",jsonOrder);
 		showReqeustDialog(R.string.submit_order);
 //		final LoginCallBack callback = new LoginCallBack(isBackLogin, btnLoad, user, LoginActivity.this, isShowLoading);
-		getFinalHttp().post(Urls.submitOrder, params, new AjaxCallBack<String>(){
+		getFinalHttp().post(Urls.getInstance().getSubmitOrder(), params, new AjaxCallBack<String>(){
 
 			@Override
 			public void onSuccess(String t) {
@@ -284,9 +289,7 @@ public class OrderActivity extends BaseActivity implements OnOrderItemClickClass
 			@Override
 			public void onCheckedChanged(CompoundButton buttonView,
 					boolean isChecked) {
-				List<StructWare> l_Order = new ArrayList<StructWare>();
-				mOrderListViewAdapter.setListItems(l_Order);
-				ListViewOrder.setAdapter(mOrderListViewAdapter);	
+
 				// TODO Auto-generated method stub
 				if(isChecked){
 					for(int i = 0;i < mOrderStructInventoryMaster.size();i++){
@@ -300,6 +303,9 @@ public class OrderActivity extends BaseActivity implements OnOrderItemClickClass
 					}
 				}
 				if(mOrderStructInventoryMaster.size()>0){
+					List<StructWare> l_Order = new ArrayList<StructWare>();
+					mOrderListViewAdapter.setListItems(l_Order);
+					ListViewOrder.setAdapter(mOrderListViewAdapter); 
 					if(mOrderListViewAdapter == null){
 						mOrderListViewAdapter = new OrderListViewAdapter(appContext, mOrderStructInventoryMaster);
 						mOrderListViewAdapter.SetOnOrderItemClickClassListener(OrderActivity.this);
@@ -309,11 +315,11 @@ public class OrderActivity extends BaseActivity implements OnOrderItemClickClass
 						mOrderListViewAdapter.setListItems(l_OrderStructInventoryMaster);
 						mOrderListViewAdapter.notifyDataSetChanged();
 					}
-					
+					Message msg = new Message();
+					msg.what = HANDLE_UPDATE;
+					mHandler.sendMessage(msg);
 				}
-				Message msg = new Message();
-				msg.what = HANDLE_UPDATE;
-				mHandler.sendMessage(msg);
+			
 			} 
 			
 		}); 

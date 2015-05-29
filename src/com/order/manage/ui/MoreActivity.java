@@ -30,6 +30,7 @@ import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.order.manage.AppContext;
 import com.order.manage.Constant;
+import com.order.manage.Constant.Preference;
 import com.order.manage.R;
 import com.order.manage.UIHealper;
 import com.order.manage.bean.Response;
@@ -59,10 +60,10 @@ public class MoreActivity extends BaseActivity {
 	}
 	@Click
 	void LinearLayoutMoreLoadNewDada(){
-		String json = AssetUtils.getDataFromAssets(this, "ware_list_all.txt");
+/*		String json = AssetUtils.getDataFromAssets(this, "ware_list_all.txt");
 		DataSyncTask mDataSyncTask = new DataSyncTask();
-		mDataSyncTask.execute(json);
-//		getWareList();
+		mDataSyncTask.execute(json);*/
+		getWareList();
 	}
 	@Click
 	void LinearLayoutMoreAbaout(){
@@ -79,7 +80,7 @@ public class MoreActivity extends BaseActivity {
 		final LayoutInflater inflater = LayoutInflater.from(appcontext);
 		View vv = inflater.inflate(R.layout.remarks_dialog, null);
 		mEditTextAddressName = (EditText) vv.findViewById(R.id.EditTextRemarks);
-		String ip = preferences.getString(Constant.SERVER_IP, "");
+		String ip = preferences.getString(Preference.SERVER_IP, Urls.getInstance().getSERVER_IP());
 		mEditTextAddressName.setText(ip);
 		builder.setView(vv);
 		builder.setNegativeButton("确定", new android.content.DialogInterface.OnClickListener()
@@ -92,7 +93,8 @@ public class MoreActivity extends BaseActivity {
 					UIHealper.DisplayToast(appcontext, "输入的IP地址不合法！");
 					isCloseShowDialog(dialog, false);
 				}else{
-					preferences.edit().putString(Constant.SERVER_IP, externalIP).commit();
+					preferences.edit().putString(Preference.SERVER_IP, externalIP).commit();
+					Urls.getInstance().setSERVER_IP(externalIP);
 					isCloseShowDialog(dialog, true);
 				}
 
@@ -167,8 +169,9 @@ public class MoreActivity extends BaseActivity {
 		params.put("tab","BD_InventoryMaster");
 		params.put("condition"," and InvIdCode<>'' ");
 		params.put("fldList","");
+		showReqeustDialog(R.string.db_sync_doing);
 //		final LoginCallBack callback = new LoginCallBack(isBackLogin, btnLoad, user, LoginActivity.this, isShowLoading);
-		getFinalHttp().post(Urls.getWare, params, new AjaxCallBack<String>(){
+		getFinalHttp().post(Urls.getInstance().getWare(), params, new AjaxCallBack<String>(){
 
 			@Override
 			public void onSuccess(String t) {

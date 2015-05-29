@@ -1,5 +1,7 @@
 package com.order.manage;
 
+import com.order.manage.Constant.Preference;
+import com.order.manage.bean.Urls;
 import com.order.manage.http.FinalHttp;
 import com.pgyersdk.crash.PgyCrashManager;
 
@@ -41,6 +43,9 @@ public class AppContext extends Application{
 			e.printStackTrace();
 		}
         PgyCrashManager.register(this,Constant.PgyerAPPID);// 集成蒲公英sdk应用的appId
+        //初始化服务器IP
+        String ip = Preference.getSharedPreferences(this).getString(Preference.SERVER_IP, Urls.getInstance().getSERVER_IP());
+        Urls.getInstance().setSERVER_IP(ip);
     } 
     /*
      * 获取应用版本号

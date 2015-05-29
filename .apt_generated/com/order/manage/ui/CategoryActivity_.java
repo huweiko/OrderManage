@@ -81,17 +81,9 @@ public final class CategoryActivity_
 
     @Override
     public void onViewChanged(HasViews hasViews) {
-<<<<<<< HEAD
         mShoplist_mainlist2 = ((LinearLayout) hasViews.findViewById(id.Shoplist_mainlist2));
-=======
-        mShoplist_onelist2 = ((ListView) hasViews.findViewById(id.Shoplist_onelist2));
->>>>>>> refs/remotes/origin/master
         mShoplist_twolist2 = ((ListView) hasViews.findViewById(id.Shoplist_twolist2));
-<<<<<<< HEAD
         mShoplist_onelist2 = ((ListView) hasViews.findViewById(id.Shoplist_onelist2));
-=======
-        mShoplist_mainlist2 = ((LinearLayout) hasViews.findViewById(id.Shoplist_mainlist2));
->>>>>>> refs/remotes/origin/master
         {
             View view = hasViews.findViewById(id.LinearLayoutGategoryClick);
             if (view!= null) {
