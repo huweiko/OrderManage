@@ -128,8 +128,9 @@ public class SearchWareActivity extends BaseActivity implements OnSearchWareItem
 	@Override
 	protected void onDestroy() {
 		// TODO Auto-generated method stub
-		super.onDestroy();
 		mBDInventoryMaster.close();
+		super.onDestroy();
+		
 	}
 	private void StructWareCopy(StructWare a,StructWare b){
 		a.setInvIdCode(b.getInvIdCode());

@@ -47,7 +47,12 @@ public class SearchWareAdapter extends BaseAdapter implements Filterable{
 	@Override
 	public int getCount() {
 		// TODO Auto-generated method stub
-		return listItems.size();
+		if(listItems != null){
+			return listItems.size();
+		}else{
+			return 0;
+		}
+		
 	}
 
 	@Override
@@ -163,7 +168,10 @@ public class SearchWareAdapter extends BaseAdapter implements Filterable{
 				FilterResults results) {
 			// TODO Auto-generated method stub
 			listItems = (List<StructWare>) results.values;
-			notifyDataSetChanged();
+			if(listItems != null){
+				notifyDataSetChanged();
+			}
+			
 		}
 		
 	}
