@@ -89,14 +89,14 @@ public class MoreActivity extends BaseActivity {
 			public void onClick(DialogInterface dialog, int which)
 			{
 				String externalIP = mEditTextAddressName.getText().toString();
-				if(UIHealper.isIpv4(externalIP) == false){
+				/*if(UIHealper.isIpv4(externalIP) == false){
 					UIHealper.DisplayToast(appcontext, "输入的IP地址不合法！");
 					isCloseShowDialog(dialog, false);
-				}else{
+				}else{*/
 					preferences.edit().putString(Preference.SERVER_IP, externalIP).commit();
 					Urls.getInstance().setSERVER_IP(externalIP);
 					isCloseShowDialog(dialog, true);
-				}
+//				}
 
 			}
 
