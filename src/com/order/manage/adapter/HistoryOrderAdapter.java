@@ -83,6 +83,8 @@ public class HistoryOrderAdapter extends BaseAdapter {
 					.findViewById(R.id.TextViewRemarks);
 			hold.price = (TextView) arg1
 					.findViewById(R.id.TextViewTotalPrice);
+			hold.mTextViewOrderSubmitStatus = (TextView) arg1
+					.findViewById(R.id.TextViewOrderSubmitStatus);
 			hold.layout = (LinearLayout) arg1
 					.findViewById(R.id.LinearLayoutHistoryOrderListItem);
 			hold.mImageViewArrow = (ImageView) arg1
@@ -151,6 +153,11 @@ public class HistoryOrderAdapter extends BaseAdapter {
 		}
 		hold.txt.setText(listItemsOrderHeader.get(arg0).getMemo());
 		hold.price.setText(listItemsOrderHeader.get(arg0).getTotalMny()+"Ԫ");
+		if(listItemsOrderHeader.get(arg0).getUploaded() == 1){
+			hold.mTextViewOrderSubmitStatus.setText(R.string.submitted);
+		}else{
+			hold.mTextViewOrderSubmitStatus.setText(R.string.not_submit);
+		}
 		return arg1;
 	}
 
@@ -159,6 +166,7 @@ public class HistoryOrderAdapter extends BaseAdapter {
 		TextView txt;
 		TextView price;
 		ImageView mImageViewArrow;
+		TextView mTextViewOrderSubmitStatus;
 		
 		LinearLayout mLinearLayoutOrderDetail;
 		TextView mTextViewOrderId;

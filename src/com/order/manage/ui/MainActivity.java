@@ -4,7 +4,6 @@ package com.order.manage.ui;
 import com.order.manage.Constant;
 import com.order.manage.R;
 import com.order.manage.adapter.ViewPagerAdapter;
-import com.pgyersdk.feedback.PgyFeedbackShakeManager;
 
 import android.os.Bundle;
 import android.app.Activity;

@@ -10,6 +10,8 @@ import org.androidannotations.annotations.AfterViews;
 import org.androidannotations.annotations.Click;
 import org.androidannotations.annotations.EActivity;
 import org.androidannotations.annotations.ViewById;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
@@ -26,6 +28,7 @@ import com.order.manage.db.BDOrderDetail;
 import com.order.manage.db.BDOrderHeader;
 import com.order.manage.http.AjaxCallBack;
 import com.order.manage.http.AjaxParams;
+import com.order.manage.struct.OrderHeader;
 import com.order.manage.struct.StructDBInventoryMaster;
 import com.order.manage.struct.StructOrder;
 import com.order.manage.struct.StructWare;
@@ -101,20 +104,20 @@ public class OrderActivity extends BaseActivity implements OnOrderItemClickClass
 
 	}
 	//插入订单头信息到数据库
-	private void InsertOrderHeaderToDB(String x_remarks){
+	private void InsertOrderHeaderToDB(String x_remarks,int uploadStatus){
 		Date Time = new Date();
 		String DateString = OtherHealper.dateToString(Time);
-		StructOrderHeader l_StructOrderHeader = new StructOrderHeader();
+		OrderHeader l_OrderHeader = new OrderHeader();
 		System.currentTimeMillis();
 		Long.toString(System.currentTimeMillis());
-		l_StructOrderHeader.setBillId(mOrderHeader+Time.getTime());
-		l_StructOrderHeader.setTotalMny(mPriceTotal);
-		l_StructOrderHeader.setBizDate(DateString);
-		l_StructOrderHeader.setBillDate(DateString);
-		l_StructOrderHeader.setMemo(x_remarks);
-		l_StructOrderHeader.setEndSaveTime(DateString);
-		mBDOrderHeader.insert(l_StructOrderHeader);
-		mStructOrder.setmStructOrderHeader(l_StructOrderHeader);
+		l_OrderHeader.setBillId(mOrderHeader+Time.getTime());
+		l_OrderHeader.setTotalMny(mPriceTotal);
+		l_OrderHeader.setBizDate(DateString);
+		l_OrderHeader.setBillDate(DateString);
+		l_OrderHeader.setMemo(x_remarks);
+		l_OrderHeader.setEndSaveTime(DateString);
+		mBDOrderHeader.insert(l_OrderHeader);
+		mStructOrder.setmOrderHeader(l_OrderHeader);
 		InsertOrderDetailToDB(mOrderHeader+Time.getTime());
 		
 	}
@@ -134,10 +137,11 @@ public class OrderActivity extends BaseActivity implements OnOrderItemClickClass
 				int ordernum = mOrderStructInventoryMaster.get(i).getOrderNumber();
 				Double price = mOrderStructInventoryMaster.get(i).getSalePrice();
 				l_StructOrderDetail.setBillId(x_BillId);
-				l_StructOrderDetail.setItemId((int) Time.getTime()+i);
+				l_StructOrderDetail.setItemId((int)(Time.getTime()%Integer.MAX_VALUE)+i);
 				l_StructOrderDetail.setNum(ordernum);
 				l_StructOrderDetail.setPrice(price);
 				l_StructOrderDetail.setOrderMny(ordernum*price);
+				l_StructOrderDetail.setInvCode(mOrderStructInventoryMaster.get(i).getInvCode());
 				l_StructOrderDetail.setInvName(mOrderStructInventoryMaster.get(i).getInvName());
 				l_StructOrderDetail.setInvIdCode(mOrderStructInventoryMaster.get(i).getInvIdCode());
 				l_StructOrderDetail.setTotalNum(ordertotalnum);
@@ -146,7 +150,7 @@ public class OrderActivity extends BaseActivity implements OnOrderItemClickClass
 			}
 		}
 	}
-	void submitOrder(StructOrder order){
+	void submitOrder(final StructOrder order,final String Remarks){
 		String jsonOrder = new Gson().toJson(order);
 		AjaxParams params = new AjaxParams();
 		params.put("tab","co_order");
@@ -161,18 +165,34 @@ public class OrderActivity extends BaseActivity implements OnOrderItemClickClass
 				super.onSuccess(t);
 //				callback.parseData(t);
 				parseData(t);
-				ToastHelper.ToastLg(R.string.submit_order_success, activity);
 				cancelRequestDialog();
 			}
 			private void parseData(String t) {
-/*				Response<StructDBInventoryMaster> response = new Gson().fromJson(t, 
-						new TypeToken<Response<StructDBInventoryMaster>>(){}.getType());
-				if(response.getResult()){
-					StructDBInventoryMaster aa = response.getResponse();
-					
-				}else{
-					ToastHelper.ToastLg(response.getMessage(), getActivity());
-				}*/
+				JSONObject jsonObject1;
+				try {
+					jsonObject1 = new JSONObject(t);
+					boolean value = jsonObject1.getBoolean("success");
+					if(value){
+						//提交成功才插入数据库
+						InsertOrderHeaderToDB(Remarks,1);
+						
+						ToastHelper.ToastLg(R.string.submit_order_success, activity);
+					}else{
+						InsertOrderHeaderToDB(Remarks,0);
+						String msg = jsonObject1.getString("msg");
+						ToastHelper.ToastLg(msg, activity);
+					}
+					Intent intent = new Intent(HistoryActivity.INTERNAL_ACTION_SUBMITORDER);
+					appContext.sendBroadcast(intent);
+					mOrderStructInventoryMaster.clear();
+					mOrderListViewAdapter.setListItems(mOrderStructInventoryMaster);
+					mOrderListViewAdapter.notifyDataSetChanged();
+				} catch (JSONException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+					ToastHelper.ToastLg("返回错误格式", activity);
+				}
+				
 
 			}
 			@Override
@@ -201,13 +221,9 @@ public class OrderActivity extends BaseActivity implements OnOrderItemClickClass
 				String Remarks = mEditTextAddressName.getText().toString();
 				if(!Remarks.equals("")){
 					mStructOrder = new StructOrder();
-					InsertOrderHeaderToDB(Remarks);
-					submitOrder(mStructOrder);
-					Intent intent = new Intent(HistoryActivity.INTERNAL_ACTION_SUBMITORDER);
-					appContext.sendBroadcast(intent);
-					mOrderStructInventoryMaster.clear();
-					mOrderListViewAdapter.setListItems(mOrderStructInventoryMaster);
-					mOrderListViewAdapter.notifyDataSetChanged();
+					
+					submitOrder(mStructOrder,Remarks);
+					
 					isCloseShowDialog(dialog, true);
 				}else{
 					UIHealper.DisplayToast(appContext, "备注不能为空");
@@ -250,6 +266,7 @@ public class OrderActivity extends BaseActivity implements OnOrderItemClickClass
 				l_OrderStructInventoryMaster.get(i).setOrderEditStatus(mOrderEditStratus);
 			}
 			mOrderListViewAdapter.setListItems(l_OrderStructInventoryMaster);
+			mOrderListViewAdapter.setmEditStatus(mOrderEditStratus);
 			mOrderListViewAdapter.notifyDataSetChanged();
 			Message msg = new Message();
 			msg.what = HANDLE_UPDATE;
@@ -264,6 +281,7 @@ public class OrderActivity extends BaseActivity implements OnOrderItemClickClass
 				
 				List<StructWare> l_OrderStructInventoryMaster = mOrderStructInventoryMaster;
 				mOrderListViewAdapter.setListItems(l_OrderStructInventoryMaster);
+				mOrderListViewAdapter.setmEditStatus(mOrderEditStratus);
 				mOrderListViewAdapter.notifyDataSetChanged();	
 			}
 

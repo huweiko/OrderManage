@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+	xmlns:android="http://schemas.android.com/apk/res/android"
+	android:layout_width="fill_parent"
+	android:layout_height="wrap_content"
+	android:orientation="vertical">
+	<TextView
+         android:id="@+id/TextViewTip"
+         android:layout_width="match_parent"
+         android:layout_height="wrap_content"
+         android:layout_margin="10dp"
+         android:padding="10dp"
+         android:text="是否重新下载全部商品？"
+         android:textColor="@color/black"
+         android:textSize="15sp" />
+</LinearLayout>

@@ -40,7 +40,9 @@ public class WareMoreAdapter extends BaseAdapter {
 		this.listItems = data;
 		this.layout = layout;
 	}
-
+	public void setListItems(List<StructWare> data){
+		this.listItems = data;
+	}
 	public int getCount() {
 		return listItems.size();
 	}

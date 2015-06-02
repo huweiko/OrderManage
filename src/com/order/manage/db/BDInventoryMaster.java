@@ -80,6 +80,13 @@ public class BDInventoryMaster extends DBHelper {
 	{
 		return super.selectByAttribute(TABLE_NAME,InvClassCode,x_InvClassCode);
 	}
+	//查询EndSaveTime最大的一条字段
+	public Cursor selectMaxTime()
+	{
+		SQLiteDatabase db=this.getReadableDatabase();
+		Cursor cursor= db.rawQuery("select * from "+TABLE_NAME+" order by "+EndSaveTime+" desc limit 1",null);
+		return cursor;
+	}
 	
 	
 	public void delete(String x_invIdCode)
@@ -88,6 +95,11 @@ public class BDInventoryMaster extends DBHelper {
 		String where = InvIdCode + "=?";
 		super.delete(TABLE_NAME, where, whereValue);
 	}
+	public void deleteAll()
+	{
+		super.deleteAll(TABLE_NAME);
+	}
+	
 	public long insert(StructDBInventoryMaster mStructInventoryMaster)
 	{
 		ContentValues cv=new ContentValues(); 

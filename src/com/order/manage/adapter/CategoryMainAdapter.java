@@ -1,8 +1,11 @@
 package com.order.manage.adapter;
 
 import java.util.List;
+
 import com.order.manage.R;
 import com.order.manage.struct.StructInventoryClassBrand;
+import com.order.manage.struct.StructWare;
+
 import android.content.Context;
 import android.view.View;
 import android.view.ViewGroup;
@@ -37,7 +40,9 @@ public class CategoryMainAdapter extends BaseAdapter {
 		this.layout = layout;
 		this.islodingimg = islodingimg;
 	}
-
+	public void setListItems(List<StructInventoryClassBrand> data){
+		this.listItem = data;
+	}
 	public int getCount() {
 		return listItem.size();
 	}

@@ -28,7 +28,7 @@ public class SearchWareAdapter extends BaseAdapter implements Filterable{
 	private List<StructWare> data;
 	private int layout = R.layout.ware_list_item;
 	PinyinHelper mPinyinHelper;
-	private String SearchElement;
+	private String SearchElement = SearchWareActivity.WARELIST_TOPLIST[0];
 	public SearchWareAdapter(Context context,List<StructWare> data,int layout){
 		this.ctx = context;
 		this.listItems = data;
@@ -174,7 +174,7 @@ public class SearchWareAdapter extends BaseAdapter implements Filterable{
 		ImageButton add;
 	}
 	public interface OnSearchWareItemClickClass{
-		public void OnItemClick(View v,int Position);
+		public void OnItemClick(View v,int Position, List<StructWare> listItems);
 	}
 	private class OnOptionsClick implements OnClickListener{
 		int position;
@@ -187,7 +187,7 @@ public class SearchWareAdapter extends BaseAdapter implements Filterable{
 		public void onClick(View v) {
 			// TODO Auto-generated method stub
 			if (onItemClickClass!=null ) {
-				onItemClickClass.OnItemClick(v, position);
+				onItemClickClass.OnItemClick(v, position,listItems);
 			}
 		}
 	

@@ -2,8 +2,6 @@ package com.order.manage.db;
 
 
 import com.order.manage.struct.StructOrderDetail;
-import com.order.manage.struct.StructOrderHeader;
-
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;

@@ -2,10 +2,12 @@ package com.order.manage.ui;
 
 import java.util.ArrayList;
 import java.util.List;
+
 import org.androidannotations.annotations.AfterViews;
 import org.androidannotations.annotations.Click;
 import org.androidannotations.annotations.EActivity;
 import org.androidannotations.annotations.ViewById;
+
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.order.manage.AppContext;
@@ -27,8 +29,12 @@ import com.order.manage.struct.StructWare;
 import com.order.manage.util.AssetUtils;
 import com.order.manage.util.DatabaseSyncManager;
 import com.order.manage.util.ToastHelper;
+
 import android.annotation.SuppressLint;
+import android.content.BroadcastReceiver;
+import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.database.Cursor;
 import android.os.AsyncTask;
 import android.os.Handler;
@@ -65,7 +71,8 @@ public class CategoryActivity extends BaseActivity implements OnWareItemClickCla
 	
 	private int mCurrentMainItem = 0;
 	private int mCurrentSecondItem = 0;
-	
+	//接收到更新广播
+	public static final String INTERNAL_ACTION_UPDATE_CATEGORY="broadcast.UPDATE_CATEGORY";
 	@Click(R.id.LinearLayoutGategoryClick)
 	void OnClickLinearLayoutGategoryClick(View v){
 		
@@ -75,16 +82,19 @@ public class CategoryActivity extends BaseActivity implements OnWareItemClickCla
 	}
 	@Click(R.id.ImageButtonRefresh)
 	void OnClickImageButtonRefresh(View v){
+		updateCategory();
+	}
+	private void updateCategory() {
 		initCategory();
 		if(mStructBDInventoryClassBrand.size() > 0){
 			mCategoryMainAdapter = new CategoryMainAdapter(appContext, mStructBDInventoryClassBrand);
-			mCategoryMainAdapter.setSelectItem(0);
 			mShoplist_onelist2.setAdapter(mCategoryMainAdapter);
-			if(mStructBDInventoryClassBrand.get(0).getmBDInventoryClassBrand()!=null){
-				mWareMoreAdapter = new WareMoreAdapter(appContext, mStructBDInventoryClassBrand.get(0).getmBDInventoryClassBrand());
-				mWareMoreAdapter.SetOnWareItemClickClassListener(this);
-				mShoplist_twolist2.setAdapter(mWareMoreAdapter);
-			}
+			mCategoryMainAdapter.setSelectItem(mCurrentMainItem);
+			initAdapter2(mStructBDInventoryClassBrand.get(mCurrentMainItem).getmBDInventoryClassBrand());
+		}else{
+			mCurrentMainItem = 0;
+			mShoplist_onelist2.removeAllViews();
+			mShoplist_twolist2.removeAllViews();
 		}
 	}
 	
@@ -107,8 +117,22 @@ public class CategoryActivity extends BaseActivity implements OnWareItemClickCla
 		
 		mShoplist_onelist2.setOnItemClickListener(new Onelistclick2());
 		mShoplist_twolist2.setOnItemClickListener(new Onelistclick1());
+		IntentFilter filter = new IntentFilter();
+		filter.addAction(INTERNAL_ACTION_UPDATE_CATEGORY);
+		appContext.registerReceiver(receiver, filter);
 	}
+	public BroadcastReceiver receiver = new BroadcastReceiver() {
+		public void onReceive(Context context, Intent intent) {
+			// TODO Auto-generated method stub
 
+			if(intent.getAction().equals(INTERNAL_ACTION_UPDATE_CATEGORY))
+			{
+				updateCategory();
+			}
+			
+		}
+
+	};
 	private class Onelistclick1 implements OnItemClickListener {
 		public void onItemClick(AdapterView<?> arg0, View arg1, int arg2,
 				long arg3) {
@@ -156,6 +180,7 @@ public class CategoryActivity extends BaseActivity implements OnWareItemClickCla
 				l_StructInventoryMaster.setInvIdCode(myInventoryMasterCursor.getString(0));
 				l_StructInventoryMaster.setInvName(myInventoryMasterCursor.getString(7));
 				l_StructInventoryMaster.setSalePrice(myInventoryMasterCursor.getDouble(12));
+				l_StructInventoryMaster.setInvCode(myInventoryMasterCursor.getString(5));
 				l_StructBDInventoryClassBrand.addmBDInventoryClassBrand(l_StructInventoryMaster);
 			}
 			
@@ -177,6 +202,7 @@ public class CategoryActivity extends BaseActivity implements OnWareItemClickCla
 	};
 	protected void onDestroy() {
 		super.onDestroy();
+		appContext.unregisterReceiver(receiver);
 		mBDInventoryClassBrand.close();
 		mBDInventoryMaster.close();
 	}
@@ -185,7 +211,8 @@ public class CategoryActivity extends BaseActivity implements OnWareItemClickCla
 		boolean isHave = false;
 		mCurrentSecondItem = Position;
 		String WareId = mStructBDInventoryClassBrand.get(mCurrentMainItem).getmBDInventoryClassBrand().get(Position).getInvIdCode();
-		
+		StructWare l_StructWare = new StructWare();
+		StructWareCopy(l_StructWare, mStructBDInventoryClassBrand.get(mCurrentMainItem).getmBDInventoryClassBrand().get(Position));
 		for(int i = 0;i<OrderActivity.mOrderStructInventoryMaster.size();i++){
 			if(OrderActivity.mOrderStructInventoryMaster.get(i).getInvIdCode().equals(WareId)){
 				OrderActivity.mOrderStructInventoryMaster.get(i).setOrderNumber(OrderActivity.mOrderStructInventoryMaster.get(i).getOrderNumber()+1);
@@ -194,12 +221,30 @@ public class CategoryActivity extends BaseActivity implements OnWareItemClickCla
 			}
 		}
 		if(!isHave){
-			OrderActivity.mOrderStructInventoryMaster.add(mStructBDInventoryClassBrand.get(mCurrentMainItem).getmBDInventoryClassBrand().get(Position));
+			OrderActivity.mOrderStructInventoryMaster.add(l_StructWare);
 		}
 
 		Intent intent = new Intent(OrderActivity.INTERNAL_ACTION_UPDATEORDERACTIVITY);
 		appContext.sendBroadcast(intent);
 	};
+	private void StructWareCopy(StructWare a,StructWare b){
+		a.setInvIdCode(b.getInvIdCode());
+		a.setInvClassCode(b.getInvClassCode());
+		a.setInvClassName(b.getInvClassName());
+		a.setInvBrandCode(b.getInvBrandCode());
+		a.setInvBrandName(b.getInvBrandName());
+		a.setInvCode(b.getInvCode());
+		a.setSimpleCode(b.getSimpleCode());
+		a.setInvName(b.getInvName());
+		a.setInvBarCode(b.getInvBarCode());
+		a.setInvSpec(b.getInvSpec());
+		a.setUnit(b.getUnit());
+		a.setInPrice(b.getInPrice());
+		a.setSalePrice(b.getSalePrice());
+		a.setMemPrice(b.getMemPrice());
+		a.setEndSaveTime(b.getEndSaveTime());
+		a.setOrderId(b.getOrderId());
+	}
 	private static long firstTime;
 	@Override
 	public void onBackPressed() {

@@ -26,9 +26,6 @@ import com.order.manage.db.BDInventoryClassBrand;
 import com.order.manage.db.BDInventoryMaster;
 import com.order.manage.struct.StructInventoryClassBrand;
 import com.order.manage.struct.StructWare;
-import com.pgyersdk.feedback.PgyFeedbackShakeManager;
-import com.pgyersdk.update.PgyUpdateManager;
-
 import android.app.ActivityGroup;
 import android.app.AlertDialog;
 import android.app.AlertDialog.Builder;
@@ -116,7 +113,7 @@ public class FrameActivity extends ActivityGroup
 	@AfterViews
 	public void init(){
 		appContext = (AppContext) getApplication();
-		PgyUpdateManager.register(this,Constant.PgyerAPPID);
+//		PgyUpdateManager.register(this,Constant.PgyerAPPID);
 //		insertDB();
 		createView();
 		// 写一个内部类pageradapter

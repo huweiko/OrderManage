@@ -83,26 +83,14 @@ public final class HistoryActivity_
 
     @Override
     public void onViewChanged(HasViews hasViews) {
-<<<<<<< HEAD
-        TextViewPriceTotalNum = ((TextView) hasViews.findViewById(id.TextViewPriceTotalNum));
-        TextViewOrderId = ((TextView) hasViews.findViewById(id.TextViewOrderId));
-        ImageViewArrow = ((ImageView) hasViews.findViewById(id.ImageViewArrow));
-        ListViewOrderHistory = ((ListView) hasViews.findViewById(id.ListViewOrderHistory));
-=======
         ListViewWareListItem = ((ListView) hasViews.findViewById(id.ListViewWareListItem));
         ImageViewArrow = ((ImageView) hasViews.findViewById(id.ImageViewArrow));
->>>>>>> branch 'master' of https://github.com/huweiko/OrderManage.git
+        ListViewOrderHistory = ((ListView) hasViews.findViewById(id.ListViewOrderHistory));
         LinearLayoutOrderDetail = ((LinearLayout) hasViews.findViewById(id.LinearLayoutOrderDetail));
-        TextViewOrderRemarks = ((TextView) hasViews.findViewById(id.TextViewOrderRemarks));
-<<<<<<< HEAD
-        ListViewWareListItem = ((ListView) hasViews.findViewById(id.ListViewWareListItem));
-        TextViewOrderSubmitTime = ((TextView) hasViews.findViewById(id.TextViewOrderSubmitTime));
-=======
-        ListViewOrderHistory = ((ListView) hasViews.findViewById(id.ListViewOrderHistory));
-        TextViewOrderSubmitTime = ((TextView) hasViews.findViewById(id.TextViewOrderSubmitTime));
         TextViewOrderId = ((TextView) hasViews.findViewById(id.TextViewOrderId));
         TextViewPriceTotalNum = ((TextView) hasViews.findViewById(id.TextViewPriceTotalNum));
->>>>>>> branch 'master' of https://github.com/huweiko/OrderManage.git
+        TextViewOrderSubmitTime = ((TextView) hasViews.findViewById(id.TextViewOrderSubmitTime));
+        TextViewOrderRemarks = ((TextView) hasViews.findViewById(id.TextViewOrderRemarks));
         {
             View view = hasViews.findViewById(id.LinearLayoutHistoryOrderInputClick);
             if (view!= null) {

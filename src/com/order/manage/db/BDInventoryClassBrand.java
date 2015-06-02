@@ -65,6 +65,10 @@ public class BDInventoryClassBrand extends DBHelper {
 		String where = InvClassIdCode + "=?";
 		super.delete(TABLE_NAME, where, whereValue);
 	}
+	public void deleteAll()
+	{
+		super.deleteAll(TABLE_NAME);
+	}
 	public long insert(StructInventoryClassBrand mStructBDInventoryClassBrand)
 	{
 		ContentValues cv=new ContentValues(); 

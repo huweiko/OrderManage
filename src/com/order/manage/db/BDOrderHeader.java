@@ -1,6 +1,7 @@
 package com.order.manage.db;
 
 
+import com.order.manage.struct.OrderHeader;
 import com.order.manage.struct.StructOrderHeader;
 
 import android.content.ContentValues;
@@ -76,24 +77,24 @@ public class BDOrderHeader extends DBHelper {
 		String where = BillId + "=?";
 		super.delete(TABLE_NAME, where, whereValue);
 	}
-	public long insert(StructOrderHeader mStructOrderHeader)
+	public long insert(OrderHeader mOrderHeader)
 	{
 		ContentValues cv=new ContentValues(); 
-		cv.put(BillId, mStructOrderHeader.getBillId());
-		cv.put(OrganCode, mStructOrderHeader.getOrganCode());
-		cv.put(BillType, mStructOrderHeader.getBillType());
-		cv.put(TotalMny, mStructOrderHeader.getTotalMny());
-		cv.put(BizDate, mStructOrderHeader.getBizDate());
-		cv.put(BillDate, mStructOrderHeader.getBillDate());
-		cv.put(BillMan, mStructOrderHeader.getBillMan());
-		cv.put(Memo, mStructOrderHeader.getMemo());
-		cv.put(BillState, mStructOrderHeader.getBillState());
-		cv.put(Uploaded, mStructOrderHeader.getUploaded());
-		cv.put(EndSaveTime, mStructOrderHeader.getEndSaveTime());
+		cv.put(BillId, mOrderHeader.getBillId());
+		cv.put(OrganCode, mOrderHeader.getOrganCode());
+		cv.put(BillType, mOrderHeader.getBillType());
+		cv.put(TotalMny, mOrderHeader.getTotalMny());
+		cv.put(BizDate, mOrderHeader.getBizDate());
+		cv.put(BillDate, mOrderHeader.getBillDate());
+		cv.put(BillMan, mOrderHeader.getBillMan());
+		cv.put(Memo, mOrderHeader.getMemo());
+		cv.put(BillState, mOrderHeader.getBillState());
+		cv.put(Uploaded, mOrderHeader.getUploaded());
+		cv.put(EndSaveTime, mOrderHeader.getEndSaveTime());
 		return super.insert(TABLE_NAME, cv);
 	}
 	
-	public void update(StructOrderHeader mStructOrderHeader,String x_BillId)
+	public void update(OrderHeader mStructOrderHeader,String x_BillId)
 	{
 		String [] whereValue = {x_BillId};
 		String where = BillId + "=?";

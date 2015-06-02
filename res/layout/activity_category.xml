@@ -55,9 +55,8 @@
 
         <ListView
             android:id="@+id/Shoplist_onelist2"
-            android:layout_width="match_parent"
+            android:layout_width="106dp"
             android:layout_height="match_parent"
-            android:layout_weight="20"
             android:background="#F4F4F4"
             android:divider="@null"
             android:listSelector="@drawable/search_more_morelistselect"

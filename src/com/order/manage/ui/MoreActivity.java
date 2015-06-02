@@ -18,6 +18,7 @@ import android.app.Dialog;
 import android.app.AlertDialog.Builder;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.database.Cursor;
 import android.os.AsyncTask;
 import android.os.Handler;
 import android.os.Message;
@@ -35,13 +36,14 @@ import com.order.manage.R;
 import com.order.manage.UIHealper;
 import com.order.manage.bean.Response;
 import com.order.manage.bean.Urls;
+import com.order.manage.db.BDInventoryClassBrand;
+import com.order.manage.db.BDInventoryMaster;
 import com.order.manage.http.AjaxCallBack;
 import com.order.manage.http.AjaxParams;
 import com.order.manage.struct.StructDBInventoryMaster;
 import com.order.manage.util.AssetUtils;
 import com.order.manage.util.DatabaseSyncManager;
 import com.order.manage.util.ToastHelper;
-import com.pgyersdk.feedback.PgyFeedbackShakeManager;
 
 /**
  * 更多模块
@@ -50,9 +52,16 @@ import com.pgyersdk.feedback.PgyFeedbackShakeManager;
 public class MoreActivity extends BaseActivity {
 	private AppContext appcontext;
 	List<StructDBInventoryMaster> mListStructDBInventoryMaster;
+	private BDInventoryMaster mBDInventoryMaster;
+	private BDInventoryClassBrand mBDInventoryClassBrand;
 	@AfterViews
 	void initView(){
 		appcontext = (AppContext) getApplicationContext();
+		mBDInventoryMaster = new BDInventoryMaster(appcontext);
+		mBDInventoryMaster.createDBtable();
+		mBDInventoryClassBrand = new BDInventoryClassBrand(appcontext);
+		mBDInventoryClassBrand.createDBtable();
+		
 	}
 	@Click
 	void LinearLayoutMoreServiceAddress(){
@@ -60,15 +69,68 @@ public class MoreActivity extends BaseActivity {
 	}
 	@Click
 	void LinearLayoutMoreLoadNewDada(){
-/*		String json = AssetUtils.getDataFromAssets(this, "ware_list_all.txt");
+		/*String json = AssetUtils.getDataFromAssets(this, "ware_list_all.txt");
 		DataSyncTask mDataSyncTask = new DataSyncTask();
 		mDataSyncTask.execute(json);*/
-		getWareList();
+		Cursor cur = mBDInventoryMaster.selectMaxTime();
+		String endsavetime = "";
+		if(cur.getCount() > 0){
+			cur.moveToPosition(0);
+			endsavetime = cur.getString(14);
+		}
+		if(endsavetime.equals("")){
+			
+		}else{
+			String [] aa = endsavetime.split("T");
+			endsavetime = aa[0];
+		}
+		if(cur != null){
+			cur.close();
+		}
+		getWareList(endsavetime);
+	}
+	@Click
+	void LinearLayoutLoadAll(){
+		Dialog noticeDialog = null;
+		AlertDialog.Builder builder = new Builder(MoreActivity.this);
+		builder.setInverseBackgroundForced(true);
+		builder.setTitle("全部下载");
+		final LayoutInflater inflater = LayoutInflater.from(appcontext);
+		View vv = inflater.inflate(R.layout.text_tip_dialog, null);
+		builder.setView(vv);
+		builder.setNegativeButton("确定", new android.content.DialogInterface.OnClickListener()
+		{
+			@Override
+			public void onClick(DialogInterface dialog, int which)
+			{
+				mBDInventoryMaster.deleteAll();
+				mBDInventoryClassBrand.deleteAll();
+				getWareList("");
+				isCloseShowDialog(dialog, true);
+			}
+
+		});
+		builder.setPositiveButton("取消", new android.content.DialogInterface.OnClickListener()
+		{
+			@Override
+			public void onClick(DialogInterface dialog, int which)
+			{
+				isCloseShowDialog(dialog, true);
+			}
+		});
+		noticeDialog = builder.create();
+
+		noticeDialog.show();
 	}
 	@Click
 	void LinearLayoutMoreAbaout(){
 		Intent intent = new Intent(appcontext, AboutActivity_.class);
 		startActivity(intent);
+	}
+	@Override
+	protected void onDestroy() {
+		mBDInventoryMaster.close();
+		super.onDestroy();
 	}
 	void showEditRemarksDialog(){
 		final EditText mEditTextAddressName;
@@ -124,6 +186,24 @@ public class MoreActivity extends BaseActivity {
 		    e.printStackTrace();
 		}
 	}
+	private final static int MSG_SYNC_SUCCESS = 0x0001;
+	private final static int MSG_SYNC_FAIL = 0x0002;
+	Handler mHandle = new Handler(){
+		public void handleMessage(Message msg) {
+			switch (msg.what) {
+			case MSG_SYNC_SUCCESS:
+				ToastHelper.ToastLg(R.string.db_sync_success, activity);
+				break;
+			case MSG_SYNC_FAIL:
+				ToastHelper.ToastLg(R.string.db_sync_fail, activity);
+				break;
+
+			default:
+				break;
+			}
+			
+		};
+	};
 	private class DataSyncTask extends AsyncTask<String, Void, Boolean>{
 		
     	@Override
@@ -135,8 +215,14 @@ public class MoreActivity extends BaseActivity {
     		boolean retult = false;
 			try {
 				retult = DatabaseSyncManager.getInstance().doSyncData(getApplicationContext(), params[0], mHandler);
+				if(retult){
+					Intent intent = new Intent(CategoryActivity.INTERNAL_ACTION_UPDATE_CATEGORY);
+					appcontext.sendBroadcast(intent);
+					mHandle.sendEmptyMessage(MSG_SYNC_SUCCESS);
+				}
 			} catch (JSONException e) {
 				// TODO Auto-generated catch block
+				mHandle.sendEmptyMessage(MSG_SYNC_FAIL);
 				e.printStackTrace();
 			}
 			return retult;
@@ -164,10 +250,10 @@ public class MoreActivity extends BaseActivity {
 			}
 		}
 	};
-	void getWareList(){
+	void getWareList(String endsavetime){
 		AjaxParams params = new AjaxParams();
 		params.put("tab","BD_InventoryMaster");
-		params.put("condition"," and InvIdCode<>'' ");
+		params.put("condition"," and endsavetime > '"+endsavetime +"'");
 		params.put("fldList","");
 		showReqeustDialog(R.string.db_sync_doing);
 //		final LoginCallBack callback = new LoginCallBack(isBackLogin, btnLoad, user, LoginActivity.this, isShowLoading);
@@ -179,17 +265,17 @@ public class MoreActivity extends BaseActivity {
 //				callback.parseData(t);
 				parseData(t);
 				cancelRequestDialog();
+				
 			}
 			private void parseData(String t) {
 					DataSyncTask mDataSyncTask = new DataSyncTask();
 					mDataSyncTask.execute(t);
-					
-
 		}
 			@Override
 			public void onFailure(Throwable t, int errorNo, String strMsg) {
 				super.onFailure(t, errorNo, strMsg);
 				cancelRequestDialog();
+				ToastHelper.ToastLg(strMsg, activity);
 			}
 		});
 	}
@@ -197,13 +283,13 @@ public class MoreActivity extends BaseActivity {
     protected void onResume() {
         // TODO Auto-generated method stub
         super.onResume();
-        PgyFeedbackShakeManager.register(this, Constant.PgyerAPPID);
+//        PgyFeedbackShakeManager.register(this, Constant.PgyerAPPID);
     }
 
     @Override
     protected void onPause() {
         // TODO Auto-generated method stub
         super.onPause();
-        PgyFeedbackShakeManager.unregister();
+//        PgyFeedbackShakeManager.unregister();
     }
 }

@@ -9,6 +9,8 @@ import org.androidannotations.annotations.AfterViews;
 import org.androidannotations.annotations.Click;
 import org.androidannotations.annotations.EActivity;
 import org.androidannotations.annotations.ViewById;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import com.google.gson.Gson;
 import com.order.manage.R;
@@ -62,7 +64,6 @@ public class HistoryActivity extends BaseActivity implements OnWareItemClickClas
 	
 	public final int HISTORY_DISTRICT = 1;
 	
-	private Cursor myInventoryMasterCursor;
 	private BDInventoryMaster mBDInventoryMaster;
 	
 	private StructOrder mStructOrder;
@@ -82,6 +83,7 @@ public class HistoryActivity extends BaseActivity implements OnWareItemClickClas
 	TextView TextViewOrderRemarks;
 	@ViewById
 	TextView TextViewOrderSubmitTime;
+	
 
 	
 	@Click(R.id.LinearLayoutHistoryOrderInputClick)
@@ -148,6 +150,7 @@ public class HistoryActivity extends BaseActivity implements OnWareItemClickClas
 			l_StructOrderHeader.setBizDate(cursor.getString(4));
 			l_StructOrderHeader.setBillDate(cursor.getString(5));
 			l_StructOrderHeader.setMemo(cursor.getString(7));
+			l_StructOrderHeader.setUploaded(cursor.getInt(9));
 			lp_StructOrderHeader.add(l_StructOrderHeader);
 		}
 		if(cursor != null){
@@ -162,10 +165,12 @@ public class HistoryActivity extends BaseActivity implements OnWareItemClickClas
 			StructOrderDetail l_StructOrderDetail = new StructOrderDetail();
 			l_StructOrderDetail.setBillId(cursor.getString(1));
 			l_StructOrderDetail.setItemId(cursor.getInt(2));
+			
 			l_StructOrderDetail.setNum(cursor.getInt(14));
 			l_StructOrderDetail.setPrice(cursor.getDouble(15));
 			l_StructOrderDetail.setOrderMny(cursor.getDouble(16));
 			l_StructOrderDetail.setInvName(cursor.getString(11));
+			l_StructOrderDetail.setInvCode(cursor.getString(8));
 			l_StructOrderDetail.setInvIdCode(cursor.getString(3));
 			l_StructOrderDetail.setTotalNum(cursor.getInt(18));
 			lp_StructOrderDetail.add(l_StructOrderDetail);
@@ -220,7 +225,7 @@ public class HistoryActivity extends BaseActivity implements OnWareItemClickClas
 			l_StructInventoryMaster.setSalePrice(cursor.getDouble(12));
 		}
 	}
-	void submitOrder(StructOrder order){
+	void submitOrder(final StructOrder order){
 		String jsonOrder = new Gson().toJson(order);
 		AjaxParams params = new AjaxParams();
 		params.put("tab","co_order");
@@ -238,15 +243,25 @@ public class HistoryActivity extends BaseActivity implements OnWareItemClickClas
 				cancelRequestDialog();
 			}
 			private void parseData(String t) {
-/*				Response<StructDBInventoryMaster> response = new Gson().fromJson(t, 
-						new TypeToken<Response<StructDBInventoryMaster>>(){}.getType());
-				if(response.getResult()){
-					StructDBInventoryMaster aa = response.getResponse();
-					
-				}else{
-					ToastHelper.ToastLg(response.getMessage(), getActivity());
-				}*/
-				ToastHelper.ToastLg(R.string.submit_order_success, activity);
+				JSONObject jsonObject1;
+				try {
+					jsonObject1 = new JSONObject(t);
+					boolean value = jsonObject1.getBoolean("success");
+					if(value){
+						order.getmOrderHeader().setUploaded(1);
+						mBDOrderHeader.update(order.getmOrderHeader(), order.getmOrderHeader().getBillId());
+						ToastHelper.ToastLg(R.string.submit_order_success, activity);
+					}else{
+						String msg = jsonObject1.getString("msg");
+						ToastHelper.ToastLg(msg, activity);
+					}
+				} catch (JSONException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+					ToastHelper.ToastLg("∑µªÿ¥ÌŒÛ∏Ò Ω", activity);
+				}
+				
+
 			}
 			@Override
 			public void onFailure(Throwable t, int errorNo, String strMsg) {
@@ -336,7 +351,7 @@ public class HistoryActivity extends BaseActivity implements OnWareItemClickClas
 				break;
 			case R.id.ButtonHistoryOrderSubmit:
 				mStructOrder = new StructOrder();
-				mStructOrder.setmStructOrderHeader(lp_StructOrderHeader.get(Position));
+				mStructOrder.setmOrderHeader(lp_StructOrderHeader.get(Position));
 				mStructOrder.setListOrderDetail(lp_StructOrderDetail);
 				submitOrder(mStructOrder);
 				Log.i("huwei", "Submit Position = "+Position);

@@ -79,6 +79,10 @@ public final class OtherHealper{
         else if((time.indexOf(".")>-1) && (time.indexOf("-")>-1) &&(time.indexOf(" ")>-1)){   
         	formatter = new SimpleDateFormat ("yyyy-MM-dd hh:mm:ss.SSS");   
         }   
+        else if((time.indexOf(".")>-1) && (time.indexOf("-")>-1) &&(time.indexOf("T")>-1)){ 
+        	time = time.replace('T', ' ');
+        	formatter = new SimpleDateFormat ("yyyy-MM-dd hh:mm:ss.SSS");   
+        }   
         ParsePosition pos = new ParsePosition(0);   
         java.util.Date ctime = formatter.parse(time, pos);   
       

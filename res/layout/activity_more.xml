@@ -82,6 +82,33 @@
                     android:src="@drawable/arrow" />
             </LinearLayout>
             <LinearLayout
+                android:id="@+id/LinearLayoutLoadAll"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/my_tab_background"
+                android:gravity="center_vertical"
+                android:paddingBottom="0dp"
+                android:paddingLeft="15dp" >
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="9"
+                    android:background="@drawable/my_list_txt_background"
+                    android:gravity="center_vertical"
+                    android:paddingBottom="10dp"
+                    android:paddingTop="10dp"
+                    android:text="全部下载"
+                    android:textSize="18sp" />
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:background="@drawable/my_list_txt_background"
+                    android:paddingRight="10dp"
+                    android:src="@drawable/arrow" />
+            </LinearLayout>
+            <LinearLayout
                 android:id="@+id/LinearLayoutMoreAbaout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"

@@ -34,7 +34,10 @@
 	              android:textColor="#666666"
 	              android:textSize="13sp" />
 	      </LinearLayout>
-	
+		  <TextView 
+		      android:id="@+id/TextViewOrderSubmitStatus"
+		      android:layout_width="50dp"
+		      android:layout_height="wrap_content"/>
 	      <ImageView
 	          android:id="@+id/ImageViewArrow"
 	          android:layout_width="wrap_content"

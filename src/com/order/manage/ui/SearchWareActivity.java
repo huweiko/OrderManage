@@ -80,6 +80,7 @@ public class SearchWareActivity extends BaseActivity implements OnSearchWareItem
 		context = getApplicationContext();
 		mSearchWareAdapter = new SearchWareAdapter(context, new ArrayList<StructWare>(), R.layout.ware_list_item);
 		mSearchWareAdapter.SetOnWareItemClickClassListener(this);
+		mSearchWareAdapter.setSearchElement(WARELIST_TOPLIST[0]);
 		ListViewSearch.setAdapter(mSearchWareAdapter);
 		mWareSearchItemAdapter = new WareSearchItemAdapter(context, WARELIST_TOPLIST);
 		ListViewWareSearchElement.setAdapter(mWareSearchItemAdapter);
@@ -130,19 +131,41 @@ public class SearchWareActivity extends BaseActivity implements OnSearchWareItem
 		super.onDestroy();
 		mBDInventoryMaster.close();
 	}
+	private void StructWareCopy(StructWare a,StructWare b){
+		a.setInvIdCode(b.getInvIdCode());
+		a.setInvClassCode(b.getInvClassCode());
+		a.setInvClassName(b.getInvClassName());
+		a.setInvBrandCode(b.getInvBrandCode());
+		a.setInvBrandName(b.getInvBrandName());
+		a.setInvCode(b.getInvCode());
+		a.setSimpleCode(b.getSimpleCode());
+		a.setInvName(b.getInvName());
+		a.setInvBarCode(b.getInvBarCode());
+		a.setInvSpec(b.getInvSpec());
+		a.setUnit(b.getUnit());
+		a.setInPrice(b.getInPrice());
+		a.setSalePrice(b.getSalePrice());
+		a.setMemPrice(b.getMemPrice());
+		a.setEndSaveTime(b.getEndSaveTime());
+		a.setOrderId(b.getOrderId());
+	}
 	@Override
-	public void OnItemClick(View v, int Position) {
+	public void OnItemClick(View v, int Position, List<StructWare> listItems) {
 		// TODO Auto-generated method stub
-		String WareId = data.get(Position).getInvIdCode();
+		boolean isHave = false;
+		String WareId = listItems.get(Position).getInvIdCode();
+		StructWare l_StructWare = new StructWare();
+		StructWareCopy(l_StructWare, listItems.get(Position));
 		for(int i = 0;i<OrderActivity.mOrderStructInventoryMaster.size();i++){
 			if(OrderActivity.mOrderStructInventoryMaster.get(i).getInvIdCode().equals(WareId)){
 				OrderActivity.mOrderStructInventoryMaster.get(i).setOrderNumber(OrderActivity.mOrderStructInventoryMaster.get(i).getOrderNumber()+1);
-				Intent intent = new Intent(OrderActivity.INTERNAL_ACTION_UPDATEORDERACTIVITY);
-				context.sendBroadcast(intent);
-				return;
+				isHave = true;
+				break;
 			}
 		}
-		OrderActivity.mOrderStructInventoryMaster.add(data.get(Position));
+		if(!isHave){
+			OrderActivity.mOrderStructInventoryMaster.add(l_StructWare);
+		}
 		Intent intent = new Intent(OrderActivity.INTERNAL_ACTION_UPDATEORDERACTIVITY);
 		context.sendBroadcast(intent);
 	}

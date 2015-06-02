@@ -6,6 +6,7 @@ import java.util.List;
 import com.order.manage.R;
 import com.order.manage.adapter.WareMoreAdapter.OnWareItemClickClass;
 import com.order.manage.struct.StructWare;
+import com.order.manage.ui.OrderActivity;
 
 import android.app.AlertDialog;
 import android.app.AlertDialog.Builder;
@@ -39,6 +40,7 @@ public class OrderListViewAdapter extends BaseAdapter {
 	private int position = 0;
 	private int layout = R.layout.order_list_item;
 	private OnOrderItemClickClass onItemClickClass;
+	private boolean mEditStatus = false;
 	public OrderListViewAdapter(Context ctx, List<StructWare> data) {
 		this.ctx = ctx;
 		this.listItems = data;
@@ -111,7 +113,7 @@ public class OrderListViewAdapter extends BaseAdapter {
 			hold = (Holder) arg1.getTag();
 		}
 		//�༭״̬
-		if(listItems.get(arg0).getOrderEditStatus()){
+		if(ismEditStatus()){
 			hold.layout.setVisibility(View.GONE);
 			hold.mLinearLayoutOrderListEdit.setVisibility(View.VISIBLE);
 			
@@ -252,5 +254,13 @@ public class OrderListViewAdapter extends BaseAdapter {
 		noticeDialog = builder.create();
 
 		noticeDialog.show();
+	}
+
+	public boolean ismEditStatus() {
+		return mEditStatus;
+	}
+
+	public void setmEditStatus(boolean mEditStatus) {
+		this.mEditStatus = mEditStatus;
 	}
 }

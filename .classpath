@@ -6,7 +6,6 @@
 			<attribute name="javadoc_location" value="jar:platform:/resource/CellStorage/javadoc/achartengine-1.1.0-javadocs.zip!/"/>
 		</attributes>
 	</classpathentry>
-	<classpathentry kind="lib" path="libs/pgyer_sdk_2.1.2.jar"/>
 	<classpathentry kind="lib" path="libs/android-support-v4.jar"/>
 	<classpathentry kind="lib" path="libs/gson-1.7.1.jar"/>
 	<classpathentry kind="lib" path="libs/core.jar"/>

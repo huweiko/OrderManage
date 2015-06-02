@@ -87,10 +87,9 @@ public final class OrderActivity_
 
     @Override
     public void onViewChanged(HasViews hasViews) {
-        ButtonOrderListEdit = ((Button) hasViews.findViewById(id.ButtonOrderListEdit));
-<<<<<<< HEAD
-        CheckBoxSelectAll = ((CheckBox) hasViews.findViewById(id.CheckBoxSelectAll));
         ListViewOrder = ((ListView) hasViews.findViewById(id.ListViewOrder));
+        ButtonOrderListEdit = ((Button) hasViews.findViewById(id.ButtonOrderListEdit));
+        CheckBoxSelectAll = ((CheckBox) hasViews.findViewById(id.CheckBoxSelectAll));
         TextViewMoney = ((TextView) hasViews.findViewById(id.TextViewMoney));
         if (ButtonOrderListEdit!= null) {
             ButtonOrderListEdit.setOnClickListener(new OnClickListener() {
@@ -104,11 +103,6 @@ public final class OrderActivity_
             }
             );
         }
-=======
-        ListViewOrder = ((ListView) hasViews.findViewById(id.ListViewOrder));
-        CheckBoxSelectAll = ((CheckBox) hasViews.findViewById(id.CheckBoxSelectAll));
-        TextViewMoney = ((TextView) hasViews.findViewById(id.TextViewMoney));
->>>>>>> branch 'master' of https://github.com/huweiko/OrderManage.git
         {
             View view = hasViews.findViewById(id.ButtonSubmit);
             if (view!= null) {
